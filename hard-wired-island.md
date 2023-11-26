@@ -31,6 +31,15 @@ style: |-
     display: table-cell;
     width: calc(100% - 10px);
   }
+  #status {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-auto-flow: column;
+  }
+  #status input {
+    font-family: var(--sans);
+    font-size: 18pt;
+  }
 ---
 <form>
 
@@ -41,6 +50,15 @@ style: |-
 <label for="pronouns">Pronouns:</label><input type="text" id="pronouns">
 <label for="player">Player:</label><input type="text" id="player">
 </fieldset>
+
+<div id="status">
+<label for="burden">Burden</label>
+<input size="2" type="text" name="burden" id="burden">
+<label for="cash">Cash</label>
+<input size="2" type="text" name="cash" id="cash">
+<label for="prep">Prep</label>
+<input size="2" type="text" name="prep" id="prep">
+</div>
 
 <table id="stats">
   <tr>
@@ -162,15 +180,6 @@ style: |-
   <td><input type="radio" name="specialty9" value="3" aria-labelledby="specialty-level3"></td>
 </tr>
 </table>
-
-<div class="block">
-<label for="burden">Burden</label>
-<input size="2" type="text" name="burden" id="burden">
-<label for="cash">Cash</label>
-<input size="2" type="text" name="cash" id="cash">
-<label for="prep">Prep</label>
-<input size="2" type="text" name="prep" id="prep">
-</div>
 
 <div class="block">
 <label for="occupations">Occupations</label>
