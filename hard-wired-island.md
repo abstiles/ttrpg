@@ -1,10 +1,23 @@
 ---
 title: Hard Wired Island
 style: |-
+  @media screen and (min-width:768px) {
+    form {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 1em;
+    }
+  }
+  @media print {
+    form {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 1em;
+    }
+    header details {
+      display: none;
+    }
+  }
   form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 1em;
   }
   .block {
     display: grid;
