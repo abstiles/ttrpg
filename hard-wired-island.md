@@ -6,11 +6,8 @@ style: |-
     grid-template-columns: 1fr 1fr;
     row-gap: 1em;
   }
-  .left {
-    grid-column: 1 / auto;
-  }
-  .right {
-    grid-column: 2 / auto;
+  .block {
+    display: grid;
   }
   #multipass {
     display: grid;
@@ -37,7 +34,7 @@ style: |-
 ---
 <form>
 
-<fieldset id="multipass" class="left">
+<fieldset id="multipass">
 <legend>Grand Cross Multipass</legend>
 <label for="character-name">Name:</label><input type="text" id="character-name">
 <label for="handle">Handle:</label><input type="text" id="handle">
@@ -45,7 +42,7 @@ style: |-
 <label for="player">Player:</label><input type="text" id="player">
 </fieldset>
 
-<table id="stats" class="left">
+<table id="stats">
   <tr>
   <td></td>
   <th id="stat0" scope="col">0</th>
@@ -88,14 +85,16 @@ style: |-
   </tr>
 </table>
 
-<label for="origin" class="left">Origin</label>
-<textarea id="origin" rows="3" class="left"></textarea>
-<label for="traits" class="left">Traits</label>
-<textarea id="traits" rows="3" class="left"></textarea>
-<label for="app" class="left">App</label>
-<textarea id="app" rows="1" class="left"></textarea>
+<div class="block">
+<label for="origin">Origin</label>
+<textarea id="origin" rows="3"></textarea>
+<label for="traits">Traits</label>
+<textarea id="traits" rows="3"></textarea>
+<label for="app">App</label>
+<textarea id="app" rows="1"></textarea>
+</div>
 
-<table id="specialties" class="left">
+<table id="specialties">
 <tr>
 <th scope="col" id="specialty-name">Specialities</th>
 <th scope="col" id="specialty-level1">+1</th>
@@ -164,7 +163,7 @@ style: |-
 </tr>
 </table>
 
-<div class="right">
+<div class="block">
 <label for="burden">Burden</label>
 <input size="2" type="text" name="burden" id="burden">
 <label for="cash">Cash</label>
@@ -173,16 +172,24 @@ style: |-
 <input size="2" type="text" name="prep" id="prep">
 </div>
 
-<label class="right" for="occupations">Occupations</label>
-<textarea class="right" id="occupations" rows="3"></textarea>
-<label class="right" for="talents">Talents</label>
-<textarea class="right" id="talents" rows="10"></textarea>
-<label class="right" for="assets">Assets</label>
-<textarea class="right" id="assets" rows="5"></textarea>
-<label class="right" for="augmentations">Augmentations</label>
-<textarea class="right" id="augmentations" rows="5"></textarea>
+<div class="block">
+<label for="occupations">Occupations</label>
+<textarea id="occupations" rows="3"></textarea>
+</div>
+<div class="block">
+<label for="talents">Talents</label>
+<textarea id="talents" rows="10"></textarea>
+</div>
+<div class="block">
+<label for="assets">Assets</label>
+<textarea id="assets" rows="5"></textarea>
+</div>
+<div class="block">
+<label for="augmentations">Augmentations</label>
+<textarea id="augmentations" rows="5"></textarea>
+</div>
 
-<fieldset id="harm" class="right">
+<fieldset id="harm">
 <legend>Harm</legend>
 <input type="checkbox" id="harm-1" value="1">
 <label for="harm-1">Minor Injury</label>
@@ -198,6 +205,8 @@ style: |-
 <label for="harm-6">Incapacitated</label>
 </fieldset>
 
-<label class="right" for="notes">Notes</label>
-<textarea class="right" id="notes" rows="5"></textarea>
+<div class="block">
+<label for="notes">Notes</label>
+<textarea id="notes" rows="5"></textarea>
+</div>
 </form>
