@@ -4,7 +4,7 @@ style: |-
   form {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    row-gap: 1em;
+    column-gap: 1em;
   }
   .block {
     display: grid;
@@ -40,8 +40,14 @@ style: |-
     font-family: var(--sans);
     font-size: 18pt;
   }
+  #harm {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.5em;
+  }
 ---
 <form>
+<div class="column">
 
 <fieldset id="multipass">
 <legend>Grand Cross Multipass</legend>
@@ -50,15 +56,6 @@ style: |-
 <label for="pronouns">Pronouns:</label><input type="text" id="pronouns">
 <label for="player">Player:</label><input type="text" id="player">
 </fieldset>
-
-<div id="status">
-<label for="burden">Burden</label>
-<input size="2" type="text" name="burden" id="burden">
-<label for="cash">Cash</label>
-<input size="2" type="text" name="cash" id="cash">
-<label for="prep">Prep</label>
-<input size="2" type="text" name="prep" id="prep">
-</div>
 
 <table id="stats">
   <tr>
@@ -181,6 +178,18 @@ style: |-
 </tr>
 </table>
 
+</div>
+<div class="column">
+
+<div id="status">
+<label for="burden">Burden</label>
+<input size="2" type="text" name="burden" id="burden">
+<label for="cash">Cash</label>
+<input size="2" type="text" name="cash" id="cash">
+<label for="prep">Prep</label>
+<input size="2" type="text" name="prep" id="prep">
+</div>
+
 <div class="block">
 <label for="occupations">Occupations</label>
 <textarea id="occupations" rows="3"></textarea>
@@ -218,4 +227,6 @@ style: |-
 <label for="notes">Notes</label>
 <textarea id="notes" rows="5"></textarea>
 </div>
+
+</div> <!-- end column -->
 </form>
