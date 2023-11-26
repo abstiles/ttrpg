@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<!-- Most of this is shamelessly stolen -->
+	<head>
+		<title>{{ page.title }}</title>
+		<link rel="stylesheet" href="{{ 'styles/base.css' | relative_url }}">
+		<link rel="stylesheet" href="{{ 'styles/light.css' | relative_url }}">
+		<link rel="stylesheet" href="{{ 'styles/dark.css' | relative_url }}">
+		{% if page.style %}
+		<style>
+			{{ page.style }}
+		</style>
+		{% endif %}
+		<script src="{{ '/js/settings.js' | relative_url }}"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="UTF-8">
+		{% if page.noindex %}
+		<meta name="robots" content="noindex">
+		{% endif %}
+		<meta property="og:site_name" content="TTRPG Stuff">
+		<meta property="og:title" content="{{ page.title }}">
+		<meta property="og:description" content="{{ page.description | escape }}">
+		<meta property="og:type" content="article">
+		<meta property="og:url" content="{{ page.url | absolute_url }}">
+	</head>
+	<body>
+		{% include header.html %}
+		{{ content }}
+	</body>
+</html>

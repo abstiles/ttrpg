@@ -1,0 +1,129 @@
+:root {
+	color-scheme: light dark;
+	background-color: var(--background-accent);
+	--sans: -apple-system, BlinkMacSystemFont, 'Open Sans', 'Segoe UI', Tahoma, Arial, sans-serif;
+	--serif: Georgia,Palatino,'Palatino Linotype','Book Antiqua','New York','DejaVu serif',serif;
+}
+
+body {
+	color: var(--color);
+	background-color: var(--background-color);
+	font-family: var(--serif);
+	font-size: 18px;
+	line-height: 1.6;
+	margin: auto;
+	max-width: 650px;
+	padding: 10px min(60px, 4%);
+	min-height: calc(100vh - 20px);
+}
+
+header summary {
+	cursor: pointer;
+}
+
+header details {
+	font-size: small;
+	font-family: var(--sans);
+	background-color: var(--background-accent);
+	border-radius: 0.5rem;
+	padding: 0 1rem 0 1rem;
+}
+
+h1,
+h2,
+h3 {
+	line-height: 1.2;
+}
+
+h1 {
+	text-align: center;
+}
+
+h2#title {
+	margin-bottom: auto;
+}
+
+h3, h4 {
+	margin: auto;
+}
+
+h2+time {
+	margin-top: 0.25em;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a {
+	color: var(--color);
+	text-decoration: none;
+}
+
+h1 a:hover,
+h2 a:hover,
+h3 a:hover,
+h4 a:hover {
+	text-decoration: underline;
+}
+
+ul.tags {
+	list-style: none;
+	padding: 0px;
+	margin-top: auto;
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+	font-weight: bold;
+	font-style: italic;
+	font-size: smaller;
+}
+
+ul.tags li.tag {
+	display: inline;
+	font-weight: normal;
+}
+
+ul.tags li.tag:not(:last-child)::after {
+	content: ", "
+}
+
+li.tag a {
+	color: var(--color);
+	text-decoration: none;
+}
+
+li.tag a:hover, li.tag a:focus {
+	text-decoration: underline;
+}
+
+nav ul.links {
+	list-style: none;
+	padding: 0 10px 0 10px;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	flex-direction: row;
+	margin-top: 0;
+}
+
+nav ul.links li {
+	margin-top: 10px;
+}
+
+nav ul.links a {
+	display: inline-flex;
+	align-items: center;
+	box-sizing: border-box;
+	color: var(--color);
+	text-decoration: none;
+	background-color: var(--accent);
+	border-radius: 18px;
+	height: 36px;
+	padding-left: 16px;
+	padding-right: 16px;
+	margin: 0 5px;
+	font-family: var(--sans);
+	font-size: 14px;
+	font-weight: 500;
+	border-width: 2px;
+	box-shadow: 3px 3px var(--background-accent);
+}

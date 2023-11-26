@@ -1,0 +1,3 @@
+exclude: ['Makefile', 'Pipfile*', 'pyproject.toml', '*.py', 'siteinfra/*', '*.egg-info', '*.sh']
+url: "http://abstiles.github.io/ttrpg"
+permalink: "/:path/:basename"
