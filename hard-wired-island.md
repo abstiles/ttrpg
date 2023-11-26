@@ -15,12 +15,20 @@ style: |-
     header details {
       display: none;
     }
+    textarea {
+      resize: none;
+    }
+  }
+  @page {
+    margin: 0;
+    size: A4;
   }
   form {
     display: grid;
   }
   .block {
     display: grid;
+    break-inside: avoid;
   }
   #multipass {
     display: grid;
