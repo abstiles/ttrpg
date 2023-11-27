@@ -19,6 +19,9 @@ style: |-
     textarea {
       resize: none;
     }
+    .noprint {
+      display: none;
+    }
   }
   @page {
     margin: 0;
@@ -68,6 +71,10 @@ style: |-
     column-gap: 0.5em;
   }
 ---
+<div class="noprint">
+<button id="delete-btn">Delete Character</button>
+</div>
+
 <form>
 <div class="column">
 

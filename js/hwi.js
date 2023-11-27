@@ -28,17 +28,23 @@
 			radioButtons.forEach(item => {
 				if (current[item.name] === item.value) {
 					item.checked = true;
+				} else {
+					item.checked = false;
 				}
 			});
 			checkboxes.forEach(item => {
 				if (current[item.id]) {
 					item.checked = true;
+				} else {
+					item.checked = false;
 				}
 			});
 			textFields.forEach(item => {
 				let value = current[item.id];
 				if (value) {
 					item.value = value;
+				} else {
+					item.value = "";
 				}
 			});
 		};
@@ -61,6 +67,13 @@
 				setUser(item.id, event.target.value);
 			});
 		});
+
+		document.getElementById('delete-btn').onclick = function() {
+			if (window.confirm('Really delete this character?')) {
+				localStorage.setItem('current', '{}');
+				load();
+			}
+		}
 	}
 
 	if (document.readyState === "loading") {
