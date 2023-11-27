@@ -1,18 +1,36 @@
 (function() {
 	"use strict";
 
-	const getUser = function() {
-		let current = localStorage.getItem('current') || "{}";
-		return JSON.parse(current);
+	const getCurrentCharacterName = function() {
+		return document.getElementById('character').value;
 	};
 
-	const setUser = function(key, value) {
-		let current = getUser();
-		current[key] = value;
-		localStorage.setItem('current', JSON.stringify(current));
+	const setCurrentCharacterName = function(value) {
+		return document.getElementById('character').value = value;
+	};
+
+	const getCharacterMap = function() {
+		return JSON.parse(localStorage.getItem('characters') || "{}");
+	};
+
+	const getChar = function() {
+		let characters = getCharacterMap();
+		let currentName = getCurrentCharacterName();
+		return characters[currentName] || {}
+	};
+
+	const setChar = function(key, value) {
+		let characters = getCharacterMap();
+		let currentName = getCurrentCharacterName();
+		let currentChar = getChar();
+		currentChar[key] = value;
+		characters[currentName] = currentChar;
+		localStorage.setItem('characters', JSON.stringify(characters));
 	};
 
 	const startup = function() {
+		const character = document.getElementById('character');
+		const charSelect = document.getElementById('load-character');
 		const radioButtons = Array.from(
 			document.querySelectorAll('form input[type="radio"]')
 		);
@@ -23,8 +41,23 @@
 			document.querySelectorAll('form textarea, form input[type="text"]')
 		);
 
-		const load = function() {
-			let current = getUser();
+		const populateCharacterSelect = function() {
+			Array.from(charSelect.childNodes)
+				.filter(it => !it.disabled)
+				.forEach(it => it.remove());
+			let characters = Object.keys(getCharacterMap());
+			characters.forEach(char => {
+				let option = document.createElement("option");
+				option.text = char;
+				if (getCurrentCharacterName() === option.text) {
+					option.selected = true;
+				}
+				charSelect.appendChild(option);
+			});
+		};
+
+		const loadForm = function() {
+			let current = getChar();
 			radioButtons.forEach(item => {
 				if (current[item.name] === item.value) {
 					item.checked = true;
@@ -49,23 +82,50 @@
 			});
 		};
 
+		const load = function() {
+			populateCharacterSelect();
+			loadForm();
+		};
+
+		const save = function() {
+			radioButtons.forEach(item => {
+				if (item.checked) {
+					setChar(item.name, item.value);
+				}
+			});
+			checkboxes.forEach(item => {
+				setChar(item.id, item.checked);
+			});
+			textFields.forEach(item => {
+				setChar(item.id, item.value);
+			});
+		};
+
 		load();
 
 		// Save updated setting whenever an input is changed.
 		radioButtons.forEach(item => {
 			item.addEventListener('click', () => {
-				setUser(item.name, item.value);
+				setChar(item.name, item.value);
 			});
 		});
 		checkboxes.forEach(item => {
 			item.addEventListener('change', () => {
-				setUser(item.id, true);
+				setChar(item.id, item.checked);
 			});
 		});
 		textFields.forEach(item => {
-			item.addEventListener('input', (event) => {
-				setUser(item.id, event.target.value);
+			item.addEventListener('input', () => {
+				setChar(item.id, item.value);
 			});
+		});
+		character.addEventListener('change', () => {
+			save();
+			populateCharacterSelect();
+		});
+		charSelect.addEventListener('change', () => {
+			setCurrentCharacterName(charSelect.value);
+			loadForm();
 		});
 
 		document.getElementById('delete-btn').onclick = function() {

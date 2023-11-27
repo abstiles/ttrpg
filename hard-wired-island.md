@@ -70,9 +70,20 @@ style: |-
     grid-template-columns: auto 1fr;
     column-gap: 0.5em;
   }
+  textarea::placeholder {
+    text-align: right;
+  }
+  select:invalid {
+    color: #999;
+  }
 ---
+<input type="text" id="character" placeholder="New Character">
+
 <div class="noprint">
 <button id="delete-btn">Delete Character</button>
+<select id="load-character" required>
+<option selected disabled hidden value="">Load Character</option>
+</select>
 </div>
 
 <form>
