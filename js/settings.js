@@ -27,7 +27,7 @@
 		});
 		// Save updated setting whenever an input is changed.
 		settingsControls.forEach((item, index) => {
-			item.addEventListener('click', () => {
+			const activate = function() {
 				if (!item.getAttribute('data-activated')) {
 					item.setAttribute('data-activated', 'true')
 					document.documentElement.setAttribute(
@@ -37,7 +37,7 @@
 					// Strip activated attribute off other radio buttons.
 					settingsControls.forEach((item2, index2) => {
 						if (index !== index2) {
-							item.removeAttribute('data-activated');
+							item2.removeAttribute('data-activated');
 						}
 					});
 				} else {
@@ -46,6 +46,14 @@
 					localStorage.removeItem(item.name);
 					item.checked = false;
 				}
+			}
+			item.addEventListener('keydown', event => {
+				if (event.code === 'Space') {
+					activate();
+				}
+			});
+			item.addEventListener('click', () => {
+				activate();
 			});
 		});
 	};
