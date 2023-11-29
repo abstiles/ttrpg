@@ -13,7 +13,7 @@ style: |-
       grid-template-columns: 1fr 1fr;
       column-gap: 1em;
     }
-    header details {
+    header #menu-theme {
       display: none;
     }
     textarea {
