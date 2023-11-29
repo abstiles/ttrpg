@@ -34,6 +34,12 @@
 						`data-${item.name}`, item.value
 					);
 					localStorage.setItem(item.name, item.value);
+					// Strip activated attribute off other radio buttons.
+					settingsControls.forEach((item2, index2) => {
+						if (index !== index2) {
+							item.removeAttribute('data-activated');
+						}
+					});
 				} else {
 					item.removeAttribute('data-activated');
 					document.documentElement.removeAttribute(`data-${item.name}`);
