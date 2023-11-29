@@ -10,7 +10,10 @@
 					document.documentElement.setAttribute(
 						`data-${item.name}`, item.value
 					);
+					item.setAttribute('data-activated', 'true')
 					item.checked = true;
+				} else{
+					item.removeAttribute('data-activated')
 				}
 			});
 		};
@@ -25,10 +28,18 @@
 		// Save updated setting whenever an input is changed.
 		settingsControls.forEach((item, index) => {
 			item.addEventListener('click', () => {
-				document.documentElement.setAttribute(
-					`data-${item.name}`, item.value
-				);
-				localStorage.setItem(item.name, item.value);
+				if (!item.getAttribute('data-activated')) {
+					item.setAttribute('data-activated', 'true')
+					document.documentElement.setAttribute(
+						`data-${item.name}`, item.value
+					);
+					localStorage.setItem(item.name, item.value);
+				} else {
+					item.removeAttribute('data-activated');
+					document.documentElement.removeAttribute(`data-${item.name}`);
+					localStorage.removeItem(item.name);
+					item.checked = false;
+				}
 			});
 		});
 	};
