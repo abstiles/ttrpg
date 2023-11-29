@@ -88,6 +88,9 @@ style: |-
   .character-controls {
     text-align: center;
   }
+  #character-sheet[disabled] {
+    display: none;
+  }
 ---
 <main>
 <input type="text" id="character" placeholder="New Character" autofocus>
@@ -99,7 +102,7 @@ style: |-
 </select>
 </div>
 
-<form>
+<form id="character-sheet">
 <div class="column">
 
 <fieldset id="multipass">

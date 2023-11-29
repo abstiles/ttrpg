@@ -30,6 +30,7 @@
 
 	const startup = function() {
 		const character = document.getElementById('character');
+		const characterSheet = document.getElementById('character-sheet');
 		const charSelect = document.getElementById('load-character');
 		const radioButtons = Array.from(
 			document.querySelectorAll('form input[type="radio"]')
@@ -119,9 +120,21 @@
 				setChar(item.id, item.value);
 			});
 		});
+		// Character sheet should start disabled.
+		characterSheet.setAttribute('disabled', '');
 		character.addEventListener('change', () => {
-			save();
-			populateCharacterSelect();
+			let characterId = character.value.trim();
+			if (characterId.length > 0) {
+				characterSheet.removeAttribute('disabled');
+				if (Object.keys(getCharacterMap()).includes(characterId)) {
+					load();
+				} else {
+					save();
+					populateCharacterSelect();
+				}
+			} else {
+				characterSheet.setAttribute('disabled', '');
+			}
 		});
 		charSelect.addEventListener('change', () => {
 			setCurrentCharacterName(charSelect.value);
