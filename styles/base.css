@@ -32,6 +32,8 @@ header label {
 	top: 0;
 	right: 0;
 	margin-right: max(-4%, -60px);
+	grid-row-gap: 0.25rem;
+	margin-top: -0.5rem;
 }
 
 #menu-theme:has(:focus-visible) {
