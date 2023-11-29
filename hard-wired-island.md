@@ -19,7 +19,7 @@ style: |-
     textarea {
       resize: none;
     }
-    .noprint {
+    .character-controls {
       display: none;
     }
   }
@@ -76,10 +76,23 @@ style: |-
   select:invalid {
     color: #999;
   }
+  input#character {
+    display: block;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    font-size: xx-large;
+    background: transparent;
+    border: none;
+  }
+  .character-controls {
+    text-align: center;
+  }
 ---
-<input type="text" id="character" placeholder="New Character">
+<main>
+<input type="text" id="character" placeholder="New Character" autofocus>
 
-<div class="noprint">
+<div class="character-controls">
 <button id="delete-btn">Delete Character</button>
 <select id="load-character" required>
 <option selected disabled hidden value="">Load Character</option>
@@ -270,3 +283,4 @@ style: |-
 
 </div> <!-- end column -->
 </form>
+</main>
