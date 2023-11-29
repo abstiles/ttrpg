@@ -134,6 +134,8 @@
 				}
 			} else {
 				characterSheet.setAttribute('disabled', '');
+				Array.from(charSelect.childNodes)
+					.filter(it => it.disabled)[0].selected = true;
 			}
 		});
 		charSelect.addEventListener('change', () => {
