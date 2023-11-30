@@ -2,11 +2,11 @@
 	"use strict";
 
 	const getCurrentCharacterName = function() {
-		return document.getElementById('character').value;
+		return document.getElementById('character').value.trim();
 	};
 
 	const setCurrentCharacterName = function(value) {
-		return document.getElementById('character').value = value;
+		return document.getElementById('character').value = value.trim();
 	};
 
 	const getCharacterMap = function() {
@@ -102,6 +102,22 @@
 			});
 		};
 
+		const disableForm = function() {
+			characterSheet.setAttribute('disabled', '');
+		};
+
+		const enableForm = function() {
+			characterSheet.removeAttribute('disabled');
+		};
+
+		const updateFormState = function() {
+			if (!getCurrentCharacterName()) {
+				disableForm();
+			} else {
+				enableForm();
+			}
+		};
+
 		load();
 
 		// Save updated setting whenever an input is changed.
@@ -125,7 +141,7 @@
 		character.addEventListener('change', () => {
 			let characterId = character.value.trim();
 			if (characterId.length > 0) {
-				characterSheet.removeAttribute('disabled');
+				enableForm();
 				if (Object.keys(getCharacterMap()).includes(characterId)) {
 					load();
 				} else {
@@ -133,19 +149,19 @@
 					populateCharacterSelect();
 				}
 			} else {
-				characterSheet.setAttribute('disabled', '');
+				disableForm();
 				Array.from(charSelect.childNodes)
 					.filter(it => it.disabled)[0].selected = true;
 			}
 		});
 		charSelect.addEventListener('change', () => {
 			setCurrentCharacterName(charSelect.value);
+			updateFormState()
 			loadForm();
 		});
 
 		document.getElementById('delete-btn').onclick = function() {
 			if (window.confirm('Really delete this character?')) {
-				localStorage.setItem('current', '{}');
 				load();
 			}
 		}

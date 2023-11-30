@@ -17,6 +17,24 @@ body {
 	min-height: calc(100vh - 20px);
 }
 
+@media print {
+	header #menu-theme {
+		display: none;
+	}
+	textarea {
+		resize: none;
+	}
+}
+
+@page {
+	margin: 0;
+}
+
+textarea {
+	font-family: var(--serif);
+	font-size: 12pt;
+}
+
 header {
 	position: relative;
 }

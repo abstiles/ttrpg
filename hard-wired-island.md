@@ -13,18 +13,11 @@ style: |-
       grid-template-columns: 1fr 1fr;
       column-gap: 1em;
     }
-    header #menu-theme {
-      display: none;
-    }
-    textarea {
-      resize: none;
-    }
     .character-controls {
       display: none;
     }
   }
   @page {
-    margin: 0;
     size: A4;
   }
   form {
@@ -49,8 +42,6 @@ style: |-
   }
   textarea {
     width: auto;
-    font-family: var(--serif);
-    font-size: 12pt;
   }
   #specialties input[type="text"] {
     display: table-cell;
