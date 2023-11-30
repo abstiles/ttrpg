@@ -82,14 +82,14 @@
 				}
 			});
 			checkboxes.forEach(item => {
-				if (current[item.id]) {
+				if (current[item.name]) {
 					item.checked = true;
 				} else {
 					item.checked = false;
 				}
 			});
 			textFields.forEach(item => {
-				let value = current[item.id];
+				let value = current[item.name];
 				if (value) {
 					item.value = value;
 				} else {
@@ -121,10 +121,10 @@
 				}
 			});
 			checkboxes.forEach(item => {
-				setChar(item.id, item.checked);
+				setChar(item.name, item.checked);
 			});
 			textFields.forEach(item => {
-				setChar(item.id, item.value);
+				setChar(item.name, item.value);
 			});
 		};
 
@@ -181,12 +181,12 @@
 		});
 		checkboxes.forEach(item => {
 			item.addEventListener('change', () => {
-				setChar(item.id, item.checked);
+				setChar(item.name, item.checked);
 			});
 		});
 		textFields.forEach(item => {
 			item.addEventListener('input', () => {
-				setChar(item.id, item.value);
+				setChar(item.name, item.value);
 			});
 		});
 		character.addEventListener('change', () => {

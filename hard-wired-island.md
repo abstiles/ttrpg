@@ -96,10 +96,10 @@ style: |-
 
 <fieldset id="multipass">
 <legend>Grand Cross Multipass</legend>
-<label for="character-name">Name:</label><input type="text" id="character-name">
-<label for="handle">Handle:</label><input type="text" id="handle">
-<label for="pronouns">Pronouns:</label><input type="text" id="pronouns">
-<label for="player">Player:</label><input type="text" id="player">
+<label for="character-name">Name:</label><input type="text" name="character-name">
+<label for="handle">Handle:</label><input type="text" name="handle">
+<label for="pronouns">Pronouns:</label><input type="text" name="pronouns">
+<label for="player">Player:</label><input type="text" name="player">
 </fieldset>
 
 <table id="stats">
@@ -147,11 +147,11 @@ style: |-
 
 <div class="block">
 <label for="origin">Origin</label>
-<textarea id="origin" rows="3"></textarea>
+<textarea name="origin" rows="3"></textarea>
 <label for="traits">Traits</label>
-<textarea id="traits" rows="3"></textarea>
+<textarea name="traits" rows="3"></textarea>
 <label for="app">App</label>
-<textarea id="app" rows="1"></textarea>
+<textarea name="app" rows="1"></textarea>
 </div>
 
 <table id="specialties">
@@ -162,61 +162,61 @@ style: |-
 <th scope="col" id="specialty-level3">+3</th>
 </tr>
 <tr>
-  <td><input size="20" type="text" id="specialty0-name" aria-labelledby="specialty-name"></td>
+  <td><input size="20" type="text" name="specialty0-name" aria-labelledby="specialty-name"></td>
   <td><input type="radio" name="specialty0" value="1" aria-labelledby="specialty-level1"></td>
   <td><input type="radio" name="specialty0" value="2" aria-labelledby="specialty-level2"></td>
   <td><input type="radio" name="specialty0" value="3" aria-labelledby="specialty-level3"></td>
 </tr>
 <tr>
-  <td><input size="20" type="text" id="specialty1-name" aria-labelledby="specialty-name"></td>
+  <td><input size="20" type="text" name="specialty1-name" aria-labelledby="specialty-name"></td>
   <td><input type="radio" name="specialty1" value="1" aria-labelledby="specialty-level1"></td>
   <td><input type="radio" name="specialty1" value="2" aria-labelledby="specialty-level2"></td>
   <td><input type="radio" name="specialty1" value="3" aria-labelledby="specialty-level3"></td>
 </tr>
 <tr>
-  <td><input size="20" type="text" id="specialty2-name" aria-labelledby="specialty-name"></td>
+  <td><input size="20" type="text" name="specialty2-name" aria-labelledby="specialty-name"></td>
   <td><input type="radio" name="specialty2" value="1" aria-labelledby="specialty-level1"></td>
   <td><input type="radio" name="specialty2" value="2" aria-labelledby="specialty-level2"></td>
   <td><input type="radio" name="specialty2" value="3" aria-labelledby="specialty-level3"></td>
 </tr>
 <tr>
-  <td><input size="20" type="text" id="specialty3-name" aria-labelledby="specialty-name"></td>
+  <td><input size="20" type="text" name="specialty3-name" aria-labelledby="specialty-name"></td>
   <td><input type="radio" name="specialty3" value="1" aria-labelledby="specialty-level1"></td>
   <td><input type="radio" name="specialty3" value="2" aria-labelledby="specialty-level2"></td>
   <td><input type="radio" name="specialty3" value="3" aria-labelledby="specialty-level3"></td>
 </tr>
 <tr>
-  <td><input size="20" type="text" id="specialty4-name" aria-labelledby="specialty-name"></td>
+  <td><input size="20" type="text" name="specialty4-name" aria-labelledby="specialty-name"></td>
   <td><input type="radio" name="specialty4" value="1" aria-labelledby="specialty-level1"></td>
   <td><input type="radio" name="specialty4" value="2" aria-labelledby="specialty-level2"></td>
   <td><input type="radio" name="specialty4" value="3" aria-labelledby="specialty-level3"></td>
 </tr>
 <tr>
-  <td><input size="20" type="text" id="specialty5-name" aria-labelledby="specialty-name"></td>
+  <td><input size="20" type="text" name="specialty5-name" aria-labelledby="specialty-name"></td>
   <td><input type="radio" name="specialty5" value="1" aria-labelledby="specialty-level1"></td>
   <td><input type="radio" name="specialty5" value="2" aria-labelledby="specialty-level2"></td>
   <td><input type="radio" name="specialty5" value="3" aria-labelledby="specialty-level3"></td>
 </tr>
 <tr>
-  <td><input size="20" type="text" id="specialty6-name" aria-labelledby="specialty-name"></td>
+  <td><input size="20" type="text" name="specialty6-name" aria-labelledby="specialty-name"></td>
   <td><input type="radio" name="specialty6" value="1" aria-labelledby="specialty-level1"></td>
   <td><input type="radio" name="specialty6" value="2" aria-labelledby="specialty-level2"></td>
   <td><input type="radio" name="specialty6" value="3" aria-labelledby="specialty-level3"></td>
 </tr>
 <tr>
-  <td><input size="20" type="text" id="specialty7-name" aria-labelledby="specialty-name"></td>
+  <td><input size="20" type="text" name="specialty7-name" aria-labelledby="specialty-name"></td>
   <td><input type="radio" name="specialty7" value="1" aria-labelledby="specialty-level1"></td>
   <td><input type="radio" name="specialty7" value="2" aria-labelledby="specialty-level2"></td>
   <td><input type="radio" name="specialty7" value="3" aria-labelledby="specialty-level3"></td>
 </tr>
 <tr>
-  <td><input size="20" type="text" id="specialty8-name" aria-labelledby="specialty-name"></td>
+  <td><input size="20" type="text" name="specialty8-name" aria-labelledby="specialty-name"></td>
   <td><input type="radio" name="specialty8" value="1" aria-labelledby="specialty-level1"></td>
   <td><input type="radio" name="specialty8" value="2" aria-labelledby="specialty-level2"></td>
   <td><input type="radio" name="specialty8" value="3" aria-labelledby="specialty-level3"></td>
 </tr>
 <tr>
-  <td><input size="20" type="text" id="specialty9-name" aria-labelledby="specialty-name"></td>
+  <td><input size="20" type="text" name="specialty9-name" aria-labelledby="specialty-name"></td>
   <td><input type="radio" name="specialty9" value="1" aria-labelledby="specialty-level1"></td>
   <td><input type="radio" name="specialty9" value="2" aria-labelledby="specialty-level2"></td>
   <td><input type="radio" name="specialty9" value="3" aria-labelledby="specialty-level3"></td>
@@ -228,49 +228,49 @@ style: |-
 
 <div id="status">
 <label for="burden">Burden</label>
-<input size="2" type="text" name="burden" id="burden">
+<input size="2" type="text" name="burden">
 <label for="cash">Cash</label>
-<input size="2" type="text" name="cash" id="cash">
+<input size="2" type="text" name="cash">
 <label for="prep">Prep</label>
-<input size="2" type="text" name="prep" id="prep">
+<input size="2" type="text" name="prep">
 </div>
 
 <div class="block">
 <label for="occupations">Occupations</label>
-<textarea id="occupations" rows="3"></textarea>
+<textarea name="occupations" rows="3"></textarea>
 </div>
 <div class="block">
 <label for="talents">Talents</label>
-<textarea id="talents" rows="10"></textarea>
+<textarea name="talents" rows="10"></textarea>
 </div>
 <div class="block">
 <label for="assets">Assets</label>
-<textarea id="assets" rows="5"></textarea>
+<textarea name="assets" rows="5"></textarea>
 </div>
 <div class="block">
 <label for="augmentations">Augmentations</label>
-<textarea id="augmentations" rows="5"></textarea>
+<textarea name="augmentations" rows="5"></textarea>
 </div>
 
 <fieldset id="harm">
 <legend>Harm</legend>
-<input type="checkbox" id="harm-1" value="1">
+<input type="checkbox" name="harm-1" value="1">
 <label for="harm-1">Minor Injury</label>
-<input type="checkbox" id="harm-2" value="2">
+<input type="checkbox" name="harm-2" value="2">
 <label for="harm-2">Minor Injury</label>
-<input type="checkbox" id="harm-3" value="3">
+<input type="checkbox" name="harm-3" value="3">
 <label for="harm-3">Harm</label>
-<input type="checkbox" id="harm-4" value="4">
+<input type="checkbox" name="harm-4" value="4">
 <label for="harm-4">Harm</label>
-<input type="checkbox" id="harm-5" value="5">
+<input type="checkbox" name="harm-5" value="5">
 <label for="harm-5">Serious Injury</label>
-<input type="checkbox" id="harm-6" value="6">
+<input type="checkbox" name="harm-6" value="6">
 <label for="harm-6">Incapacitated</label>
 </fieldset>
 
 <div class="block">
 <label for="notes">Notes</label>
-<textarea id="notes" rows="5"></textarea>
+<textarea name="notes" rows="5"></textarea>
 </div>
 
 </div> <!-- end column -->
