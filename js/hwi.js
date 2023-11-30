@@ -32,7 +32,7 @@
 		const getChar = function() {
 			let characters = getCharacterMap();
 			let currentName = getCurrentCharacterName();
-			return characters[currentName] || {}
+			return characters[currentName.toLowerCase()] || {}
 		};
 
 		const setChar = function(key, value) {
@@ -40,13 +40,14 @@
 			let currentName = getCurrentCharacterName();
 			let currentChar = getChar();
 			currentChar[key] = value;
-			characters[currentName] = currentChar;
+			currentChar._canonCase = currentName;
+			characters[currentName.toLowerCase()] = currentChar;
 			localStorage.setItem('characters', JSON.stringify(characters));
 		};
 
 		const deleteChar = function(name) {
 			let characters = getCharacterMap();
-			delete characters[name];
+			delete characters[name.toLowerCase()];
 			localStorage.setItem('characters', JSON.stringify(characters));
 		};
 
@@ -54,15 +55,15 @@
 			Array.from(charSelect.childNodes)
 				.filter(it => !it.disabled)
 				.forEach(it => it.remove());
-			let characters = Object.keys(getCharacterMap());
-			characters.forEach(char => {
+			let characters = Object.entries(getCharacterMap());
+			for (const [key, char] of characters) {
 				let option = document.createElement("option");
-				option.text = char;
-				if (getCurrentCharacterName() === option.text) {
+				option.text = char._canonCase || key;
+				if (getCurrentCharacterName().toLowerCase() === key) {
 					option.selected = true;
 				}
 				charSelect.appendChild(option);
-			});
+			}
 			charSelect.disabled = characters.length === 0;
 		};
 
@@ -162,7 +163,7 @@
 		// Character sheet should start disabled.
 		disableForm();
 		character.addEventListener('change', () => {
-			let characterId = character.value.trim();
+			let characterId = getCurrentCharacterName().toLowerCase();
 			if (characterId.length > 0) {
 				enableForm();
 				if (Object.keys(getCharacterMap()).includes(characterId)) {
