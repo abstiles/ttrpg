@@ -212,6 +212,7 @@
 			if (window.confirm('Really delete this character?')) {
 				deleteChar(getCurrentCharacterName());
 				resetAll();
+				populateCharacterSelect();
 			}
 		};
 		newButton.onclick = function() {
