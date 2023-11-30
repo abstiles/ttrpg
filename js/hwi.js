@@ -17,6 +17,8 @@
 			document.querySelectorAll('form textarea, form input[type="text"]')
 		);
 
+		let charList = [];
+
 		const getCurrentCharacterName = function() {
 			return character.value.trim();
 		};
@@ -55,8 +57,8 @@
 			Array.from(charSelect.childNodes)
 				.filter(it => !it.disabled)
 				.forEach(it => it.remove());
-			let characters = Object.entries(getCharacterMap());
-			for (const [key, char] of characters) {
+			charList = Object.keys(getCharacterMap());
+			for (const [key, char] of Object.entries(getCharacterMap())) {
 				let option = document.createElement("option");
 				option.text = char._canonCase || key;
 				if (getCurrentCharacterName().toLowerCase() === key) {
@@ -64,7 +66,7 @@
 				}
 				charSelect.appendChild(option);
 			}
-			charSelect.disabled = characters.length === 0;
+			charSelect.disabled = charList.length === 0;
 		};
 
 		const loadForm = function() {
@@ -124,6 +126,10 @@
 			deleteButton.disabled = false;
 		};
 
+		const isFormEnabled = function() {
+			return !characterSheet.hasAttribute('disabled');
+		};
+
 		const updateFormState = function() {
 			if (!getCurrentCharacterName()) {
 				disableForm();
@@ -166,7 +172,7 @@
 			let characterId = getCurrentCharacterName().toLowerCase();
 			if (characterId.length > 0) {
 				enableForm();
-				if (Object.keys(getCharacterMap()).includes(characterId)) {
+				if (charList.includes(characterId)) {
 					load();
 				} else {
 					save();
@@ -176,6 +182,15 @@
 				disableForm();
 				Array.from(charSelect.childNodes)
 					.filter(it => it.disabled)[0].selected = true;
+			}
+		});
+		character.addEventListener('input', () => {
+			let characterId = getCurrentCharacterName().toLowerCase();
+			if (charList.includes(characterId)) {
+				enableForm();
+				load();
+			} else if (isFormEnabled()) {
+				disableForm();
 			}
 		});
 		charSelect.addEventListener('change', () => {
