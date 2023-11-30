@@ -38,6 +38,9 @@
 		};
 
 		const setChar = function(key, value) {
+			if (!key) {
+				return;
+			}
 			let characters = getCharacterMap();
 			let currentName = getCurrentCharacterName();
 			let currentChar = getChar();
@@ -101,7 +104,12 @@
 			textFields.forEach(item => { item.value = ""; });
 		};
 
-		const load = function() {
+		const load = function(characterId) {
+			let char = getCharacterMap()[characterId?.toLowerCase()];
+			if (char) {
+				setCurrentCharacterName(char._canonCase);
+				enableForm();
+			}
 			populateCharacterSelect();
 			loadForm();
 		};
@@ -147,16 +155,23 @@
 		const deselectChar = function() {
 			Array.from(charSelect.childNodes)
 				.filter(it => it.disabled)[0].selected = true;
-		}
+		};
 
 		const resetAll = function() {
 			setCurrentCharacterName('');
+			history.replaceState(null, '', window.location.pathname);
 			clearForm();
 			disableForm();
 			deselectChar();
-		}
+		};
 
-		load();
+		const queryParams = function() {
+			return new URLSearchParams(window.location.search);
+		};
+
+		// Character sheet should start disabled.
+		disableForm();
+		load(queryParams().get('character'));
 
 		// Save updated setting whenever an input is changed.
 		radioButtons.forEach(item => {
@@ -174,8 +189,6 @@
 				setChar(item.id, item.value);
 			});
 		});
-		// Character sheet should start disabled.
-		disableForm();
 		character.addEventListener('change', () => {
 			let characterId = getCurrentCharacterName().toLowerCase();
 			if (characterId.length > 0) {
@@ -193,6 +206,7 @@
 		});
 		character.addEventListener('input', () => {
 			let characterId = getCurrentCharacterName().toLowerCase();
+			history.replaceState(null, '', `?character=${characterId}`);
 			if (charList.includes(characterId)) {
 				enableForm();
 				load();
@@ -203,6 +217,7 @@
 			}
 		});
 		charSelect.addEventListener('change', () => {
+			history.replaceState(null, '', `?character=${charSelect.value}`);
 			setCurrentCharacterName(charSelect.value);
 			updateFormState();
 			loadForm();
