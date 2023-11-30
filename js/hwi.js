@@ -57,6 +57,7 @@
 				}
 				charSelect.appendChild(option);
 			});
+			charSelect.disabled = characters.length === 0;
 		};
 
 		const loadForm = function() {
@@ -105,15 +106,15 @@
 		};
 
 		const disableForm = function() {
-			[characterSheet, newButton, deleteButton].forEach(item => {
-				item.setAttribute('disabled', '');
-			});
+			characterSheet.setAttribute('disabled', '');
+			newButton.disabled = true;
+			deleteButton.disabled = true;
 		};
 
 		const enableForm = function() {
-			[characterSheet, newButton, deleteButton].forEach(item => {
-				item.removeAttribute('disabled');
-			});
+			characterSheet.removeAttribute('disabled');
+			newButton.disabled = false;
+			deleteButton.disabled = false;
 		};
 
 		const updateFormState = function() {

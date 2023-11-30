@@ -64,9 +64,6 @@ style: |-
   textarea::placeholder {
     text-align: right;
   }
-  select:invalid {
-    color: #999;
-  }
   input#character {
     display: block;
     width: 80%;
