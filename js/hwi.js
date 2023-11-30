@@ -138,14 +138,16 @@
 			}
 		};
 
+		const deselectChar = function() {
+			Array.from(charSelect.childNodes)
+				.filter(it => it.disabled)[0].selected = true;
+		}
+
 		const resetAll = function() {
 			setCurrentCharacterName('');
 			load();
 			disableForm();
-			// Back to default character selection.
-			Array.from(charSelect.childNodes).filter(it => {
-				return it.disabled;
-			})[0].selected = true;
+			deselectChar();
 		}
 
 		load();
@@ -180,8 +182,7 @@
 				}
 			} else {
 				disableForm();
-				Array.from(charSelect.childNodes)
-					.filter(it => it.disabled)[0].selected = true;
+				deselectChar();
 			}
 		});
 		character.addEventListener('input', () => {
@@ -191,6 +192,7 @@
 				load();
 			} else if (isFormEnabled()) {
 				disableForm();
+				deselectChar();
 			}
 		});
 		charSelect.addEventListener('change', () => {
