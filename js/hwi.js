@@ -95,6 +95,12 @@
 			});
 		};
 
+		const clearForm = function() {
+			radioButtons.forEach(item => { item.checked = false; });
+			checkboxes.forEach(item => { item.checked = false; });
+			textFields.forEach(item => { item.value = ""; });
+		};
+
 		const load = function() {
 			populateCharacterSelect();
 			loadForm();
@@ -145,7 +151,7 @@
 
 		const resetAll = function() {
 			setCurrentCharacterName('');
-			load();
+			clearForm();
 			disableForm();
 			deselectChar();
 		}
@@ -193,11 +199,12 @@
 			} else if (isFormEnabled()) {
 				disableForm();
 				deselectChar();
+				clearForm();
 			}
 		});
 		charSelect.addEventListener('change', () => {
 			setCurrentCharacterName(charSelect.value);
-			updateFormState()
+			updateFormState();
 			loadForm();
 		});
 
