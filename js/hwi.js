@@ -30,6 +30,8 @@
 
 	const startup = function() {
 		const character = document.getElementById('character');
+		const newButton = document.getElementById('new-btn');
+		const deleteButton = document.getElementById('delete-btn');
 		const characterSheet = document.getElementById('character-sheet');
 		const charSelect = document.getElementById('load-character');
 		const radioButtons = Array.from(
@@ -103,11 +105,15 @@
 		};
 
 		const disableForm = function() {
-			characterSheet.setAttribute('disabled', '');
+			[characterSheet, newButton, deleteButton].forEach(item => {
+				item.setAttribute('disabled', '');
+			});
 		};
 
 		const enableForm = function() {
-			characterSheet.removeAttribute('disabled');
+			[characterSheet, newButton, deleteButton].forEach(item => {
+				item.removeAttribute('disabled');
+			});
 		};
 
 		const updateFormState = function() {
@@ -137,7 +143,7 @@
 			});
 		});
 		// Character sheet should start disabled.
-		characterSheet.setAttribute('disabled', '');
+		disableForm();
 		character.addEventListener('change', () => {
 			let characterId = character.value.trim();
 			if (characterId.length > 0) {
@@ -160,11 +166,20 @@
 			loadForm();
 		});
 
-		document.getElementById('delete-btn').onclick = function() {
+		deleteButton.onclick = function() {
 			if (window.confirm('Really delete this character?')) {
 				load();
 			}
-		}
+		};
+		newButton.onclick = function() {
+			let characterId = character.value.trim();
+			if (characterId.length > 0) {
+				save();
+				setCurrentCharacterName('');
+				load();
+				disableForm();
+			}
+		};
 	}
 
 	if (document.readyState === "loading") {

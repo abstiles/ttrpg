@@ -87,7 +87,8 @@ style: |-
 <input type="text" id="character" placeholder="New Character" autofocus>
 
 <div class="character-controls">
-<button id="delete-btn">Delete Character</button>
+<button id="new-btn" disabled>New Character</button>
+<button id="delete-btn" disabled>Delete Character</button>
 <select id="load-character" required>
 <option selected disabled hidden value="">Load Character</option>
 </select>
