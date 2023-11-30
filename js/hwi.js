@@ -43,6 +43,12 @@
 		localStorage.setItem('characters', JSON.stringify(characters));
 	};
 
+	const deleteChar = function(name) {
+		let characters = getCharacterMap();
+		delete characters[name];
+		localStorage.setItem('characters', JSON.stringify(characters));
+	};
+
 	const populateCharacterSelect = function() {
 		Array.from(charSelect.childNodes)
 			.filter(it => !it.disabled)
@@ -124,6 +130,15 @@
 		}
 	};
 
+	const resetAll = function() {
+		setCurrentCharacterName('');
+		load();
+		disableForm();
+		// Back to default character selection.
+		Array.from(charSelect.childNodes).filter(it => {
+			return it.disabled;
+		})[0].selected = true;
+	}
 
 	const startup = function() {
 		load();
@@ -170,20 +185,14 @@
 
 		deleteButton.onclick = function() {
 			if (window.confirm('Really delete this character?')) {
-				load();
+				deleteChar(getCurrentCharacterName());
+				resetAll();
 			}
 		};
 		newButton.onclick = function() {
-			let characterId = character.value.trim();
-			if (characterId.length > 0) {
+			if (getCurrentCharacterName().length > 0) {
 				save();
-				setCurrentCharacterName('');
-				load();
-				disableForm();
-				// Back to default character selection.
-				Array.from(charSelect.childNodes).filter(it => {
-					return it.disabled;
-				})[0].selected = true;
+				resetAll();
 			}
 		};
 	}
