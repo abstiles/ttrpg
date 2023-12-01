@@ -9,8 +9,7 @@ body {
 	color: var(--color);
 	background-color: var(--background-color);
 	font-family: var(--serif);
-	font-size: 18px;
-	line-height: 1.6;
+	font-size: 12pt;
 	margin: auto;
 	max-width: 768px;
 	padding: 10px min(60px, 4%);
@@ -31,8 +30,9 @@ body {
 }
 
 textarea {
-	font-family: var(--serif);
+	font-family: var(--sans);
 	font-size: 12pt;
+	line-height: 1.4;
 }
 
 header {
@@ -41,6 +41,11 @@ header {
 
 header label {
 	cursor: pointer;
+}
+
+input[type="text"] {
+	font-family: var(--sans);
+	font-size: 12pt;
 }
 
 #menu-theme {
