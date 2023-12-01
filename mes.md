@@ -1,4 +1,4 @@
 ---
 title: TTRPG Stuff
 ---
-## Look, this is just a page right now
+[Hard Wired Island](hard-wired-island)
