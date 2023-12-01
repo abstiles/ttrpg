@@ -247,6 +247,16 @@ function extractCompressedForm(data) {
 			return new URLSearchParams(window.location.search);
 		};
 
+		const isFormEmpty = function() {
+			const form = new FormData(characterSheet);
+			for (const [key, value] of form) {
+				if (value) {
+					return false;
+				}
+			}
+			return true;
+		}
+
 		// Character sheet should start disabled.
 		disableForm();
 		load(queryParams());
@@ -288,7 +298,7 @@ function extractCompressedForm(data) {
 			if (charList.includes(characterId)) {
 				enableForm();
 				load();
-			} else if (isFormEnabled()) {
+			} else if (isFormEnabled() && isFormEmpty()) {
 				disableForm();
 				deselectChar();
 				clearForm();
