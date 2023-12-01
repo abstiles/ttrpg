@@ -1,3 +1,68 @@
+function arrayBufferToBase64( buffer ) {
+	var binary = '';
+	var bytes = new Uint8Array( buffer );
+	var len = bytes.byteLength;
+	for (var i = 0; i < len; i++) {
+		binary += String.fromCharCode( bytes[ i ] );
+	}
+	return window.btoa(binary)
+		.replaceAll('+', '-')
+		.replaceAll('/', '_')
+		.replaceAll('=', '.');
+}
+
+function base64ToArrayBuffer(base64) {
+	var binaryString = atob(
+		base64
+		.replaceAll('-', '+')
+		.replaceAll('_', '/')
+		.replaceAll('.', '=')
+	);
+	var bytes = new Uint8Array(binaryString.length);
+	for (var i = 0; i < binaryString.length; i++) {
+		bytes[i] = binaryString.charCodeAt(i);
+	}
+	return bytes.buffer;
+}
+
+function compress(string) {
+	const encoding = "gzip";
+	const byteArray = new TextEncoder().encode(string);
+	const cs = new CompressionStream(encoding);
+	const writer = cs.writable.getWriter();
+	writer.write(byteArray);
+	writer.close();
+	return new Response(cs.readable).arrayBuffer();
+}
+
+function decompress(byteArray) {
+	const encoding = "gzip";
+	const cs = new DecompressionStream(encoding);
+	const writer = cs.writable.getWriter();
+	writer.write(byteArray);
+	writer.close();
+	return new Response(cs.readable).arrayBuffer().then(function (arrayBuffer) {
+		return new TextDecoder().decode(arrayBuffer);
+	});
+}
+
+function getCompressedForm() {
+	const form = new FormData(document.getElementById('character-sheet'));
+	const params = new URLSearchParams();
+	for (const [key, value] of form) {
+		if (value) {
+			params.set(key, value);
+		}
+	}
+	return compress(params.toString())
+		.then(buf => arrayBufferToBase64(buf));
+}
+
+function extractCompressedForm(data) {
+	return decompress(base64ToArrayBuffer(data))
+		.then(params => Object.fromEntries(new URLSearchParams(params)));
+}
+
 (function() {
 	"use strict";
 
@@ -7,6 +72,7 @@
 		const deleteButton = document.getElementById('delete-btn');
 		const characterSheet = document.getElementById('character-sheet');
 		const charSelect = document.getElementById('load-character');
+		const shareButton = document.getElementById('share-btn');
 		const radioButtons = Array.from(
 			document.querySelectorAll('form input[type="radio"]')
 		);
@@ -72,8 +138,8 @@
 			charSelect.disabled = charList.length === 0;
 		};
 
-		const loadForm = function() {
-			let current = getChar();
+		const loadForm = function(data) {
+			let current = data ? data : getChar();
 			radioButtons.forEach(item => {
 				if (current[item.name] === item.value) {
 					item.checked = true;
@@ -104,14 +170,24 @@
 			textFields.forEach(item => { item.value = ""; });
 		};
 
-		const load = function(characterId) {
-			let char = getCharacterMap()[characterId?.toLowerCase()];
+		const load = function(data) {
+			let characterId = data?.get('character')?.toLowerCase();
+			let char = getCharacterMap()[characterId];
 			if (char) {
 				setCurrentCharacterName(char._canonCase);
 				enableForm();
 			}
+
 			populateCharacterSelect();
-			loadForm();
+
+			let rawData = data?.get('d');
+			if (rawData) {
+				extractCompressedForm(rawData)
+					.then(x => loadForm(x));
+				enableForm();
+			} else {
+				loadForm();
+			}
 		};
 
 		const save = function() {
@@ -132,12 +208,14 @@
 			characterSheet.setAttribute('disabled', '');
 			newButton.disabled = true;
 			deleteButton.disabled = true;
+			shareButton.disabled = true;
 		};
 
 		const enableForm = function() {
 			characterSheet.removeAttribute('disabled');
 			newButton.disabled = false;
 			deleteButton.disabled = false;
+			shareButton.disabled = false;
 		};
 
 		const isFormEnabled = function() {
@@ -171,7 +249,7 @@
 
 		// Character sheet should start disabled.
 		disableForm();
-		load(queryParams().get('character'));
+		load(queryParams());
 
 		// Save updated setting whenever an input is changed.
 		radioButtons.forEach(item => {
@@ -236,6 +314,17 @@
 				resetAll();
 			}
 		};
+		shareButton.onclick = function() {
+			getCompressedForm()
+				.then(dataStr => {
+					const params = new URLSearchParams();
+					params.set('d', dataStr);
+					const thisPage = window.location.origin + window.location.pathname;
+					return navigator.clipboard.writeText(
+						`${thisPage}?${params.toString()}`
+					);
+				});
+		}
 	}
 
 	if (document.readyState === "loading") {
