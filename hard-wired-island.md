@@ -97,10 +97,10 @@ style: |-
 
 <fieldset id="multipass">
 <legend>Grand Cross Multipass</legend>
-<label for="character-name">Name:</label><input type="text" name="character-name">
-<label for="handle">Handle:</label><input type="text" name="handle">
-<label for="pronouns">Pronouns:</label><input type="text" name="pronouns">
-<label for="player">Player:</label><input type="text" name="player">
+<label for="character-name">Name:</label><input type="text" id="character-name" name="character-name">
+<label for="handle">Handle:</label><input type="text" id="handle" name="handle">
+<label for="pronouns">Pronouns:</label><input type="text" id="pronouns" name="pronouns">
+<label for="player">Player:</label><input type="text" id="player" name="player">
 </fieldset>
 
 <table id="stats">
@@ -148,11 +148,11 @@ style: |-
 
 <div class="block">
 <label for="origin">Origin</label>
-<textarea name="origin" rows="3"></textarea>
+<textarea id="origin" name="origin" rows="3"></textarea>
 <label for="traits">Traits</label>
-<textarea name="traits" rows="3"></textarea>
+<textarea id="traits" name="traits" rows="3"></textarea>
 <label for="app">App</label>
-<textarea name="app" rows="1"></textarea>
+<textarea id="app" name="app" rows="1"></textarea>
 </div>
 
 <table id="specialties">
@@ -229,49 +229,49 @@ style: |-
 
 <div id="status">
 <label for="burden">Burden</label>
-<input size="2" type="text" name="burden">
+<input size="2" type="text" id="burden" name="burden">
 <label for="cash">Cash</label>
-<input size="2" type="text" name="cash">
+<input size="2" type="text" id="cash" name="cash">
 <label for="prep">Prep</label>
-<input size="2" type="text" name="prep">
+<input size="2" type="text" id="prep" name="prep">
 </div>
 
 <div class="block">
 <label for="occupations">Occupations</label>
-<textarea name="occupations" rows="3"></textarea>
+<textarea id="occupations" name="occupations" rows="3"></textarea>
 </div>
 <div class="block">
 <label for="talents">Talents</label>
-<textarea name="talents" rows="10"></textarea>
+<textarea id="talents" name="talents" rows="10"></textarea>
 </div>
 <div class="block">
 <label for="assets">Assets</label>
-<textarea name="assets" rows="5"></textarea>
+<textarea id="assets" name="assets" rows="5"></textarea>
 </div>
 <div class="block">
 <label for="augmentations">Augmentations</label>
-<textarea name="augmentations" rows="5"></textarea>
+<textarea id="augmentations" name="augmentations" rows="5"></textarea>
 </div>
 
 <fieldset id="harm">
 <legend>Harm</legend>
-<input type="checkbox" name="harm-1" value="1">
+<input type="checkbox" id="harm-1" name="harm-1" value="1">
 <label for="harm-1">Minor Injury</label>
-<input type="checkbox" name="harm-2" value="2">
+<input type="checkbox" id="harm-2" name="harm-2" value="2">
 <label for="harm-2">Minor Injury</label>
-<input type="checkbox" name="harm-3" value="3">
+<input type="checkbox" id="harm-3" name="harm-3" value="3">
 <label for="harm-3">Harm</label>
-<input type="checkbox" name="harm-4" value="4">
+<input type="checkbox" id="harm-4" name="harm-4" value="4">
 <label for="harm-4">Harm</label>
-<input type="checkbox" name="harm-5" value="5">
+<input type="checkbox" id="harm-5" name="harm-5" value="5">
 <label for="harm-5">Serious Injury</label>
-<input type="checkbox" name="harm-6" value="6">
+<input type="checkbox" id="harm-6" name="harm-6" value="6">
 <label for="harm-6">Incapacitated</label>
 </fieldset>
 
 <div class="block">
 <label for="notes">Notes</label>
-<textarea name="notes" rows="5"></textarea>
+<textarea id="notes" name="notes" rows="5"></textarea>
 </div>
 
 </div> <!-- end column -->
