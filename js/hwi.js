@@ -257,6 +257,14 @@ function extractCompressedForm(data) {
 			return true;
 		}
 
+		const share = function(link) {
+			const shareObject = {"url": link};
+			if (navigator.canShare && navigator.canShare(shareObject)) {
+				return navigator.share(shareObject);
+			}
+			return navigator.clipboard.writeText(link);
+		}
+
 		// Character sheet should start disabled.
 		disableForm();
 		load(queryParams());
@@ -330,9 +338,7 @@ function extractCompressedForm(data) {
 					const params = new URLSearchParams();
 					params.set('d', dataStr);
 					const thisPage = window.location.origin + window.location.pathname;
-					return navigator.clipboard.writeText(
-						`${thisPage}?${params.toString()}`
-					);
+					return share(`${thisPage}?${params.toString()}`)
 				});
 		}
 	}

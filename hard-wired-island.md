@@ -89,7 +89,7 @@ style: |-
 <select id="load-character" required>
 <option selected disabled hidden value="">Load Character</option>
 </select>
-<button id="share-btn" disabled>Share</button>
+<button id="share-btn" disabled>Share Snapshot</button>
 </div>
 
 <form id="character-sheet">
