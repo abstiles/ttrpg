@@ -56,7 +56,8 @@ input[type="text"] {
 	right: 0;
 	margin-right: max(-4%, -60px);
 	grid-row-gap: 0.25rem;
-	margin-top: -0.5rem;
+	grid-template-columns: 0 1fr;
+	margin-top: -0.25rem;
 }
 
 #menu-theme:has(:focus-visible) {
