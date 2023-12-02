@@ -186,6 +186,16 @@ skills:
 			<label>&nbsp;</label>
 			<input type="radio" name="{{ skill }}" id="{{ skill }}-0">
 		</span>
+{% case skill %}
+{% when "conditioning" %}
+	{% for i in (1..6) %}
+		<span class="overlabeled">
+			<label for="{{ skill }}-{{ i }}">+{{ i }}</label>
+			<input type="radio" name="{{ skill }}" id="{{ skill }}-{{ i }}" value="{{ i }}" />
+		</span>
+	{% endfor %}
+	</div>
+{% else %}
 		{% for i in page.dice %}
 		<span class="overlabeled">
 			<label for="{{ skill }}-d{{ i }}">D{{ i }}</label>
@@ -199,6 +209,7 @@ skills:
 		<input type="text" name="{{ skill }}-specialization{{ i }}" />
 		{% endfor %}
 	</div>
+{% endcase %}
 </div>
 {% endfor %}
 </fieldset>

@@ -176,6 +176,7 @@ legend {
 .skill h3 {
   font-size: 12pt;
   font-family: var(--sans);
+  text-transform: capitalize;
 }
 .dice {
   display: flex;
