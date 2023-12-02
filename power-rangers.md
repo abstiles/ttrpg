@@ -150,31 +150,36 @@ style: |-
     border-spacing: 0 2.5px;
   }
   #stats-cols {
-      display: grid;
-      margin-top: 10px;
+    display: grid;
+    margin-top: 10px;
   }
   #stats-cols {
-      text-align: center;
+    text-align: center;
   }
   #stats-cols .stat {
-      padding: 5px;
+    padding: 5px;
+    border-radius: 20px;
+    margin: 5px 0;
+    border: 1px solid var(--color);
   }
   #stats-cols input[inputmode="numeric"] {
-      font-size: small;
-      width: 1.5em;
-      margin: 0;
-      margin-left: 5px;
-      padding: 0;
+    font-size: small;
+    width: 1.5em;
+    margin: 0;
+    margin-left: 5px;
+    padding: 0;
   }
   #stats-cols .sum .underlabeled {
-      margin: 5px;
+    margin: 5px;
   }
   .skill {
-      border: 1px solid var(--color)
+    border: 1px solid var(--color);
+    padding: 2.5px;
+    margin: 2.5px 0;
   }
   .skill h3 {
-      font-size: 12pt;
-      font-family: var(--sans);
+    font-size: 12pt;
+    font-family: var(--sans);
   }
   .dice {
       display: flex;
