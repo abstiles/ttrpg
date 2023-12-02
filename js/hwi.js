@@ -63,6 +63,23 @@ function extractCompressedForm(data) {
 		.then(params => Object.fromEntries(new URLSearchParams(params)));
 }
 
+function getScrollHeight(elem) {
+	const scrollHeight = elem.scrollHeight;
+	const style = window.getComputedStyle(elem)
+	if (style.boxSizing === "content-box") {
+		// For content-box sizing we need to account for padding.
+		return scrollHeight - (
+			parseInt(style.paddingTop) + parseInt(style.paddingBottom)
+		);
+	} else if (style.boxSizing === "border-box") {
+		// For border-box, we need to account for borders.
+		return scrollHeight + (
+			parseInt(style.borderTopWidth) + parseInt(style.borderBottomWidth)
+		);
+	}
+	return scrollHeight;
+}
+
 (function() {
 	"use strict";
 
@@ -81,6 +98,9 @@ function extractCompressedForm(data) {
 		);
 		const textFields = Array.from(
 			document.querySelectorAll('form textarea, form input[type="text"]')
+		);
+		const textareas = Array.from(
+			document.querySelectorAll('form textarea')
 		);
 
 		let charList = [];
@@ -287,6 +307,16 @@ function extractCompressedForm(data) {
 		textFields.forEach(item => {
 			item.addEventListener('input', () => {
 				setChar(item.name, item.value);
+			});
+		});
+		textareas.forEach(item => {
+			item.setAttribute(
+				"style",
+				"height:" + getScrollHeight(item) + "px;overflow-y:hidden;"
+			);
+			item.addEventListener('input', function() {
+				this.style.height = "auto";
+				this.style.height = getScrollHeight(this) + "px";
 			});
 		});
 		character.addEventListener('change', () => {

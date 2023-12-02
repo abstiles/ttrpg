@@ -43,6 +43,7 @@ table td {
 textarea {
   width: auto;
   height: 100%;
+  font-size: small;
 }
 table input[type="text"] {
   display: table-cell;
@@ -113,6 +114,9 @@ legend {
   #stats-cols {
     grid-template-columns: repeat(4, 1fr);
   }
+  #addl-abilities {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 @media print {
   #summary {
@@ -127,9 +131,13 @@ legend {
   #stats-cols .stat .skill input[type="text"] {
     font-size: x-small;
   }
+  #addl-abilities {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 #summary .basics {
   display: grid;
+  align-content: space-evenly;
 }
 #summary .basics .row {
   display: grid;
@@ -232,5 +240,9 @@ legend {
   font-size: small;
 }
 .skill:has(input[type="radio"][value="0"]:checked) .specializations {
-    display: none;
+  display: none;
+}
+#addl-abilities {
+  display: grid;
+  grid-column-gap: 5px;
 }
