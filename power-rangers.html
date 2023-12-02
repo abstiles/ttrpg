@@ -153,11 +153,11 @@ skills:
 			</tr>
 			{% for row in (0..4) %}
 			<tr>
-				<td><input type="text" name="attack{{ row }}" aria-labelledby="attack-name" /></td>
-				<td><input type="text" name="attack{{ row }}" aria-labelledby="attack-range" /></td>
-				<td><input type="text" name="attack{{ row }}" aria-labelledby="attack-attack" /></td>
-				<td><input type="text" name="attack{{ row }}" aria-labelledby="attack-effects" /></td>
-				<td><input type="text" name="attack{{ row }}" aria-labelledby="attack-notes" /></td>
+				<td><input type="text" name="attack{{ row }}-name" aria-labelledby="attack-name" /></td>
+				<td><input type="text" name="attack{{ row }}-range" aria-labelledby="attack-range" /></td>
+				<td><input type="text" name="attack{{ row }}-attack" aria-labelledby="attack-attack" /></td>
+				<td><input type="text" name="attack{{ row }}-effects" aria-labelledby="attack-effects" /></td>
+				<td><input type="text" name="attack{{ row }}-notes" aria-labelledby="attack-notes" /></td>
 			</tr>
 			{% endfor %}
 		</table>
