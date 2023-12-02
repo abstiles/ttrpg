@@ -202,6 +202,14 @@ skills:
 		</span>
 	{% endfor %}
 	</div>
+{% when "initiative" %}
+		{% for i in page.dice %}
+		<span class="overlabeled">
+			<label for="{{ skill }}-d{{ i }}">D{{ i }}</label>
+			<input type="radio" name="{{ skill }}" id="{{ skill }}-d{{ i }}" value="{{ i }}" />
+		</span>
+		{% endfor %}
+	</div>
 {% else %}
 		{% for i in page.dice %}
 		<span class="overlabeled">
