@@ -231,3 +231,6 @@ legend {
   width: calc(100% - 20px);
   font-size: small;
 }
+.skill:has(input[type="radio"][value="0"]:checked) .specializations {
+    display: none;
+}
