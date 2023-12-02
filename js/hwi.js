@@ -165,8 +165,9 @@ function extractCompressedForm(data) {
 		};
 
 		const clearForm = function() {
-			radioButtons.forEach(item => { item.checked = false; });
-			checkboxes.forEach(item => { item.checked = false; });
+			const checked = item => item.hasAttribute('selected');
+			radioButtons.forEach(item => { item.checked = checked(item); });
+			checkboxes.forEach(item => { item.checked = checked(item); });
 			textFields.forEach(item => { item.value = ""; });
 		};
 
