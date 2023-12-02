@@ -1,0 +1,209 @@
+@media print {
+  .character-controls {
+    display: none;
+  }
+}
+.block {
+  display: grid;
+  break-inside: avoid;
+}
+input#character {
+  display: block;
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  font-size: xx-large;
+  background: transparent;
+  border: none;
+}
+.character-controls {
+  text-align: center;
+}
+#character-sheet[disabled] {
+  display: none;
+}
+#summary {
+  display: grid;
+}
+table {
+  border-spacing: 5px 0;
+}
+table td {
+  text-align: center;
+}
+textarea {
+  width: auto;
+  height: 100%;
+}
+table input[type="text"] {
+  display: table-cell;
+  width: calc(100% - 10px);
+}
+input[inputmode="numeric"] {
+  width: 2em;
+  align-self: center;
+  text-align: center;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+legend {
+  display: inline-block;
+  background-color: var(--color);
+  color: var(--background-color);
+  font-weight: bold;
+  font-family: var(--sans);
+  text-align: center;
+  padding: 2px 20px;
+}
+
+.underlabeled {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column-reverse;
+}
+.underlabeled label {
+  font-family: var(--sans);
+  font-size: x-small;
+  text-align: center;
+  line-height: 1;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+  text-transform: uppercase;
+}
+.overlabeled {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+}
+.overlabeled label {
+  font-family: var(--sans);
+  font-size: x-small;
+  text-align: center;
+  line-height: 1;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+  text-transform: uppercase;
+}
+#summary {
+  display: grid;
+  column-gap: 10px;
+  margin-top: 10px;
+  padding: 0;
+  border: 0;
+}
+@media screen and (min-width:768px) {
+  #summary {
+    grid-template-columns: 4fr 3fr;
+  }
+  #combat-info {
+    grid-template-columns: 4fr 5fr;
+  }
+  #stats-cols {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+#summary .basics {
+  display: grid;
+}
+#summary .basics .row {
+  display: grid;
+  column-gap: 10px;
+}
+#summary .basics .row:first-child {
+  grid-template-columns: 3fr 1fr;
+}
+#summary .basics .row:nth-child(2) {
+  grid-template-columns: 6fr 4fr 1fr;
+}
+#summary .summary-details {
+  display: grid;
+}
+#details {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 2fr 1fr;
+  grid-column-gap: 10px;
+  margin: 0;
+  border: 0;
+}
+#details .col:nth-child(2) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: space-evenly;
+  align-items: start;
+  grid-column-gap: 5px;
+}
+#combat-info {
+  display: grid;
+  align-items: center;
+}
+#attack {
+  padding: 5px;
+}
+#attack table {
+  border-spacing: 0 2.5px;
+}
+#stats-cols {
+  display: grid;
+  margin-top: 10px;
+}
+#stats-cols {
+  text-align: center;
+}
+#stats-cols .stat {
+  padding: 5px;
+  border-radius: 20px;
+  margin: 5px 0;
+  border: 1px solid var(--color);
+}
+#stats-cols input[inputmode="numeric"] {
+  font-size: small;
+  width: 1.5em;
+  margin: 0;
+  margin-left: 5px;
+  padding: 0;
+}
+#stats-cols .sum .underlabeled {
+  margin: 5px;
+}
+.skill {
+  border: 1px solid var(--color);
+  padding: 2.5px;
+  margin: 2.5px 0;
+}
+.skill h3 {
+  font-size: 12pt;
+  font-family: var(--sans);
+}
+.dice {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.dice input[type="radio"] {
+  margin-top: 0;
+}
+.skill .specializations {
+  display:grid;
+  grid-template:
+  "a b" 1fr
+  "a c" 1fr
+  "a d" 1fr / 12px 1fr;
+  grid-row-gap: 5px;
+  padding: 5px 0;
+}
+.skill .specializations span {
+  font-size: small;
+  font-family: var(--sans);
+  display: table;
+  grid-area: a;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+}
+.skill .specializations input[type="text"] {
+  margin: 0 5px;
+  width: calc(100% - 20px);
+  font-size: small;
+}
