@@ -1,7 +1,16 @@
 @media print {
   .character-controls {
-    display: none;
+    display: none !important;
   }
+  input#character {
+    display: none !important;
+  }
+  h1#site-header {
+    font-size: 24pt !important;
+  }
+}
+@page {
+  size: legal;
 }
 .block {
   display: grid;
@@ -38,6 +47,7 @@ textarea {
 table input[type="text"] {
   display: table-cell;
   width: calc(100% - 10px);
+  font-size: small;
 }
 input[inputmode="numeric"] {
   width: 2em;
@@ -89,7 +99,7 @@ legend {
 #summary {
   display: grid;
   column-gap: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
   padding: 0;
   border: 0;
 }
@@ -102,6 +112,20 @@ legend {
   }
   #stats-cols {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media print {
+  #summary {
+    grid-template-columns: 4fr 3fr;
+  }
+  #combat-info {
+    grid-template-columns: 4fr 5fr;
+  }
+  #stats-cols {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  #stats-cols .stat .skill input[type="text"] {
+    font-size: x-small;
   }
 }
 #summary .basics {
@@ -140,14 +164,13 @@ legend {
   align-items: center;
 }
 #attack {
-  padding: 5px;
+  padding: 0 5px;
 }
 #attack table {
   border-spacing: 0 2.5px;
 }
 #stats-cols {
   display: grid;
-  margin-top: 10px;
 }
 #stats-cols {
   text-align: center;
