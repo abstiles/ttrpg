@@ -351,7 +351,7 @@ style: |-
 <div id="stats-cols">
 <fieldset id="strength-block" class="stat">
 <legend><label for="strength">Strength</label> <input type="text" inputmode="numeric" pattern="[0-9]*" id="strength" name="strength" /></legend>
-<div class="def"><label for="toughness">Toughness</label> <input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="toughness" /></div>
+<div class="def"><label for="toughness">Toughness</label> <input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="toughness" name="toughness" /></div>
 <div class="sum">
 	<div class="underlabeled">
 		<label for="toughness-perks">Perks</label>
@@ -363,7 +363,7 @@ style: |-
 	</div>
 	<div class="underlabeled">
 		<label for="toughness-morphed">Morphed</label>
-		<span>=<input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="toughness-morphed" /></span>
+		<span>=<input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="toughness-morphed" name="toughness-morphed" /></span>
 	</div>
 </div>
 
@@ -545,7 +545,7 @@ style: |-
 
 <fieldset id="speed-block" class="stat">
 <legend><label for="speed">Speed</label> <input type="text" inputmode="numeric" pattern="[0-9]*" id="speed" name="speed" /></legend>
-<div class="def"><label for="evasion">Evasion</label> <input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="evasion" /></div>
+<div class="def"><label for="evasion">Evasion</label> <input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="evasion" name="evasion" /></div>
 <div class="sum">
 	<div class="underlabeled">
 		<label for="evasion-perks">Perks</label>
@@ -557,7 +557,7 @@ style: |-
 	</div>
 	<div class="underlabeled">
 		<label for="evasion-morphed">Morphed</label>
-		<span>=<input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="evasion-morphed" /></span>
+		<span>=<input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="evasion-morphed" name="evasion-morphed" /></span>
 	</div>
 </div>
 
@@ -774,7 +774,7 @@ style: |-
 
 <fieldset id="smarts-block" class="stat">
 <legend><label for="smarts">Smarts</label> <input type="text" inputmode="numeric" pattern="[0-9]*" id="smarts" name="smarts" /></legend>
-<div class="def"><label for="willpower">Willpower</label> <input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="willpower" /></div>
+<div class="def"><label for="willpower">Willpower</label> <input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="willpower" name="willpower" /></div>
 <div class="sum">
 	<div class="underlabeled">
 		<label for="willpower-perks">Perks</label>
@@ -786,7 +786,7 @@ style: |-
 	</div>
 	<div class="underlabeled">
 		<label for="willpower-morphed">Morphed</label>
-		<span>=<input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="willpower-morphed" /></span>
+		<span>=<input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="willpower-morphed" name="willpower-morphed" /></span>
 	</div>
 </div>
 
@@ -973,7 +973,7 @@ style: |-
 
 <fieldset id="social-block" class="stat">
 <legend><label for="social">Social</label> <input type="text" inputmode="numeric" pattern="[0-9]*" id="social" name="social" /></legend>
-<div class="def"><label for="cleverness">Cleverness</label> <input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="cleverness" /></div>
+<div class="def"><label for="cleverness">Cleverness</label> <input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="cleverness" name="cleverness" /></div>
 <div class="sum">
 	<div class="underlabeled">
 		<label for="cleverness-perks">Perks</label>
@@ -985,7 +985,7 @@ style: |-
 	</div>
 	<div class="underlabeled">
 		<label for="cleverness-morphed">Morphed</label>
-		<span>=<input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="cleverness-morphed" /></span>
+		<span>=<input readonly="" type="text" inputmode="numeric" pattern="[0-9]*" id="cleverness-morphed" name="cleverness-morphed" /></span>
 	</div>
 </div>
 
