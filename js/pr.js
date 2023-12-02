@@ -3,7 +3,8 @@
 
 	const change = function(field, value) {
 		field.value = value;
-		field.dispatchEvent(new Event('change'));
+		// Most of these text fields react to "input" not "change".
+		field.dispatchEvent(new Event('input'));
 	}
 
 	const startup = function() {
