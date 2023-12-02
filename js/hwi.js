@@ -139,9 +139,12 @@ function extractCompressedForm(data) {
 		};
 
 		const loadForm = function(data) {
+			const isDefault = item => item.hasAttribute('selected');
 			let current = data ? data : getChar();
 			radioButtons.forEach(item => {
 				if (current[item.name] === item.value) {
+					item.checked = true;
+				} else if (!current[item.name] && isDefault(item)) {
 					item.checked = true;
 				} else {
 					item.checked = false;
@@ -165,9 +168,9 @@ function extractCompressedForm(data) {
 		};
 
 		const clearForm = function() {
-			const checked = item => item.hasAttribute('selected');
-			radioButtons.forEach(item => { item.checked = checked(item); });
-			checkboxes.forEach(item => { item.checked = checked(item); });
+			const isDefault = item => item.hasAttribute('selected');
+			radioButtons.forEach(item => { item.checked = isDefault(item); });
+			checkboxes.forEach(item => { item.checked = isDefault(item); });
 			textFields.forEach(item => { item.value = ""; });
 		};
 
