@@ -229,8 +229,43 @@ skills:
 {% endfor %}
 </fieldset>
 {% endfor %}
+</div> <!-- End stats columns -->
 
+<div id="addl-abilities">
+	<div class="overlabeled">
+		<label>Powers</label>
+		<textarea name="powers" id="powers" rows="5"></textarea>
+	</div>
+	<div class="overlabeled">
+		<label>Perks</label>
+		<textarea name="perks" id="perks" rows="5"></textarea>
+	</div>
+	<div class="overlabeled">
+		<label>Background Bonds</label>
+		<textarea name="bg-bonds" id="bg-bonds" rows="5"></textarea>
+	</div>
 </div>
+
+<fieldset id="weapons">
+	<legend>Weapons</legend>
+	{% assign cols = "weapon,range,hands,traits,attack,effects,alternative-effects" | split: "," %}
+	<table>
+		<tr>
+			{% for col in cols %}
+			{% assign columnName = col | split: "-" | join: " " | capitalize %}
+			<th id="weapon-{{ col }}" scope="col">{{ columnName }}</th>
+			{% endfor %}
+		</tr>
+		{% for row in (0..2) %}
+		<tr>
+			{% for col in cols %}
+			<td><input type="text" name="weapon{{ row }}-{{ col }}" aria-labelledby="weapon-{{ col }}" /></td>
+			{% endfor %}
+		</tr>
+		{% endfor %}
+	</table>
+</fieldset>
+
 </form>
 </main>
 
