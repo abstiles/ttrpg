@@ -1,6 +1,32 @@
 ---
 title: Power Rangers
-dice: [9,4,6,8,10,12]
+dice: [2,4,6,8,10,12]
+skills:
+  strength:
+    - athletics
+    - brawn
+    - conditioning
+    - indimidation
+    - might
+  speed:
+    - acrobatics
+    - driving
+    - finesse
+    - infiltration
+    - initiative
+    - targeting
+  smarts:
+    - alertness
+    - culture
+    - science
+    - survival
+    - technology
+  social:
+    - animal handling
+    - deception
+    - performance
+    - persuasion
+    - streetwise
 ---
 <!DOCTYPE html>
 <html lang="en-US">
@@ -152,166 +178,29 @@ dice: [9,4,6,8,10,12]
 	</div>
 </div>
 
+{% for skill in page.skills.strength %}
 <div class="skill">
-	<h3>Athletics</h3>
+	<h3>{{ skill }}</h3>
 	<div class="dice">
 		<span class="overlabeled">
 			<label>&nbsp;</label>
-			<input type="radio" name="athletics" id="athletics-0">
+			<input type="radio" name="{{ skill }}" id="{{ skill }}-0">
 		</span>
 		{% for i in page.dice %}
 		<span class="overlabeled">
-			<label for="athletics-d{{ i }}">D{{ i }}</label>
-			<input type="radio" name="athletics" id="athletics-d{{ i }}" value="{{ i }}" />
+			<label for="{{ skill }}-d{{ i }}">D{{ i }}</label>
+			<input type="radio" name="{{ skill }}" id="{{ skill }}-d{{ i }}" value="{{ i }}" />
 		</span>
 		{% endfor %}
 	</div>
 	<div class="specializations">
 		<span>Specializations</span>
 		{% for i in (0..2) %}
-		<input type="text" name="athletics-specialization{{ i }}" />
+		<input type="text" name="{{ skill }}-specialization{{ i }}" />
 		{% endfor %}
 	</div>
 </div>
-
-<div class="skill">
-	<h3>Brawn</h3>
-	<div class="dice">
-		<span class="overlabeled">
-			<label for="brawn-d2">D2</label>
-			<input type="radio" name="brawn" id="brawn-d2" value="2" />
-		</span>
-		<span class="overlabeled">
-			<label for="brawn-d4">D4</label>
-			<input type="radio" name="brawn" id="brawn-d4" value="4" />
-		</span>
-		<span class="overlabeled">
-			<label for="brawn-d6">D6</label>
-			<input type="radio" name="brawn" id="brawn-d6" value="6" />
-		</span>
-		<span class="overlabeled">
-			<label for="brawn-d8">D8</label>
-			<input type="radio" name="brawn" id="brawn-d8" value="8" />
-		</span>
-		<span class="overlabeled">
-			<label for="brawn-d10">D10</label>
-			<input type="radio" name="brawn" id="brawn-d10" value="10" />
-		</span>
-		<span class="overlabeled">
-			<label for="brawn-d12">D12</label>
-			<input type="radio" name="brawn" id="brawn-d12" value="12" />
-		</span>
-	</div>
-	<div class="specializations">
-		<span>Specializations</span>
-		<input type="text" name="brawn-specialization0" />
-		<input type="text" name="brawn-specialization1" />
-		<input type="text" name="brawn-specialization2" />
-	</div>
-</div>
-
-<div class="skill">
-	<h3>Conditioning</h3>
-	<div class="dice">
-		<span class="overlabeled">
-			<label for="conditioning-1">+1</label>
-			<input type="radio" name="conditioning" id="conditioning-1" value="1" />
-		</span>
-		<span class="overlabeled">
-			<label for="conditioning-2">+2</label>
-			<input type="radio" name="conditioning" id="conditioning-2" value="2" />
-		</span>
-		<span class="overlabeled">
-			<label for="conditioning-3">+3</label>
-			<input type="radio" name="conditioning" id="conditioning-3" value="3" />
-		</span>
-		<span class="overlabeled">
-			<label for="conditioning-4">+4</label>
-			<input type="radio" name="conditioning" id="conditioning-4" value="4" />
-		</span>
-		<span class="overlabeled">
-			<label for="conditioning-5">+5</label>
-			<input type="radio" name="conditioning" id="conditioning-5" value="5" />
-		</span>
-		<span class="overlabeled">
-			<label for="conditioning-6">+6</label>
-			<input type="radio" name="conditioning" id="conditioning-6" value="6" />
-		</span>
-	</div>
-</div>
-
-<div class="skill">
-	<h3>Intimidation</h3>
-	<div class="dice">
-		<span class="overlabeled">
-			<label for="intimidation-d2">D2</label>
-			<input type="radio" name="intimidation" id="intimidation-d2" value="2" />
-		</span>
-		<span class="overlabeled">
-			<label for="intimidation-d4">D4</label>
-			<input type="radio" name="intimidation" id="intimidation-d4" value="4" />
-		</span>
-		<span class="overlabeled">
-			<label for="intimidation-d6">D6</label>
-			<input type="radio" name="intimidation" id="intimidation-d6" value="6" />
-		</span>
-		<span class="overlabeled">
-			<label for="intimidation-d8">D8</label>
-			<input type="radio" name="intimidation" id="intimidation-d8" value="8" />
-		</span>
-		<span class="overlabeled">
-			<label for="intimidation-d10">D10</label>
-			<input type="radio" name="intimidation" id="intimidation-d10" value="10" />
-		</span>
-		<span class="overlabeled">
-			<label for="intimidation-d12">D12</label>
-			<input type="radio" name="intimidation" id="intimidation-d12" value="12" />
-		</span>
-	</div>
-	<div class="specializations">
-		<span>Specializations</span>
-		<input type="text" name="intimidation-specialization0" />
-		<input type="text" name="intimidation-specialization1" />
-		<input type="text" name="intimidation-specialization2" />
-	</div>
-</div>
-
-<div class="skill">
-	<h3>Might</h3>
-	<div class="dice">
-		<span class="overlabeled">
-			<label for="might-d2">D2</label>
-			<input type="radio" name="might" id="might-d2" value="2" />
-		</span>
-		<span class="overlabeled">
-			<label for="might-d4">D4</label>
-			<input type="radio" name="might" id="might-d4" value="4" />
-		</span>
-		<span class="overlabeled">
-			<label for="might-d6">D6</label>
-			<input type="radio" name="might" id="might-d6" value="6" />
-		</span>
-		<span class="overlabeled">
-			<label for="might-d8">D8</label>
-			<input type="radio" name="might" id="might-d8" value="8" />
-		</span>
-		<span class="overlabeled">
-			<label for="might-d10">D10</label>
-			<input type="radio" name="might" id="might-d10" value="10" />
-		</span>
-		<span class="overlabeled">
-			<label for="might-d12">D12</label>
-			<input type="radio" name="might" id="might-d12" value="12" />
-		</span>
-	</div>
-	<div class="specializations">
-		<span>Specializations</span>
-		<input type="text" name="might-specialization0" />
-		<input type="text" name="might-specialization1" />
-		<input type="text" name="might-specialization2" />
-	</div>
-</div>
-
+{% endfor %}
 </fieldset>
 
 <fieldset id="speed-block" class="stat">
