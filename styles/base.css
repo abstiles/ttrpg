@@ -12,7 +12,7 @@ body {
 	font-size: 12pt;
 	margin: auto;
 	max-width: 768px;
-	padding: 10px min(60px, 4%);
+	padding: 10px min(30px, 2%);
 	min-height: calc(100vh - 20px);
 }
 
@@ -54,7 +54,7 @@ input[type="text"] {
 	position: absolute;
 	top: 0;
 	right: 0;
-	margin-right: max(-4%, -60px);
+	margin-right: max(-2%, -30px);
 	grid-row-gap: 0.25rem;
 	grid-template-columns: 0 1fr;
 	margin-top: -0.25rem;
