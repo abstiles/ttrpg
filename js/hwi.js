@@ -448,11 +448,11 @@ function getScrollHeight(elem) {
 			const url = shareLinkText.value;
 			const link = `[${label}](${url})`
 			const shareObject = {"text": link};
-			if (navigator.canShare && navigator.canShare(shareObject)) {
-				return navigator.share(shareObject);
-			}
-			return navigator.clipboard.writeText(link);
-			closeShareModal();
+			const canShare = navigator.canShare && navigator.canShare(shareObject);
+			(canShare
+				? navigator.share(shareObject)
+				: navigator.clipboard.writeText(link)
+			).then(() => closeShareModal());
 		}
 	}
 
