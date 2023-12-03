@@ -176,7 +176,7 @@ legend {
   margin: 0;
   border: 0;
 }
-#details .col {
+.col {
   display: flex;
   flex-direction: column;
 }
@@ -293,4 +293,30 @@ legend {
 .cols2 {
   display: grid;
   column-gap: 5px;
+}
+#zord-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+}
+.zord-stat {
+  display: inline-block;
+  background-color: var(--color);
+  color: var(--background-color);
+  font-weight: bold;
+  font-family: var(--sans);
+  text-align: center;
+  padding: 2px 20px;
+}
+.skill .name {
+  display: block;
+  width: calc(100% - 8px);
+  text-align: center;
+}
+#zord .col > *:last-child {
+  flex: 1;
+}
+#zord .row {
+  display: flex;
+  justify-content: space-around;
 }

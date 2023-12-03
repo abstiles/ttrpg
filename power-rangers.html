@@ -282,6 +282,106 @@ skills:
 	{% endfor %}
 </fieldset>
 
+<fieldset id="zord" class="cols2">
+	<legend>Zord</legend>
+	<div class="col">
+		<div class="underlabeled">
+			<label for="zord-name">Name</label>
+			<input name="zord-name" id="zord-name" type="text" size="15" />
+		</div>
+		<div id="zord-stats">
+			<div class="zord-stat">
+				<label for="zord-strength">Strength</label>
+				<input type="text" inputmode="numeric" pattern="[0-9]*" id="zord-strength" name="zord-strength" />
+			</div>
+			<div class="zord-stat">
+				<label for="zord-speed">Speed</label>
+				<input type="text" inputmode="numeric" pattern="[0-9]*" id="zord-speed" name="zord-speed" />
+			</div>
+			<div class="zord-derived-stat">
+				<label for="zord-toughness">Toughness</label>
+				<input type="text" inputmode="numeric" pattern="[0-9]*" id="zord-toughness" name="zord-toughness" />
+			</div>
+			<div class="zord-derived-stat">
+				<label for="zord-evasion">Evasion</label>
+				<input type="text" inputmode="numeric" pattern="[0-9]*" id="zord-evasion" name="zord-evasion" />
+			</div>
+		{% assign abilities = "brawn,driving,conditioning,initiative,might,blank" | split: "," %}
+		{% for ability in abilities %}
+			<div class="skill">
+			{% case ability %}
+			{% when "blank" %}
+				<input class="name" type="text" name="zord-ability-name0" size="5"/>
+			{% else %}
+				<h3 class="name">{{ ability | capitalize }}</h3>
+			{% endcase %}
+			{% case ability %}
+			{% when "conditioning" %}
+				{% for i in (1..6) %}
+				<span class="overlabeled">
+					<label for="zord-{{ ability }}-{{ i }}">+{{ i }}</label>
+					<input type="radio" name="zord-{{ ability }}" id="zord-{{ ability }}-{{ i }}" value="{{ i }}" />
+				</span>
+				{% endfor %}
+			{% else %}
+				{% for i in page.dice %}
+				<span class="overlabeled">
+					<label for="zord-{{ ability }}-d{{ i }}">D{{ i }}</label>
+					<input type="radio" name="zord-{{ ability }}" id="zord-{{ ability }}-d{{ i }}" value="{{ i }}" />
+				</span>
+				{% endfor %}
+			{% endcase %}
+			</div>
+		{% endfor %}
+		</div>
+		<div class="overlabeled">
+			<label for="zord-skill-notes">Skill Notes</label>
+			<textarea name="zord-skill-notes" id="zord-skill-notes" rows="3"></textarea>
+		</div>
+	</div>
+	<div class="col">
+		<fieldset id="zord-attack">
+			<legend>Attacks</legend>
+			<table>
+				<tr>
+					<th id="zord-attack-weapon" scope="col">Weapon</th>
+					<th id="zord-attack-range" scope="col">Range</th>
+					<th id="zord-attack-effects" scope="col">Effects</th>
+				</tr>
+				{% for row in (0..1) %}
+				<tr>
+					<td><input type="text" name="zord-attack{{ row }}-weapon" aria-labelledby="zord-attack-weapon" /></td>
+					<td><input type="text" name="zord-attack{{ row }}-range" aria-labelledby="zord-attack-range" /></td>
+					<td><input type="text" name="zord-attack{{ row }}-effects" aria-labelledby="zord-attack-effects" /></td>
+				</tr>
+				{% endfor %}
+			</table>
+		</fieldset>
+		<div class="row">
+			<div class="underlabeled">
+				<label for="zord-size">Size</label>
+				<input name="zord-size" id="zord-size" type="text" size="5" />
+			</div>
+			<div class="underlabeled">
+				<label for="zord-movement">Movement</label>
+				<input name="zord-movement" id="zord-movement" type="text" size="5" />
+			</div>
+			<div class="underlabeled">
+				<label for="zord-health">Health</label>
+				<input name="zord-health" id="zord-health" type="text" inputmode="numeric" pattern="[0-9]*" size="3" />
+			</div>
+			<div class="underlabeled">
+				<label for="zord-damage">Damage</label>
+				<input name="zord-damage" id="zord-damage" type="text" inputmode="numeric" pattern="[0-9]*" size="3" />
+			</div>
+		</div>
+		<div class="overlabeled">
+			<label for="zord-features">Features</label>
+			<textarea name="zord-features" id="zord-features" rows="4"></textarea>
+		</div>
+	</div>
+</fieldset>
+
 </form>
 </main>
 
