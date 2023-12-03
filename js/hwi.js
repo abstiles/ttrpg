@@ -181,6 +181,8 @@ function getScrollHeight(elem) {
 				let value = current[item.name];
 				if (value) {
 					item.value = value;
+					// Trigger any updates keyed to inputs.
+					item.dispatchEvent(new Event('input'));
 				} else {
 					item.value = "";
 				}
@@ -312,10 +314,10 @@ function getScrollHeight(elem) {
 		textareas.forEach(item => {
 			item.setAttribute(
 				"style",
-				"height:" + getScrollHeight(item) + "px;overflow-y:hidden;"
+				`height:${getScrollHeight(item)}px;overflow-y:hidden;`
 			);
 			item.addEventListener('input', function() {
-				this.style.height = "auto";
+				this.style.height = "";
 				this.style.height = getScrollHeight(this) + "px";
 			});
 		});

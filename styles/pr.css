@@ -161,7 +161,6 @@ legend {
 }
 #summary .summary-details {
   display: grid;
-  align-items: start;
 }
 #details {
   display: grid;
