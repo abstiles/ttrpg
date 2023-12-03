@@ -170,6 +170,10 @@ legend {
   margin: 0;
   border: 0;
 }
+#details .col {
+  display: flex;
+  flex-direction: column;
+}
 #details .col:nth-child(2) {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -179,7 +183,7 @@ legend {
 }
 #combat-info {
   display: grid;
-  align-items: center;
+  align-items: end;
 }
 #attack {
   padding: 0 5px;
