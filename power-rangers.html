@@ -233,37 +233,53 @@ skills:
 
 <div id="addl-abilities">
 	<div class="overlabeled">
-		<label>Powers</label>
+		<label for="powers">Powers</label>
 		<textarea name="powers" id="powers" rows="5"></textarea>
 	</div>
 	<div class="overlabeled">
-		<label>Perks</label>
+		<label for="perks">Perks</label>
 		<textarea name="perks" id="perks" rows="5"></textarea>
 	</div>
 	<div class="overlabeled">
-		<label>Background Bonds</label>
+		<label for="bg-bonds">Background Bonds</label>
 		<textarea name="bg-bonds" id="bg-bonds" rows="5"></textarea>
 	</div>
 </div>
 
-<fieldset id="weapons">
+<fieldset id="weapons" class="item-table-list">
 	<legend>Weapons</legend>
-	{% assign cols = "weapon,range,hands,traits,attack,effects,alternative-effects" | split: "," %}
-	<table>
-		<tr>
-			{% for col in cols %}
-			{% assign columnName = col | split: "-" | join: " " | capitalize %}
-			<th id="weapon-{{ col }}" scope="col">{{ columnName }}</th>
+	{% assign fields = "range,hands,traits,attack,effects,alternative-effects" | split: "," %}
+	{% for weapon in (0..2) %}
+	<div id="weapon{{ weapon }}" class="item-table">
+		<input class="item-name" type="text" name="weapon{{ weapon }}-weapon" placeholder="Weapon">
+		<div class="item-fields">
+			{% for field in fields %}
+			<div class="overlabeled">
+				<label for="weapon{{ weapon }}-{{ field }}">{{ field | capitalize }}</label>
+				<input type="text" name="weapon{{ weapon }}-{{ field }}" id="weapon{{ weapon }}-{{ field }}">
+			</div>
 			{% endfor %}
-		</tr>
-		{% for row in (0..2) %}
-		<tr>
-			{% for col in cols %}
-			<td><input type="text" name="weapon{{ row }}-{{ col }}" aria-labelledby="weapon-{{ col }}" /></td>
+		</div>
+	</div>
+	{% endfor %}
+</fieldset>
+
+<fieldset id="armors" class="item-table-list">
+	<legend>Armor</legend>
+	{% assign fields = "type,description,effect,traits" | split: "," %}
+	{% for armor in (0..2) %}
+	<div id="armor{{ armor }}" class="item-table">
+		<input class="item-name" type="text" name="armor{{ armor }}-armor" placeholder="Armor">
+		<div class="item-fields">
+			{% for field in fields %}
+			<div class="overlabeled">
+				<label for="armor{{ armor }}-{{ field }}">{{ field | capitalize }}</label>
+				<input type="text" name="armor{{ armor }}-{{ field }}" id="armor{{ armor }}-{{ field }}">
+			</div>
 			{% endfor %}
-		</tr>
-		{% endfor %}
-	</table>
+		</div>
+	</div>
+	{% endfor %}
 </fieldset>
 
 </form>
