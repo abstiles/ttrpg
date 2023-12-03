@@ -113,8 +113,12 @@ function getScrollHeight(elem) {
 			character.value = value.trim();
 		};
 
+		const pageId = function() {
+			return document.documentElement.querySelector('header h1')
+				.textContent.toLowerCase();
+		}
 		const getCharacterMap = function() {
-			return JSON.parse(localStorage.getItem('characters') || "{}");
+			return JSON.parse(localStorage.getItem(pageId()) || "{}");
 		};
 
 		const getChar = function() {
@@ -133,13 +137,13 @@ function getScrollHeight(elem) {
 			currentChar[key] = value;
 			currentChar._canonCase = currentName;
 			characters[currentName.toLowerCase()] = currentChar;
-			localStorage.setItem('characters', JSON.stringify(characters));
+			localStorage.setItem(pageId(), JSON.stringify(characters));
 		};
 
 		const deleteChar = function(name) {
 			let characters = getCharacterMap();
 			delete characters[name.toLowerCase()];
-			localStorage.setItem('characters', JSON.stringify(characters));
+			localStorage.setItem(pageId(), JSON.stringify(characters));
 		};
 
 		const populateCharacterSelect = function() {
