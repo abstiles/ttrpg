@@ -221,7 +221,7 @@ legend {
 }
 .skill {
   border: 1px solid var(--color);
-  padding: 2.5px;
+  padding-bottom: 5px;
   margin: 2.5px 0;
 }
 .skill h3 {
@@ -289,6 +289,12 @@ legend {
 }
 .item-table + .item-table {
   border-top: 1px solid var(--color);
+}
+.item-table:has(.item-name:placeholder-shown) .item-fields {
+  display: none;
+}
+.item-table:has(.item-name:placeholder-shown) + .item-table:has(.item-name:placeholder-shown) {
+    display: none;
 }
 .cols2 {
   display: grid;
