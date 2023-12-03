@@ -90,6 +90,10 @@ function getScrollHeight(elem) {
 		const characterSheet = document.getElementById('character-sheet');
 		const charSelect = document.getElementById('load-character');
 		const shareButton = document.getElementById('share-btn');
+		const shareDialog = document.getElementById('share-dialog');
+		const shareLinkText = document.getElementById('share-link-text');
+		const shareUrl = document.getElementById('share-url');
+		const shareMd = document.getElementById('share-md');
 		const radioButtons = Array.from(
 			document.querySelectorAll('form input[type="radio"]')
 		);
@@ -301,6 +305,19 @@ function getScrollHeight(elem) {
 			return navigator.clipboard.writeText(link);
 		}
 
+		const showShareModal = function(link) {
+			shareLinkText.value = link;
+			window.history.pushState({ isPopup: true }, '');
+			shareDialog.showModal();
+		}
+
+		const closeShareModal = function() {
+			shareDialog.close();
+			if (window.history.state?.isPopup) {
+				window.history.back();
+			}
+		}
+
 		// Character sheet should start disabled.
 		disableForm();
 		load(queryParams());
@@ -377,6 +394,11 @@ function getScrollHeight(elem) {
 			updateFormState();
 			loadForm();
 		});
+		window.addEventListener('popstate', event => {
+			if (event.state?.isPopup) {
+				shareDialog.close();
+			}
+		});
 
 		deleteButton.onclick = function() {
 			if (window.confirm('Really delete this character?')) {
@@ -391,14 +413,35 @@ function getScrollHeight(elem) {
 				resetAll();
 			}
 		};
+		shareDialog.onclick = function(event) {
+			if (event.target === this) {
+				closeShareModal();
+			}
+		}
 		shareButton.onclick = function() {
 			getCompressedForm()
 				.then(dataStr => {
 					const params = new URLSearchParams();
 					params.set('d', dataStr);
 					const thisPage = window.location.origin + window.location.pathname;
-					return share(`${thisPage}?${params.toString()}`)
+					const link = `${thisPage}?${params.toString()}`;
+					showShareModal(link);
 				});
+		}
+		shareUrl.onclick = function() {
+			share(shareLinkText.value);
+			closeShareModal();
+		}
+		shareMd.onclick = function() {
+			const label = `${getCurrentCharacterName()} Character Sheet`
+			const url = shareLinkText.value;
+			const link = `[${label}](${url})`
+			const shareObject = {"text": link};
+			if (navigator.canShare && navigator.canShare(shareObject)) {
+				return navigator.share(shareObject);
+			}
+			return navigator.clipboard.writeText(link);
+			closeShareModal();
 		}
 	}
 

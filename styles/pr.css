@@ -31,6 +31,9 @@ input#character {
 .character-controls {
   text-align: center;
 }
+#share-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 60%)
+}
 #character-sheet[disabled] {
   display: none;
 }
@@ -339,4 +342,22 @@ label {
 #zord .row {
   display: flex;
   justify-content: space-around;
+}
+#share-dialog {
+  height: 60vh;
+  width: min(75vw, calc(768px * 0.75));
+  padding: 0;
+}
+#share-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 60%)
+}
+#share-dialog .dialog-content {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  box-sizing: border-box;
+  height: 100%;
+}
+#share-link-text {
+  word-break: break-all;
 }

@@ -64,7 +64,16 @@ skills:
 <select id="load-character" required>
 <option selected disabled hidden value="">Load Character</option>
 </select>
-<button id="share-btn" disabled>Share Snapshot</button>
+<dialog id="share-dialog">
+	<div class="dialog-content">
+		<div class="share-controls">
+			<button id="share-url">Share Raw Url</button>
+			<button id="share-md">Share Discord Link</button>
+		</div>
+		<textarea id="share-link-text" readonly rows="5"></textarea>
+	</div>
+</dialog>
+<button id="share-btn" disabled>Share</button>
 </div>
 
 <form id="character-sheet">
