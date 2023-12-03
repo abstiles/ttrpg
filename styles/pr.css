@@ -67,7 +67,7 @@ fieldset {
   margin: 5px 0;
 }
 legend {
-  display: inline-block;
+  margin: auto;
   background-color: var(--color);
   color: var(--background-color);
   font-weight: bold;
@@ -127,6 +127,9 @@ legend {
   #weapons .item-fields {
     grid-template-columns: repeat(3, 1fr);
   }
+  .cols2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 @media print {
   #summary {
@@ -143,6 +146,9 @@ legend {
   }
   #weapons .item-fields {
     grid-template-columns: repeat(3, 1fr);
+  }
+  .cols2 {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 #summary .basics {
@@ -283,4 +289,8 @@ legend {
 }
 .item-table + .item-table {
   border-top: 1px solid var(--color);
+}
+.cols2 {
+  display: grid;
+  column-gap: 5px;
 }
