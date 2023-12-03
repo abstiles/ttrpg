@@ -300,6 +300,9 @@ legend {
   display: grid;
   column-gap: 5px;
 }
+#zord-name {
+  text-align: center;
+}
 #zord-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
