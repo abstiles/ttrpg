@@ -90,6 +90,7 @@ function getScrollHeight(elem) {
 		const characterSheet = document.getElementById('character-sheet');
 		const charSelect = document.getElementById('load-character');
 		const shareButton = document.getElementById('share-btn');
+		const downloadButton = document.getElementById('download-btn');
 		const shareDialog = document.getElementById('share-dialog');
 		const shareLinkText = document.getElementById('share-link-text');
 		const shareUrl = document.getElementById('share-url');
@@ -256,6 +257,7 @@ function getScrollHeight(elem) {
 			newButton.disabled = true;
 			deleteButton.disabled = true;
 			shareButton.disabled = true;
+			downloadButton.disabled = true;
 		};
 
 		const enableForm = function() {
@@ -263,6 +265,7 @@ function getScrollHeight(elem) {
 			newButton.disabled = false;
 			deleteButton.disabled = false;
 			shareButton.disabled = false;
+			downloadButton.disabled = false;
 		};
 
 		const isFormEnabled = function() {
@@ -454,6 +457,19 @@ function getScrollHeight(elem) {
 				: navigator.clipboard.writeText(link)
 			).then(() => closeShareModal());
 		}
+		downloadButton.onclick = function() {
+			const content = JSON.stringify(getChar());
+			const mimeType = 'text/plain;charset=utf-8;';
+			const name = getCurrentCharacterName().toLowerCase().replaceAll(' ', '-');
+			const filename = `${name}.jcs`;
+
+			const a = document.createElement('a');
+			const blob = new Blob([content], {type: mimeType});
+			const url = URL.createObjectURL(blob);
+			a.setAttribute('href', url);
+			a.setAttribute('download', filename);
+			a.click();
+		};
 	}
 
 	if (document.readyState === "loading") {
