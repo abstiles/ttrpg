@@ -210,7 +210,7 @@ function getScrollHeight(elem) {
 			textFields.forEach(item => { item.value = ""; });
 		};
 
-		const load = function(data) {
+		const load = function(data, shouldShare) {
 			let characterId = data?.get('character')?.toLowerCase();
 			let char = getCharacterMap()[characterId];
 			if (char) {
@@ -227,6 +227,13 @@ function getScrollHeight(elem) {
 				enableForm();
 			} else {
 				loadForm();
+			}
+
+			if (shouldShare) {
+				const here = new URL(window.location);
+				here.hash = '';
+				history.replaceState({}, '', here);
+				compressAndShare();
 			}
 		};
 
@@ -298,7 +305,7 @@ function getScrollHeight(elem) {
 		}
 
 		const share = function(link) {
-			const shareObject = {"url": link};
+			const shareObject = {'url': link};
 			if (navigator.canShare && navigator.canShare(shareObject)) {
 				return navigator.share(shareObject);
 			}
@@ -307,20 +314,31 @@ function getScrollHeight(elem) {
 
 		const showShareModal = function(link) {
 			shareLinkText.value = link;
-			window.history.pushState({ isPopup: true }, '');
+			window.location.hash = 'share';
 			shareDialog.showModal();
 		}
 
 		const closeShareModal = function() {
 			shareDialog.close();
-			if (window.history.state?.isPopup) {
+			if (window.location.hash === '#share') {
 				window.history.back();
 			}
 		}
 
+		const compressAndShare = function() {
+			getCompressedForm()
+				.then(dataStr => {
+					const params = new URLSearchParams();
+					params.set('d', dataStr);
+					const thisPage = window.location.origin + window.location.pathname;
+					const link = `${thisPage}?${params.toString()}`;
+					showShareModal(link);
+				});
+		}
+
 		// Character sheet should start disabled.
 		disableForm();
-		load(queryParams());
+		load(queryParams(), window.location.hash === '#share');
 
 		// Save updated setting whenever an input is changed.
 		radioButtons.forEach(item => {
@@ -394,9 +412,11 @@ function getScrollHeight(elem) {
 			updateFormState();
 			loadForm();
 		});
-		window.addEventListener('popstate', event => {
-			if (event.state?.isPopup) {
-				shareDialog.close();
+		window.addEventListener('hashchange', event => {
+			const fromUrl = new URL(event.oldURL);
+			const toUrl = new URL(event.newURL);
+			if (fromUrl.hash === "#share" && !toUrl.hash) {
+				shareDialog.close()
 			}
 		});
 
@@ -418,16 +438,7 @@ function getScrollHeight(elem) {
 				closeShareModal();
 			}
 		}
-		shareButton.onclick = function() {
-			getCompressedForm()
-				.then(dataStr => {
-					const params = new URLSearchParams();
-					params.set('d', dataStr);
-					const thisPage = window.location.origin + window.location.pathname;
-					const link = `${thisPage}?${params.toString()}`;
-					showShareModal(link);
-				});
-		}
+		shareButton.onclick = compressAndShare;
 		shareUrl.onclick = function() {
 			share(shareLinkText.value);
 			closeShareModal();
