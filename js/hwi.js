@@ -187,6 +187,12 @@ function getScrollHeight(elem) {
 					item.value = "";
 				}
 			});
+			// Trigger any updates keyed to changes.
+			textareas.forEach(item => {
+				if (item.value) {
+					item.dispatchEvent(new Event('change'));
+				}
+			});
 		};
 
 		const clearForm = function() {
@@ -320,6 +326,19 @@ function getScrollHeight(elem) {
 				this.style.height = "";
 				this.style.height = getScrollHeight(this) + "px";
 			});
+			item.addEventListener('change', () => {
+				// Trigger all resizes.
+				textareas.forEach(other => {
+					other.style.height = "";
+					other.style.height = getScrollHeight(other) + "px";
+				});
+			});
+		});
+		// Trigger any updates keyed to changes.
+		textareas.forEach(item => {
+			if (item.value) {
+				item.dispatchEvent(new Event('change'));
+			}
 		});
 		character.addEventListener('change', () => {
 			let characterId = getCurrentCharacterName().toLowerCase();
