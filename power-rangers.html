@@ -315,6 +315,10 @@ skills:
 			{% else %}
 				<h3 class="name">{{ ability | capitalize }}</h3>
 			{% endcase %}
+				<span class="overlabeled">
+					<label>&nbsp;</label>
+					<input type="radio" name="zord-{{ ability }}" id="zord-{{ ability }}-0" value="0" selected>
+				</span>
 			{% case ability %}
 			{% when "conditioning" %}
 				{% for i in (1..6) %}
