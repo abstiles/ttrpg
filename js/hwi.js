@@ -124,12 +124,12 @@ function getScrollHeight(elem) {
 		};
 
 		const setChar = function(key, value) {
-			if (!key) {
+			const currentName = getCurrentCharacterName();
+			if (!key || !currentName) {
 				return;
 			}
-			let characters = getCharacterMap();
-			let currentName = getCurrentCharacterName();
-			let currentChar = getChar();
+			const characters = getCharacterMap();
+			const currentChar = getChar();
 			currentChar[key] = value;
 			currentChar._canonCase = currentName;
 			characters[currentName.toLowerCase()] = currentChar;
