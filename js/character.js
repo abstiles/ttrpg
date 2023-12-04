@@ -473,7 +473,7 @@
 		}
 		downloadButton.onclick = function() {
 			const content = JSON.stringify(getChar());
-			const mimeType = 'text/plain;charset=utf-8;';
+			const mimeType = 'attachment/plain;';
 			const name = getCurrentCharacterName().toLowerCase().replaceAll(' ', '-');
 			const filename = `${name}.jcs`;
 
