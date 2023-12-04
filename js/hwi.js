@@ -85,6 +85,8 @@ function getScrollHeight(elem) {
 
 	const startup = function() {
 		const character = document.getElementById('character');
+		const newCharacterPrompt = document.getElementById('new-character-prompt');
+		const uploadFile = document.getElementById('upload-file');
 		const newButton = document.getElementById('new-btn');
 		const deleteButton = document.getElementById('delete-btn');
 		const characterSheet = document.getElementById('character-sheet');
@@ -253,6 +255,7 @@ function getScrollHeight(elem) {
 		};
 
 		const disableForm = function() {
+			newCharacterPrompt.removeAttribute('disabled');
 			characterSheet.setAttribute('disabled', '');
 			newButton.disabled = true;
 			deleteButton.disabled = true;
@@ -261,6 +264,7 @@ function getScrollHeight(elem) {
 		};
 
 		const enableForm = function() {
+			newCharacterPrompt.setAttribute('disabled', '');
 			characterSheet.removeAttribute('disabled');
 			newButton.disabled = false;
 			deleteButton.disabled = false;
@@ -430,6 +434,16 @@ function getScrollHeight(elem) {
 				populateCharacterSelect();
 			}
 		};
+		uploadFile.onchange = function(event) {
+			const file = event.target.files[0];
+			const reader = new FileReader();
+			reader.readAsText(file,'UTF-8');
+			reader.onload = readerEvent => {
+				const content = readerEvent.target.result;
+				loadForm(JSON.parse(content));
+				enableForm();
+			}
+		}
 		newButton.onclick = function() {
 			if (getCurrentCharacterName().length > 0) {
 				save();
