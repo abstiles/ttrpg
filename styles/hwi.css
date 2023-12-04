@@ -1,0 +1,77 @@
+@media screen and (min-width:768px) {
+  form {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1em;
+  }
+}
+@media print {
+  form {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1em;
+  }
+  .character-controls {
+    display: none;
+  }
+}
+@page {
+  size: A4;
+}
+form {
+  display: grid;
+}
+.block {
+  display: grid;
+  break-inside: avoid;
+}
+#multipass {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+#multipass label {
+  margin-right: 1em;
+}
+table {
+  border-spacing: 5px 0;
+}
+table td {
+  text-align: center;
+}
+textarea {
+  width: auto;
+}
+#specialties input[type="text"] {
+  display: table-cell;
+  width: calc(100% - 10px);
+}
+#status {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-auto-flow: column;
+}
+#status input {
+  font-family: var(--sans);
+  font-size: 18pt;
+}
+#harm {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 0.5em;
+}
+textarea::placeholder {
+  text-align: right;
+}
+input#character {
+  display: block;
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  font-size: xx-large;
+  background: transparent;
+  border: none;
+}
+.character-controls {
+  text-align: center;
+}
+#character-sheet[disabled] {
+  display: none;
+}

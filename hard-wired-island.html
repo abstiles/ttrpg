@@ -1,96 +1,28 @@
 ---
 title: Hard Wired Island
-script: js/hwi.js
-style: |-
-  @media screen and (min-width:768px) {
-    form {
-      grid-template-columns: 1fr 1fr;
-      column-gap: 1em;
-    }
-  }
-  @media print {
-    form {
-      grid-template-columns: 1fr 1fr;
-      column-gap: 1em;
-    }
-    .character-controls {
-      display: none;
-    }
-  }
-  @page {
-    size: A4;
-  }
-  form {
-    display: grid;
-  }
-  .block {
-    display: grid;
-    break-inside: avoid;
-  }
-  #multipass {
-    display: grid;
-    grid-template-columns: auto 1fr;
-  }
-  #multipass label {
-    margin-right: 1em;
-  }
-  table {
-    border-spacing: 5px 0;
-  }
-  table td {
-    text-align: center;
-  }
-  textarea {
-    width: auto;
-  }
-  #specialties input[type="text"] {
-    display: table-cell;
-    width: calc(100% - 10px);
-  }
-  #status {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-auto-flow: column;
-  }
-  #status input {
-    font-family: var(--sans);
-    font-size: 18pt;
-  }
-  #harm {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 0.5em;
-  }
-  textarea::placeholder {
-    text-align: right;
-  }
-  input#character {
-    display: block;
-    width: 80%;
-    margin: auto;
-    text-align: center;
-    font-size: xx-large;
-    background: transparent;
-    border: none;
-  }
-  .character-controls {
-    text-align: center;
-  }
-  #character-sheet[disabled] {
-    display: none;
-  }
 ---
-<main>
-<input type="text" id="character" placeholder="New Character" autofocus>
-
-<div class="character-controls">
-<button id="new-btn" disabled>New Character</button>
-<button id="delete-btn" disabled>Delete Character</button>
-<select id="load-character" required>
-<option selected disabled hidden value="">Load Character</option>
-</select>
-<button id="share-btn" disabled>Share Snapshot</button>
-</div>
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>{{ page.title }}</title>
+	<link rel="stylesheet" href="{{ 'styles/base.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/light.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/dark.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/hwi.css' | relative_url }}">
+	<script src="js/character.js"></script>
+	<script src="js/hwi.js"></script>
+	<script src="{{ 'js/settings.js' | relative_url }}"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<meta name="robots" content="noindex">
+	<meta property="og:site_name" content="TTRPG Stuff">
+	<meta property="og:title" content="{{ page.title }}">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="{{ page.url | absolute_url }}">
+</head>
+<body>
+{% include header.html %}
+{% include character-controls.html %}
 
 <form id="character-sheet">
 <div class="column">
@@ -276,4 +208,6 @@ style: |-
 
 </div> <!-- end column -->
 </form>
-</main>
+
+</body>
+</html>

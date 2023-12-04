@@ -41,7 +41,7 @@ skills:
 	<link rel="stylesheet" href="{{ 'styles/light.css' | relative_url }}">
 	<link rel="stylesheet" href="{{ 'styles/dark.css' | relative_url }}">
 	<link rel="stylesheet" href="{{ 'styles/pr.css' | relative_url }}">
-	<script src="js/hwi.js"></script>
+	<script src="js/character.js"></script>
 	<script src="js/pr.js"></script>
 	<script src="{{ 'js/settings.js' | relative_url }}"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,32 +54,7 @@ skills:
 </head>
 <body>
 {% include header.html %}
-
-<main>
-<input type="text" id="character" placeholder="New Character" autofocus>
-
-<div class="character-controls">
-<div id="new-character-prompt">
-	<label for="upload-file">Type a new character name above or upload a character sheet file:</label>
-	<input id="upload-file" type="file" accept=".jcs">
-</div>
-<button id="new-btn" disabled>New Character</button>
-<button id="delete-btn" disabled>Delete Character</button>
-<select id="load-character" required>
-<option selected disabled hidden value="">Load Character</option>
-</select>
-<dialog id="share-dialog">
-	<div class="dialog-content">
-		<div class="share-controls">
-			<button id="share-url">Share Raw Url</button>
-			<button id="share-md">Share Discord Link</button>
-		</div>
-		<textarea id="share-link-text" readonly rows="5"></textarea>
-	</div>
-</dialog>
-<button id="share-btn" disabled>Share</button>
-<button id="download-btn" disabled>Download</button>
-</div>
+{% include character-controls.html %}
 
 <form id="character-sheet">
 <fieldset id="summary">
@@ -411,7 +386,6 @@ skills:
 	</div>
 </div>
 </form>
-</main>
 
 </body>
 </html>

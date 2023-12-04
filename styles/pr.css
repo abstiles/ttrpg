@@ -1,57 +1,54 @@
-@media print {
-  .character-controls {
-    display: none !important;
-  }
-  input#character {
-    display: none !important;
-  }
-  h1#site-header {
-    font-size: 24pt !important;
-  }
-  #stats-cols .stat .skill input[type="text"] {
-    font-size: x-small !important;
-  }
-}
 @page {
   size: legal;
+}
+@media screen and (min-width:420px) {
+  #zord-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (min-width:768px) {
+  #summary {
+    grid-template-columns: 4fr 3fr;
+  }
+  #combat-info {
+    grid-template-columns: 4fr 5fr;
+  }
+  #stats-cols {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  #addl-abilities {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  #weapons .item-fields {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .cols2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media print {
+  #summary {
+    grid-template-columns: 4fr 3fr;
+  }
+  #combat-info {
+    grid-template-columns: 4fr 5fr;
+  }
+  #stats-cols {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  #addl-abilities {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  #weapons .item-fields {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .cols2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 .block {
   display: grid;
   break-inside: avoid;
-}
-input#character {
-  display: block;
-  width: 80%;
-  margin: auto;
-  text-align: center;
-  font-size: xx-large;
-  background: transparent;
-  border: none;
-}
-.character-controls {
-  text-align: center;
-}
-.character-controls button, .character-controls select {
-  font-size: inherit;
-  margin: 5px 2.5px;
-}
-.character-controls select {
-  height: 1.5em;
-}
-#share-dialog::backdrop {
-  background-color: rgba(0, 0, 0, 60%)
-}
-#character-sheet[disabled], #new-character-prompt[disabled] {
-  display: none;
-}
-#new-character-prompt label {
-  display: block;
-  margin-bottom: 5px;
-}
-#upload-file {
-  border: 1px solid var(--background-accent);
-  background-color: var(--background-accent);
-  border-radius: 5px;
 }
 #summary {
   display: grid;
@@ -135,51 +132,6 @@ label {
   margin-top: 5px;
   padding: 0;
   border: 0;
-}
-@media screen and (min-width:420px) {
-  #zord-stats {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media screen and (min-width:768px) {
-  #summary {
-    grid-template-columns: 4fr 3fr;
-  }
-  #combat-info {
-    grid-template-columns: 4fr 5fr;
-  }
-  #stats-cols {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  #addl-abilities {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  #weapons .item-fields {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .cols2 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media print {
-  #summary {
-    grid-template-columns: 4fr 3fr;
-  }
-  #combat-info {
-    grid-template-columns: 4fr 5fr;
-  }
-  #stats-cols {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  #addl-abilities {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  #weapons .item-fields {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .cols2 {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 #summary .basics {
   display: grid;
@@ -358,22 +310,4 @@ label {
 #zord .row {
   display: flex;
   justify-content: space-around;
-}
-#share-dialog {
-  height: 60vh;
-  width: min(75vw, calc(768px * 0.75));
-  padding: 0;
-}
-#share-dialog::backdrop {
-  background-color: rgba(0, 0, 0, 60%)
-}
-#share-dialog .dialog-content {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  box-sizing: border-box;
-  height: 100%;
-}
-#share-link-text {
-  word-break: break-all;
 }
