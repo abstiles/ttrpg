@@ -1,0 +1,53 @@
+@media screen and (min-width:768px) {
+  .collapsing-2col {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media print {
+  .collapsing-2col {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@page {
+  size: letter;
+}
+form {
+  display: flex;
+  flex-wrap: wrap;
+}
+form > * {
+  flex: 1;
+}
+textarea {
+  width: auto;
+  height: 100%;
+  font-size: small;
+}
+.underlabeled {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column-reverse;
+}
+.overlabeled {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+}
+.underlabeled label, .overlabeled label {
+  font-family: var(--sans);
+  font-size: x-small;
+  line-height: 1;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.item-table:has(.item-name:placeholder-shown) .item-fields {
+  display: none;
+}
+.item-table:has(.item-name:placeholder-shown) + .item-table:has(.item-name:placeholder-shown) {
+    display: none;
+}
+
+.item-fields {
+  display: grid;
+}

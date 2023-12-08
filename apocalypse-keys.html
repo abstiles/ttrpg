@@ -1,0 +1,110 @@
+---
+title: Apocalypse Keys
+---
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>{{ page.title }}</title>
+	<link rel="stylesheet" href="{{ 'styles/base.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/light.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/dark.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/character-sheet.css' | relative_url }}">
+	<script src="js/character.js"></script>
+	<script src="{{ 'js/settings.js' | relative_url }}"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<meta name="robots" content="noindex">
+	<meta property="og:site_name" content="TTRPG Stuff">
+	<meta property="og:title" content="{{ page.title }}">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="{{ page.url | absolute_url }}">
+</head>
+<body>
+{% include header.html %}
+{% include character-controls.html %}
+
+<form id="character-sheet">
+
+	<div id="summary">
+		<div class="overlabeled">
+			<label for="character-name">Name</label>
+			<input type="text" id="character-name" name="character-name" />
+		</div>
+		{% assign fields = "pronouns,playbook" | split: "," %}
+		{% for field in fields %}
+		<div class="overlabeled">
+			<label for="{{ field }}">{{ field | capitalize }}</label>
+			<input type="text" id="{{ field }}" name="{{ field }}" />
+		</div>
+		{% endfor %}
+	</div>
+
+	<div class="overlabeled">
+		<label for="look">Look</label>
+		<textarea type="text" id="look" name="look" rows="2"></textarea>
+	</div>
+
+	<div class="overlabeled">
+		<label for="origin">Origin</label>
+		<textarea type="text" id="origin" name="origin" rows="2"></textarea>
+	</div>
+
+	<div class="overlabeled">
+		<label for="background-question">Background Question</label>
+		<textarea type="text" id="background-question" name="background-question" rows="3"></textarea>
+	</div>
+
+	<div class="overlabeled">
+		<label for="darkness-tokens">Darkness Tokens</label>
+		<textarea type="text" id="darkness-tokens" name="darkness-tokens" rows="6"></textarea>
+	</div>
+
+	<div id="xp-track" class="overlabeled">
+		<label>Experience</label>
+		<div class="radio-array">
+		{% for i in (0..8) %}
+			<span class="overlabeled">
+				<label for="xp-{{ i }}">{{ i }}</label>
+				<input type="radio" name="xp" id="xp-{{ i }}" value="{{ i }}" />
+			</span>
+		{% endfor %}
+		</div>
+	</div>
+
+	<div id="ruin-track" class="overlabeled">
+		<label>Ruin</label>
+		<div class="radio-array">
+		{% for i in (0..5) %}
+			<span class="overlabeled">
+				<label for="ruin-{{ i }}">{{ i }}</label>
+				<input type="radio" name="ruin" id="ruin-{{ i }}" value="{{ i }}" />
+			</span>
+		{% endfor %}
+		</div>
+	</div>
+
+	<div class="overlabeled">
+		<label for="darkness-powers">Powers of Darkness</label>
+		<textarea type="text" id="darkness-powers" name="darkness-powers" rows="6"></textarea>
+	</div>
+
+	<div class="overlabeled">
+		<label for="darkness-demands">What the Darkness Demands of You</label>
+		<textarea type="text" id="darkness-demands" name="darkness-demands" rows="6"></textarea>
+	</div>
+
+<fieldset id="moves" class="item-table-list">
+	<legend>Moves</legend>
+	{% for move in (0..5) %}
+	<div id="move{{ move }}" class="item-table">
+		<input class="item-name" type="text" name="move{{ move }}-name" placeholder="Move">
+		<div class="item-fields">
+			<textarea name="move{{ move }}-description" id="move{{ move }}-description" rows="5"></textarea>
+		</div>
+	</div>
+	{% endfor %}
+</fieldset>
+
+</form>
+</body>
+</html>
