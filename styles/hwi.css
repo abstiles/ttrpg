@@ -99,9 +99,21 @@ textarea {
 
 #harm {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   column-gap: 0.5em;
 }
+#harm .harm-effect {
+  text-align: right;
+  font-size: small;
+  font-family: var(--sans);
+  opacity: 65%;
+}
+#harm input:checked + label + .harm-effect {
+  color: red;
+  opacity: 1;
+  font-weight: bold;
+}
+
 textarea::placeholder {
   text-align: right;
 }
