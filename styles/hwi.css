@@ -45,13 +45,52 @@ textarea {
 }
 #status {
   display: grid;
-  grid-template-rows: 1fr 1fr;
   grid-auto-flow: column;
+  justify-items: center;
 }
 #status input {
   font-family: var(--sans);
   font-size: 18pt;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  background: none;
+  border: none;
+  border-radius: 25px;
+  box-sizing: border-box;
+  padding: 0;
 }
+#status label {
+  font-size: medium;
+  text-align: center;
+}
+#status .status-circle {
+  aspect-ratio: 1;
+  position: relative;
+  height: 50px;
+  width: 50px;
+}
+#status .status-circle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 5px; /* border thickness */
+  background: #a700ce; /* border color */
+  mask:
+      linear-gradient(#0000 0 0) content-box,
+      conic-gradient(
+         from 30deg,
+         #000  0      55deg,
+         #0000 55deg  65deg,
+         #000  65deg  235deg,
+         #0000 235deg 245deg,
+         #000  245deg 350deg,
+         #0000 350deg
+       );
+  mask-composite: intersect;
+}
+
 #harm {
   display: grid;
   grid-template-columns: auto 1fr;

@@ -8,6 +8,7 @@ title: Hard Wired Island
 	<link rel="stylesheet" href="{{ 'styles/base.css' | relative_url }}">
 	<link rel="stylesheet" href="{{ 'styles/light.css' | relative_url }}">
 	<link rel="stylesheet" href="{{ 'styles/dark.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/character-sheet.css' | relative_url }}">
 	<link rel="stylesheet" href="{{ 'styles/hwi.css' | relative_url }}">
 	<script src="js/character.js"></script>
 	<script src="js/hwi.js"></script>
@@ -160,12 +161,24 @@ title: Hard Wired Island
 <div class="column">
 
 <div id="status">
-<label for="burden">Burden</label>
-<input size="2" type="text" id="burden" name="burden">
-<label for="cash">Cash</label>
-<input size="2" type="text" id="cash" name="cash">
-<label for="prep">Prep</label>
-<input size="2" type="text" id="prep" name="prep">
+<span class="underlabeled">
+  <label for="burden">Burden</label>
+  <div class="status-circle">
+    <input size="2" type="text" id="burden" name="burden">
+  </div>
+</span>
+<span class="underlabeled">
+  <label for="cash">Cash</label>
+  <div class="status-circle">
+    <input size="2" type="text" id="cash" name="cash">
+  </div>
+</span>
+<span class="underlabeled">
+  <label for="prep">Prep</label>
+  <div class="status-circle">
+    <input size="2" type="text" id="prep" name="prep">
+  </div>
+</span>
 </div>
 
 <div class="block">
