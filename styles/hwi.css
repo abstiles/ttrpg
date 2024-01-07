@@ -175,3 +175,7 @@ input#character {
   gap: 10px;
   margin-top: 5px;
 }
+
+abbr {
+  text-decoration: none;
+}
