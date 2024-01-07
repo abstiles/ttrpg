@@ -23,6 +23,9 @@ form {
   display: grid;
   break-inside: avoid;
 }
+.block label, fieldset {
+  margin-top: 5px;
+}
 #multipass {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -32,6 +35,8 @@ form {
 }
 table {
   border-spacing: 5px 0;
+  width: 100%;
+  margin: 5px 0;
 }
 table td {
   text-align: center;
