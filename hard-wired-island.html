@@ -26,7 +26,7 @@ title: Hard Wired Island
 {% include character-controls.html %}
 
 <form id="character-sheet">
-<div class="column">
+<div class="name-column column">
 
 <fieldset id="multipass">
 <legend>Grand Cross Multipass</legend>
@@ -35,7 +35,41 @@ title: Hard Wired Island
 <label for="pronouns">Pronouns:</label><input type="text" id="pronouns" name="pronouns">
 <label for="player">Player:</label><input type="text" id="player" name="player">
 </fieldset>
+<div class="experience">
+<label for="xp">Experience:</label>
+<input type="text" id="xp" name="xp" size="2">
+</div>
+</div>
 
+<div class="stats-column column">
+<div id="status">
+<span class="underlabeled">
+  <label for="burden">Burden</label>
+  <div class="status-circle">
+    <input size="2" type="text" id="burden" name="burden">
+  </div>
+</span>
+<span class="underlabeled">
+  <label for="cash">Cash</label>
+  <div class="status-circle">
+    <input size="2" type="text" id="cash" name="cash">
+  </div>
+</span>
+<span class="underlabeled">
+  <label for="prep">Prep</label>
+  <div class="status-circle">
+    <input size="2" type="text" id="prep" name="prep">
+  </div>
+</span>
+</div>
+
+<div class="block">
+<label for="occupations">Occupations</label>
+<textarea id="occupations" name="occupations" rows="1"></textarea>
+</div>
+</div>
+
+<div class="column">
 <table id="stats">
   <tr>
   <td></td>
@@ -89,33 +123,8 @@ title: Hard Wired Island
 </table>
 
 </div> <!-- end column -->
+
 <div class="column">
-
-<div id="status">
-<span class="underlabeled">
-  <label for="burden">Burden</label>
-  <div class="status-circle">
-    <input size="2" type="text" id="burden" name="burden">
-  </div>
-</span>
-<span class="underlabeled">
-  <label for="cash">Cash</label>
-  <div class="status-circle">
-    <input size="2" type="text" id="cash" name="cash">
-  </div>
-</span>
-<span class="underlabeled">
-  <label for="prep">Prep</label>
-  <div class="status-circle">
-    <input size="2" type="text" id="prep" name="prep">
-  </div>
-</span>
-</div>
-
-<div class="block">
-<label for="occupations">Occupations</label>
-<textarea id="occupations" name="occupations" rows="1"></textarea>
-</div>
 <div class="block">
 <label for="talents">Talents</label>
 <textarea id="talents" name="talents" rows="10"></textarea>
