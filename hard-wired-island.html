@@ -43,40 +43,23 @@ title: Hard Wired Island
   <th id="stat1" scope="col">+1</th>
   <th id="stat2" scope="col">+2</th>
   <th id="stat3" scope="col">+3</th>
+  <th id="stat-defense-bonus" scope="col">Bonus</th>
   <th id="stat-defense" scope="col">Defense</th>
   </tr>
+  {% assign stats = "cool,clever,tough,quick" | split: "," %}
+  {% for stat in stats %}
   <tr>
-  <th id="stat-cool" scope="row">Cool</th>
-  <td><input type="radio" name="cool" value="0" aria-labelledby="stat-cool stat0"></td>
-  <td><input type="radio" name="cool" value="1" aria-labelledby="stat-cool stat1"></td>
-  <td><input type="radio" name="cool" value="2" aria-labelledby="stat-cool stat2"></td>
-  <td><input type="radio" name="cool" value="3" aria-labelledby="stat-cool stat3"></td>
-  <td><input size="10" type="text" id="cool-defense" aria-labelledby="stat-cool stat-defense"></td>
+    <th id="stat-{{ stat }}" scope="row">{{ stat | capitalize }}</th>
+    <td><input type="radio" name="{{ stat }}" value="0" aria-labelledby="stat-{{ stat }} stat0"></td>
+    <td><input type="radio" name="{{ stat }}" value="1" aria-labelledby="stat-{{ stat }} stat1"></td>
+    <td><input type="radio" name="{{ stat }}" value="2" aria-labelledby="stat-{{ stat }} stat2"></td>
+    <td><input type="radio" name="{{ stat }}" value="3" aria-labelledby="stat-{{ stat }} stat3"></td>
+    <td><div class="stat-bonus">
+      <input size="2" type="text" name="{{ stat }}-defense-bonus" id="{{ stat }}-defense-bonus" aria-labelledby="stat-{{ stat }} stat-defense-bonus">
+      </div></td>
+    <td><input size="2" type="text" name="{{ stat }}-defense" id="{{ stat }}-defense" aria-labelledby="stat-{{ stat }} stat-defense"></td>
   </tr>
-  <tr>
-  <th id="stat-clever" scope="row">Clever</th>
-  <td><input type="radio" name="clever" value="0" aria-labelledby="stat-clever stat0"></td>
-  <td><input type="radio" name="clever" value="1" aria-labelledby="stat-clever stat1"></td>
-  <td><input type="radio" name="clever" value="2" aria-labelledby="stat-clever stat2"></td>
-  <td><input type="radio" name="clever" value="3" aria-labelledby="stat-clever stat3"></td>
-  <td><input size="10" type="text" id="clever-defense" aria-labelledby="stat-clever stat-defense"></td>
-  </tr>
-  <tr>
-  <th id="stat-tough" scope="row">Tough</th>
-  <td><input type="radio" name="tough" value="0" aria-labelledby="stat-tough stat0"></td>
-  <td><input type="radio" name="tough" value="1" aria-labelledby="stat-tough stat1"></td>
-  <td><input type="radio" name="tough" value="2" aria-labelledby="stat-tough stat2"></td>
-  <td><input type="radio" name="tough" value="3" aria-labelledby="stat-tough stat3"></td>
-  <td><input size="10" type="text" id="tough-defense" aria-labelledby="stat-tough stat-defense"></td>
-  </tr>
-  <tr>
-  <th id="stat-quick" scope="row">Quick</th>
-  <td><input type="radio" name="quick" value="0" aria-labelledby="stat-quick stat0"></td>
-  <td><input type="radio" name="quick" value="1" aria-labelledby="stat-quick stat1"></td>
-  <td><input type="radio" name="quick" value="2" aria-labelledby="stat-quick stat2"></td>
-  <td><input type="radio" name="quick" value="3" aria-labelledby="stat-quick stat3"></td>
-  <td><input size="10" type="text" id="quick-defense" aria-labelledby="stat-quick stat-defense"></td>
-  </tr>
+  {% endfor %}
 </table>
 
 <div class="block">

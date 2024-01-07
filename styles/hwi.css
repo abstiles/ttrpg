@@ -114,3 +114,24 @@ input#character {
 #character-sheet[disabled] {
   display: none;
 }
+
+#stat-defense-bonus {
+  padding: 0 25px;
+}
+.stat-bonus::before {
+  content: "+";
+  margin-left: 10px;
+  position: absolute;
+  left: 0;
+}
+.stat-bonus::after {
+  content: "+ 7 =";
+  padding-left: 10px;
+  margin-right: -10px;
+  position: absolute;
+  right: 0;
+}
+
+.stat-bonus {
+  position: relative;
+}
