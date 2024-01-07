@@ -195,7 +195,7 @@
 					// Trigger any updates keyed to inputs.
 					item.dispatchEvent(new Event('input'));
 				} else {
-					item.value = "";
+					item.value = item.getAttribute("value") ?? "";
 				}
 			});
 			// Trigger any updates keyed to changes.
@@ -210,7 +210,7 @@
 			const isDefault = item => item.hasAttribute('selected');
 			radioButtons.forEach(item => { item.checked = isDefault(item); });
 			checkboxes.forEach(item => { item.checked = isDefault(item); });
-			textFields.forEach(item => { item.value = ""; });
+			textFields.forEach(item => { item.value = item.getAttribute("value") ?? ""; });
 		};
 
 		const load = function(data, shouldShare) {
