@@ -152,6 +152,10 @@ input#character {
   align-items: end;
 }
 
+#stats input {
+  text-align: center;
+}
+
 .experience {
   display: flex;
   justify-content: center;
