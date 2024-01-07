@@ -95,66 +95,14 @@ title: Hard Wired Island
 <th scope="col" id="specialty-level2">+2</th>
 <th scope="col" id="specialty-level3">+3</th>
 </tr>
-<tr>
-  <td><input size="20" type="text" name="specialty0-name" aria-labelledby="specialty-name"></td>
-  <td><input type="radio" name="specialty0" value="1" aria-labelledby="specialty-level1"></td>
-  <td><input type="radio" name="specialty0" value="2" aria-labelledby="specialty-level2"></td>
-  <td><input type="radio" name="specialty0" value="3" aria-labelledby="specialty-level3"></td>
+{% for specialty in (0..14) %}
+<tr class="item-table">
+  <td><input class="item-name" size="20" type="text" name="specialty{{ specialty }}-name" aria-labelledby="specialty-name" placeholder="New Specialty"></td>
+  <td><input type="radio" name="specialty{{ specialty }}" value="1" aria-labelledby="specialty-level1"></td>
+  <td><input type="radio" name="specialty{{ specialty }}" value="2" aria-labelledby="specialty-level2"></td>
+  <td><input type="radio" name="specialty{{ specialty }}" value="3" aria-labelledby="specialty-level3"></td>
 </tr>
-<tr>
-  <td><input size="20" type="text" name="specialty1-name" aria-labelledby="specialty-name"></td>
-  <td><input type="radio" name="specialty1" value="1" aria-labelledby="specialty-level1"></td>
-  <td><input type="radio" name="specialty1" value="2" aria-labelledby="specialty-level2"></td>
-  <td><input type="radio" name="specialty1" value="3" aria-labelledby="specialty-level3"></td>
-</tr>
-<tr>
-  <td><input size="20" type="text" name="specialty2-name" aria-labelledby="specialty-name"></td>
-  <td><input type="radio" name="specialty2" value="1" aria-labelledby="specialty-level1"></td>
-  <td><input type="radio" name="specialty2" value="2" aria-labelledby="specialty-level2"></td>
-  <td><input type="radio" name="specialty2" value="3" aria-labelledby="specialty-level3"></td>
-</tr>
-<tr>
-  <td><input size="20" type="text" name="specialty3-name" aria-labelledby="specialty-name"></td>
-  <td><input type="radio" name="specialty3" value="1" aria-labelledby="specialty-level1"></td>
-  <td><input type="radio" name="specialty3" value="2" aria-labelledby="specialty-level2"></td>
-  <td><input type="radio" name="specialty3" value="3" aria-labelledby="specialty-level3"></td>
-</tr>
-<tr>
-  <td><input size="20" type="text" name="specialty4-name" aria-labelledby="specialty-name"></td>
-  <td><input type="radio" name="specialty4" value="1" aria-labelledby="specialty-level1"></td>
-  <td><input type="radio" name="specialty4" value="2" aria-labelledby="specialty-level2"></td>
-  <td><input type="radio" name="specialty4" value="3" aria-labelledby="specialty-level3"></td>
-</tr>
-<tr>
-  <td><input size="20" type="text" name="specialty5-name" aria-labelledby="specialty-name"></td>
-  <td><input type="radio" name="specialty5" value="1" aria-labelledby="specialty-level1"></td>
-  <td><input type="radio" name="specialty5" value="2" aria-labelledby="specialty-level2"></td>
-  <td><input type="radio" name="specialty5" value="3" aria-labelledby="specialty-level3"></td>
-</tr>
-<tr>
-  <td><input size="20" type="text" name="specialty6-name" aria-labelledby="specialty-name"></td>
-  <td><input type="radio" name="specialty6" value="1" aria-labelledby="specialty-level1"></td>
-  <td><input type="radio" name="specialty6" value="2" aria-labelledby="specialty-level2"></td>
-  <td><input type="radio" name="specialty6" value="3" aria-labelledby="specialty-level3"></td>
-</tr>
-<tr>
-  <td><input size="20" type="text" name="specialty7-name" aria-labelledby="specialty-name"></td>
-  <td><input type="radio" name="specialty7" value="1" aria-labelledby="specialty-level1"></td>
-  <td><input type="radio" name="specialty7" value="2" aria-labelledby="specialty-level2"></td>
-  <td><input type="radio" name="specialty7" value="3" aria-labelledby="specialty-level3"></td>
-</tr>
-<tr>
-  <td><input size="20" type="text" name="specialty8-name" aria-labelledby="specialty-name"></td>
-  <td><input type="radio" name="specialty8" value="1" aria-labelledby="specialty-level1"></td>
-  <td><input type="radio" name="specialty8" value="2" aria-labelledby="specialty-level2"></td>
-  <td><input type="radio" name="specialty8" value="3" aria-labelledby="specialty-level3"></td>
-</tr>
-<tr>
-  <td><input size="20" type="text" name="specialty9-name" aria-labelledby="specialty-name"></td>
-  <td><input type="radio" name="specialty9" value="1" aria-labelledby="specialty-level1"></td>
-  <td><input type="radio" name="specialty9" value="2" aria-labelledby="specialty-level2"></td>
-  <td><input type="radio" name="specialty9" value="3" aria-labelledby="specialty-level3"></td>
-</tr>
+{% endfor %}
 </table>
 
 </div> <!-- end column -->
@@ -183,7 +131,7 @@ title: Hard Wired Island
 
 <div class="block">
 <label for="occupations">Occupations</label>
-<textarea id="occupations" name="occupations" rows="3"></textarea>
+<textarea id="occupations" name="occupations" rows="1"></textarea>
 </div>
 <div class="block">
 <label for="talents">Talents</label>
@@ -195,7 +143,7 @@ title: Hard Wired Island
 </div>
 <div class="block">
 <label for="augmentations">Augmentations</label>
-<textarea id="augmentations" name="augmentations" rows="5"></textarea>
+<textarea id="augmentations" name="augmentations" rows="1"></textarea>
 </div>
 
 <fieldset id="harm">
