@@ -6,7 +6,7 @@
   --alt-accent-bg: rgb(228, 235, 237);
 }
 .right-column {
-  --accent-fg: rgb(176, 127, 172);
+  --accent-fg: rgb(125, 42, 116);
 }
 :root:has(#menu-theme-light:checked) {
   --accent-fg: rgb(33, 107, 130);
@@ -14,7 +14,7 @@
   --alt-accent-bg: rgb(228, 235, 237);
 }
 :root:has(#menu-theme-light:checked) .right-column {
-  --accent-fg: rgb(176, 127, 172);
+  --accent-fg: rgb(125, 42, 116);
 }
 :root[data-theme="light"] {
   --accent-fg: rgb(33, 107, 130);
@@ -22,7 +22,7 @@
   --alt-accent-bg: rgb(228, 235, 237);
 }
 :root[data-theme="light"] .right-column {
-  --accent-fg: rgb(176, 127, 172);
+  --accent-fg: rgb(125, 42, 116);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -202,7 +202,7 @@ textarea {
   inset: 0;
   border-radius: 50%;
   padding: 5px; /* border thickness */
-  background: #a700ce; /* border color */
+  background: var(--accent-fg); /* border color */
   mask:
       linear-gradient(#0000 0 0) content-box,
       conic-gradient(
