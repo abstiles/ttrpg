@@ -142,6 +142,7 @@ textarea {
   box-sizing: border-box;
   background-color: var(--background-color);
   border: 2px solid var(--accent-fg);
+  font-size: medium !important;
 }
 
 #specialties {
