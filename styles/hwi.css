@@ -1,36 +1,55 @@
 :root {
-  --light-blue: rgb(127, 176, 185);
-  --dark-blue: rgb(33, 107, 130);
-  --blue-fg: rgb(33, 107, 130);
-  --blue-bg: rgb(187, 207, 211);
-  --alt-blue-bg: rgb(228, 235, 237);
+  --light-accent: rgb(127, 176, 185);
+  --dark-accent: rgb(33, 107, 130);
+  --accent-fg: rgb(33, 107, 130);
+  --accent-bg: rgb(187, 207, 211);
+  --alt-accent-bg: rgb(228, 235, 237);
+}
+.right-column {
+  --accent-fg: rgb(176, 127, 172);
 }
 :root:has(#menu-theme-light:checked) {
-  --blue-fg: rgb(33, 107, 130);
-  --blue-bg: rgb(187, 207, 211);
-  --alt-blue-bg: rgb(228, 235, 237);
+  --accent-fg: rgb(33, 107, 130);
+  --accent-bg: rgb(187, 207, 211);
+  --alt-accent-bg: rgb(228, 235, 237);
+}
+:root:has(#menu-theme-light:checked) .right-column {
+  --accent-fg: rgb(176, 127, 172);
 }
 :root[data-theme="light"] {
-  --blue-fg: rgb(33, 107, 130);
-  --blue-bg: rgb(187, 207, 211);
-  --alt-blue-bg: rgb(228, 235, 237);
+  --accent-fg: rgb(33, 107, 130);
+  --accent-bg: rgb(187, 207, 211);
+  --alt-accent-bg: rgb(228, 235, 237);
 }
+:root[data-theme="light"] .right-column {
+  --accent-fg: rgb(176, 127, 172);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --blue-fg: rgb(106, 162, 182);
-    --blue-bg: rgb(51, 66, 71);
-    --alt-blue-bg: rgb(33, 39, 41);
+    --accent-fg: rgb(106, 162, 182);
+    --accent-bg: rgb(51, 66, 71);
+    --alt-accent-bg: rgb(33, 39, 41);
+  }
+  .right-column {
+    --accent-fg: rgb(149, 100, 145);
   }
 }
 :root:has(#menu-theme-dark:checked) {
-  --blue-fg: rgb(106, 162, 182);
-  --blue-bg: rgb(51, 66, 71);
-  --alt-blue-bg: rgb(33, 39, 41);
+  --accent-fg: rgb(106, 162, 182);
+  --accent-bg: rgb(51, 66, 71);
+  --alt-accent-bg: rgb(33, 39, 41);
+}
+:root:has(#menu-theme-dark:checked) .right-column {
+  --accent-fg: rgb(149, 100, 145);
 }
 :root[data-theme="dark"] {
-  --blue-fg: rgb(106, 162, 182);
-  --blue-bg: rgb(51, 66, 71);
-  --alt-blue-bg: rgb(33, 39, 41);
+  --accent-fg: rgb(106, 162, 182);
+  --accent-bg: rgb(51, 66, 71);
+  --alt-accent-bg: rgb(33, 39, 41);
+}
+:root[data-theme="dark"] .right-column {
+  --accent-fg: rgb(149, 100, 145);
 }
 
 @media screen and (min-width:768px) {
@@ -68,7 +87,7 @@ form {
   box-sizing: border-box;
   height: 200px;
   align-content: space-around;
-  background-color: var(--dark-blue);
+  background-color: var(--dark-accent);
   border: none;
   clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 0);
 }
@@ -79,7 +98,7 @@ form {
   font-size: small;
   font-weight: bold;
   font-family: var(--sans);
-  color: var(--light-blue);
+  color: var(--light-accent);
   padding-right: 5px;
   margin-left: -30px;
   margin-top: -10px;
@@ -89,7 +108,7 @@ form {
 }
 #multipass label {
   font-family: Impact;
-  color: var(--light-blue);
+  color: var(--light-accent);
 }
 
 #multipass input {
@@ -122,12 +141,12 @@ textarea {
   width: 100%;
   box-sizing: border-box;
   background-color: var(--background-color);
-  border: 2px solid var(--blue-fg);
+  border: 2px solid var(--accent-fg);
 }
 
 #specialties {
   border-spacing: 0;
-  border: 2px solid var(--blue-fg);
+  border: 2px solid var(--accent-fg);
 }
 #specialties input[type="text"] {
   display: table-cell;
@@ -202,7 +221,7 @@ textarea {
   display: grid;
   grid-template-columns: auto 1fr auto;
   column-gap: 0.5em;
-  border: 2px solid var(--blue-fg);
+  border: 2px solid var(--accent-fg);
   margin: 5px 0 0 0px;
   padding: 5px 10px;
 }
@@ -269,14 +288,14 @@ input#character {
 }
 
 #stats {
-  background-color: var(--blue-bg);
-  color: var(--blue-fg);
+  background-color: var(--accent-bg);
+  color: var(--accent-fg);
   border-spacing: 0;
   font-family: var(--sans);
   font-weight: bold;
 }
 #stats tr:nth-child(even) {
-  background-color: var(--alt-blue-bg);
+  background-color: var(--alt-accent-bg);
 }
 #stats input {
   text-align: center;
@@ -306,7 +325,7 @@ abbr {
   box-sizing: border-box;
   text-align: left;
   color: var(--background-color);
-  background-color: var(--blue-fg);
+  background-color: var(--accent-fg);
   font-weight: bold;
   padding: 2px 4px;
 }
