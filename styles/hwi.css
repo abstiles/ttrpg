@@ -53,6 +53,7 @@
 }
 form {
   display: grid;
+  font-family: var(--sans);
 }
 .block {
   display: grid;
@@ -118,12 +119,36 @@ table td {
   text-align: center;
 }
 textarea {
-  width: auto;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--background-color);
+  border: 2px solid var(--blue-fg);
+}
+
+#specialties {
+  border-spacing: 0;
+  border: 2px solid var(--blue-fg);
 }
 #specialties input[type="text"] {
   display: table-cell;
   width: calc(100% - 10px);
 }
+#specialties th:first-child {
+  padding-left: 5px;
+  text-align: left;
+}
+#specialties th:not(:first-child) {
+  text-align: center;
+}
+#specialties input[type="text"] {
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+#specialties tr:nth-child(odd):not(:first-child) {
+  background-color: var(--background-accent);
+}
+
 #status {
   display: grid;
   grid-auto-flow: column;
@@ -271,4 +296,19 @@ input#character {
 
 abbr {
   text-decoration: none;
+}
+
+.block > label, #harm legend, #specialties tr:first-child {
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  color: var(--background-color);
+  background-color: var(--blue-fg);
+  font-weight: bold;
+  padding: 2px 4px;
+}
+
+#harm legend {
+  width: calc(100% + 24px);
+  margin-left: -12px;
 }
