@@ -27,26 +27,26 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --accent-fg: rgb(106, 162, 182);
-    --accent-bg: rgb(51, 66, 71);
-    --alt-accent-bg: rgb(33, 39, 41);
+    --accent-fg: rgb(102, 168, 193);
+    --accent-bg: rgb(36, 55, 60);
+    --alt-accent-bg: rgb(14, 22, 24);
   }
   .right-column {
     --accent-fg: rgb(149, 100, 145);
   }
 }
 :root:has(#menu-theme-dark:checked) {
-  --accent-fg: rgb(106, 162, 182);
-  --accent-bg: rgb(51, 66, 71);
-  --alt-accent-bg: rgb(33, 39, 41);
+  --accent-fg: rgb(102, 168, 193);
+  --accent-bg: rgb(36, 55, 60);
+  --alt-accent-bg: rgb(14, 22, 24);
 }
 :root:has(#menu-theme-dark:checked) .right-column {
   --accent-fg: rgb(149, 100, 145);
 }
 :root[data-theme="dark"] {
-  --accent-fg: rgb(106, 162, 182);
-  --accent-bg: rgb(51, 66, 71);
-  --alt-accent-bg: rgb(33, 39, 41);
+  --accent-fg: rgb(102, 168, 193);
+  --accent-bg: rgb(36, 55, 60);
+  --alt-accent-bg: rgb(14, 22, 24);
 }
 :root[data-theme="dark"] .right-column {
   --accent-fg: rgb(149, 100, 145);
