@@ -302,6 +302,9 @@ input#character {
 #stats input {
   text-align: center;
 }
+#stats input[type="text"] {
+  width: 1.5em;
+}
 #stats tr {
   line-height: 2;
 }
