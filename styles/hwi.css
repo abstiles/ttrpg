@@ -202,6 +202,9 @@ textarea {
   display: grid;
   grid-template-columns: auto 1fr auto;
   column-gap: 0.5em;
+  border: 2px solid var(--blue-fg);
+  margin: 5px 0 0 0px;
+  padding: 5px 10px;
 }
 #harm .harm-effect {
   text-align: right;
