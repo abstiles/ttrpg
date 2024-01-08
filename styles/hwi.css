@@ -185,6 +185,7 @@ textarea {
   border-radius: 25px;
   box-sizing: border-box;
   padding: 0;
+  pointer-events: auto;
 }
 #status label {
   font-size: medium;
@@ -195,6 +196,7 @@ textarea {
   position: relative;
   height: 50px;
   width: 50px;
+  pointer-events: none;
 }
 #status .status-circle::after {
   content: "";
