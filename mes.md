@@ -7,3 +7,5 @@ title: TTRPG Stuff
 [Power Rangers](power-rangers)
 
 [Apocalypse Keys](apocalypse-keys)
+
+[Achtung! Cthulhu](achtung-cthulhu)

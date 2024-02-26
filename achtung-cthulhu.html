@@ -1,0 +1,232 @@
+---
+title: Achtung! Cthulhu
+style: |-
+  #stress { height: fit-content; }
+fields:
+  - Name
+  - Nationality
+  - Rank
+  - Archetype
+  - Background
+  - Characteristic
+skills:
+  - name: academia
+    focuses: ["Art", "Cryptography", "Finance", "History", "Linguistics", "Occultism", "Science"]
+  - name: athletics
+    focuses: ["Climbing", "Lifting", "Physical Training", "Running", "Swimming", "Throwing"]
+  - name: engineering
+    focuses: ["Architecture", "Combat Engineering", "Electronics", "Explosives", "Mechanical Engineering"]
+  - name: fighting
+    focuses: ["Close Quarters", "Handguns", "Hand-to-Hand", "Heavy Weapons", "Melee Weapons", "Rifles", "Threat Awareness", "Exotic"]
+  - name: medicine
+    focuses: ["First Aid", "Infectious Diseases", "Pharmacology", "Psychiatry", "Surgery", "Toxicology"]
+  - name: observation
+    focuses: ["Hearing", "Instincts", "Sight", "Smell and Taste"]
+  - name: persuasion
+    focuses: ["Charm", "Innuendo", "Intimidation", "Negotiation", "Rhetoric", "Deceive", "Invocation"]
+  - name: resilience
+    focuses: ["Fortitude", "Discipline", "Immunity"]
+  - name: stealth
+    focuses: ["Camouflage", "Disguise", "Rural Stealth", "Urban Stealth"]
+  - name: survival
+    focuses: ["Animal Handling", "Foraging", "Hunting", "Mysticism", "Orienteering", "Tracking"]
+  - name: tactics
+    focuses: ["Air Force", "Army", "Covert Operations", "Leadership", "Navy", "Technical Projects"]
+  - name: vehicles
+    focuses: ["Cars", "Motorcycles", "Heavy Vehicles", "Tanks", "Aircraft", "Watercraft"]
+---
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>{{ page.title }}</title>
+	<link rel="stylesheet" href="{{ 'styles/base.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/light.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/dark.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/character-sheet.css' | relative_url }}">
+	{% if page.style %}
+	<style>
+		{{ page.style }}
+	</style>
+	{% endif %}
+	<script src="js/character.js"></script>
+	<script src="{{ 'js/settings.js' | relative_url }}"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<meta name="robots" content="noindex">
+	<meta property="og:site_name" content="TTRPG Stuff">
+	<meta property="og:title" content="{{ page.title }}">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="{{ page.url | absolute_url }}">
+</head>
+<body>
+{% include header.html %}
+{% include character-controls.html %}
+
+<form id="character-sheet" class="grid">
+	{% for field in page.fields %}
+	<div class="overlabeled">
+		<label for="character-{{ field | slugify }}">{{ field }}</label>
+		<input type="text" id="character-{{ field | slugify }}" name="character-{{ field | slugify }}" />
+	</div>
+	{% endfor %}
+
+	<fieldset id="truths">
+		<legend>Personal Truths &amp; Scars</legend>
+		{% for n in (0..5) %}
+		<div class="item-table">
+		<input type="text" placeholder="New Truth" class="item-name" id="truth-{{ n }}" name="truth-{{ n }}" />
+		</div>
+		{% endfor %}
+	</fieldset>
+
+	<fieldset id="stress">
+		<legend>Stress</legend>
+		<input type="text" size="3" id="stress-current" name="stress-current" inputmode="numeric" pattern="[0-9]*" />
+		<span> / </span>
+		<input type="text" size="3" id="stress-max" name="stress-max" inputmode="numeric" pattern="[0-9]*" />
+	</fieldset>
+
+	<div class="overlabeled">
+		<label for="languages">Languages</label>
+		<textarea type="text" id="languages" name="languages" rows="2"></textarea>
+	</div>
+
+	{% assign fields = "Courage,Armor,Fortune" | split: "," %}
+	{% for field in fields %}
+	<div class="overlabeled">
+		{% assign fieldId = field | slugify %}
+		<label for="{{ fieldId }}">{{ field }}</label>
+		<input type="text" size="3" id="{{ fieldId }}" name="{{ fieldId }}" inputmode="numeric" pattern="[0-9]*" />
+	</div>
+	{% endfor %}
+
+	<div class="overlabeled">
+		<label for="injuries">Injuries</label>
+		<textarea type="text" id="injuries" name="injuries" rows="2"></textarea>
+	</div>
+
+	<table id="attributes">
+		{% assign attrs = "agility,brawn,coordination,insight,reason,will" | split: "," %}
+		<tr>
+			<th id="attribute" scope="row">Attribute</th>
+			{% for attr in attrs %}
+			<th id="attribute-{{ attr }}" scope="col">{{ attr | capitalize }}</th>
+			{% endfor %}
+		</tr>
+		<tr>
+			<th id="attribute-rating" scope="row">Rating</th>
+			{% for attr in attrs %}
+			<td><input type="text" size="3" inputmode="numeric" pattern="[0-9]*" id="attribute-rating-{{ attr }}" name="attribute-rating-{{ attr }}" aria-labelledby="attribute-{{ attr }} attribute-rating" /></td>
+			{% endfor %}
+		</tr>
+		<tr>
+			<th id="attribute-bonus-damage" scope="row">Bonus Damage</th>
+			{% for attr in attrs %}
+			<td><input type="text" size="3" inputmode="numeric" pattern="[0-9]*" id="attribute-bonus-damage-{{ attr }}" name="attribute-bonus-damage-{{ attr }}" aria-labelledby="attribute-{{ attr }} attribute-bonus-damage" /></td>
+			{% endfor %}
+		</tr>
+	</table>
+
+	<table id="skills">
+		<tr>
+			<th id="skill" scope="col">Skills</th>
+			<th id="skill-ranks" scope="col">Ranks</th>
+			<th id="skill-focuses" scope="col">Focuses</th>
+		</tr>
+		{% for skill in page.skills %}
+		{% assign skillId = skill.name | slugify %}
+		<tr>
+			<th id="skill-{{ skillId }}" scope="row">{{ skill.name | capitalize }}</th>
+			<td><input type="text" inputmode="numeric" pattern="[0-9]*" id="skill-ranks-{{ skillId }}" name="skill-ranks-{{ skillId }}" aria-labelledby="skill-{{ skillId }} skill-ranks" /></td>
+			<td class="focus-cell">
+				{% for focus in skill.focuses %}
+				{% assign focusId = focus | slugify %}
+				<div class="focus">
+				<input type="checkbox" name="skill-focus-{{ skillId }}-{{ focusId }}" id="skill-focus-{{ skillId }}-{{ focusId }}" value="{{ focusId }}" />
+				<label for="skill-focus-{{ skillId }}-{{ focusId }}">{{ focus }}</label>
+				</div>
+				{% endfor %}
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+
+	<fieldset id="equipment">
+		<legend>Equipment of Note</legend>
+		{% for n in (0..11) %}
+		<div class="item-table">
+		<input type="text" placeholder="New Equipment" class="item-name" id="equipment-{{ n }}" name="equipment-{{ n }}" />
+		</div>
+		{% endfor %}
+	</fieldset>
+
+	<fieldset id="weapons">
+		<legend>Weapons</legend>
+		{% assign fields = "focus,range,damage,salvo,size,qualities" | split: "," %}
+		{% for n in (0..2) %}
+		<div class="item-table">
+			<input class="item-name" type="text" name="weapon-{{ n }}-name" placeholder="Weapon">
+			<div class="item-fields">
+				{% for field in fields %}
+				<div class="overlabeled">
+					<label for="weapon-{{ n }}-{{ field }}">{{ field | capitalize }}</label>
+					<input type="text" name="weapon-{{ n }}-{{ field }}" id="weapon-{{ n }}-{{ field }}">
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% endfor %}
+	</fieldset>
+
+	<div class="overlabeled">
+		<label for="biography">Biography</label>
+		<textarea id="biography" name="biography" rows="3"></textarea>
+	</div>
+
+	<fieldset>
+		<legend>Talents</legend>
+		<table class="talents">
+			{% assign cols = "name,keywords,effect" | split: "," %}
+			<tr>
+				{% for col in cols %}
+				<th id="talent-{{ col }}" scope="col">{{ col | capitalize }}</th>
+				{% endfor %}
+			</tr>
+			{% for n in (0..2) %}
+			<tr class="item-table">
+				{% for col in cols %}
+				<td><textarea id="talent-{{ n }}-{{ col }}" name="talent-{{ n }}-{{ col }}" aria-labelledby="talent-{{ col }}" /></textarea></td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</table>
+	</fieldset>
+
+	<fieldset id="spells">
+		<legend>Spells</legend>
+		<label for="spell-power">Power</label>
+		<input type="text" inputmode="numeric" pattern="[0-9]*" id="spell-power" name="spell-power" />
+		{% assign fields = "skill,difficulty,cost,duration,effect,momentum" | split: "," %}
+		{% for n in (0..2) %}
+		<div class="item-table">
+			<input class="item-name" type="text" name="spell-{{ n }}-name" placeholder="Spell">
+			<div class="item-fields">
+				{% for field in fields %}
+				<div class="overlabeled">
+					<label for="spell-{{ n }}-{{ field }}">{{ field | capitalize }}</label>
+					{% case field %}
+					{% when "effect", "momentum" %}
+					<textarea name="spell-{{ n }}-{{ field }}" id="spell-{{ n }}-{{ field }}"></textarea>
+					{% else %}
+					<input type="text" name="spell-{{ n }}-{{ field }}" id="spell-{{ n }}-{{ field }}">
+					{% endcase %}
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% endfor %}
+	</fieldset>
+
+</form>
+</body>
+</html>
