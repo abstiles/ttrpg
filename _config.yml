@@ -1,3 +1,8 @@
 exclude: ['Makefile', 'Pipfile*', 'pyproject.toml', '*.py', 'siteinfra/*', '*.egg-info', '*.sh', 'vendor']
 url: "https://roleplaying.gay"
 permalink: "/:path/:basename"
+defaults:
+  - scope:
+      path: "*.md"
+    values:
+      layout: "default"
