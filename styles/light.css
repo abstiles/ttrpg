@@ -1,22 +1,22 @@
-:root {
+---
+---
+{% capture scheme %}
 	--color: #111;
 	--background-color: #EEE;
 	--background-accent: #DDD;
 	--accent: #9773cd;
+	--selection: #c78bff;
+{%- endcapture %}
+:root {
+	{{- scheme }}
 }
 
 :root:has(#menu-theme-light:checked) {
 	color-scheme: only light;
-	--color: #111;
-	--background-color: #EEE;
-	--background-accent: #DDD;
-	--accent: #9773cd;
+	{{- scheme }}
 }
 
 :root[data-theme="light"] {
 	color-scheme: only light;
-	--color: #111;
-	--background-color: #EEE;
-	--background-accent: #DDD;
-	--accent: #9773cd;
+	{{- scheme }}
 }

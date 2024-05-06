@@ -48,6 +48,14 @@ input[type="text"] {
 	font-size: 12pt;
 }
 
+#nav {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-left: max(-2%, -30px);
+	margin-top: -0.25rem;
+}
+
 #menu-theme {
 	border: 1px solid transparent;
 	display: inline-grid;
@@ -81,10 +89,14 @@ input[type="text"] {
 	border-radius: 20px;
 }
 
+#menu-theme input+label path {
+	fill: var(--color);
+}
+
 #menu-theme input:checked+label {
 	display: inline-flex;
 	filter: none;
-	background: blueviolet;
+	background: var(--selection);
 }
 
 h1,

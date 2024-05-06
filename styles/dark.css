@@ -1,24 +1,24 @@
+---
+---
+{% capture scheme %}
+	--color: #EEE;
+	--background-color: #111;
+	--background-accent: #222;
+	--accent: #441e7e;
+	--selection: #8a2be2;
+{%- endcapture %}
 @media (prefers-color-scheme: dark) {
 	:root {
-		--color: #EEE;
-		--background-color: #111;
-		--background-accent: #222;
-		--accent: #441e7e;
+		{{- scheme }}
 	}
 }
 
 :root:has(#menu-theme-dark:checked) {
 	color-scheme: only dark;
-	--color: #EEE;
-	--background-color: #111;
-	--background-accent: #222;
-	--accent: #441e7e;
+	{{- scheme }}
 }
 
 :root[data-theme="dark"] {
 	color-scheme: only dark;
-	--color: #EEE;
-	--background-color: #111;
-	--background-accent: #222;
-	--accent: #441e7e;
+	{{- scheme }}
 }
