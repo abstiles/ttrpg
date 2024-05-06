@@ -3,34 +3,34 @@ title: Character Sheets
 style: |-
   li {
     --color: #ebe5fa;
-    --transition-color: #ebb8d5;
+    --transition-color: #f6b2f0;
   }
 
   :root:has(#menu-theme-light:checked) li {
     --color: #ebe5fa;
-    --transition-color: #ebb8d5;
+    --transition-color: #f6b2f0;
   }
 
   :root[data-theme="light"] li {
     --color: #ebe5fa;
-    --transition-color: #ebb8d5;
+    --transition-color: #f6b2f0;
   }
 
   @media (prefers-color-scheme: dark) {
     li {
       --color: #e5c8f2;
-      --transition-color: #b57b9b;
+      --transition-color: #c772c0;
     }
   }
 
   :root:has(#menu-theme-dark:checked) li {
     --color: #e5c8f2;
-    --transition-color: #b57b9b;
+    --transition-color: #c772c0;
   }
 
   :root[data-theme="dark"] li {
     --color: #e5c8f2;
-    --transition-color: #b57b9b;
+    --transition-color: #c772c0;
   }
 
   ul {
