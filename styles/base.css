@@ -12,7 +12,7 @@ body {
 	font-size: 12pt;
 	margin: auto;
 	max-width: 768px;
-	padding: 10px min(30px, 2%);
+	padding: 10px min(30px, 2vw);
 	min-height: calc(100vh - 20px);
 }
 

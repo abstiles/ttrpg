@@ -40,8 +40,7 @@ style: |-
   }
 
   li {
-    margin: 1em 0;
-    display: flex;
+    margin: 1em calc(-1* min(30px, 2vw));
     background: linear-gradient(135deg, var(--transition-color), var(--transition-color) 85%, transparent 85%, transparent);
   }
 
