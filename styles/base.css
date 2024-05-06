@@ -17,7 +17,7 @@ body {
 }
 
 @media print {
-	header #menu-theme {
+	header #menu-theme, header #nav {
 		display: none;
 	}
 	textarea {
