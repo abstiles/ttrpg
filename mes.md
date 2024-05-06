@@ -1,5 +1,5 @@
 ---
-title: TTRPG Stuff
+title: Character Sheets
 style: |-
   li {
     --color: #ebe5fa;
@@ -42,22 +42,32 @@ style: |-
   li {
     margin: 1em 0;
     display: flex;
-    background: linear-gradient(137deg, var(--transition-color), var(--transition-color) 85%, transparent 75%, transparent);
+    background: linear-gradient(135deg, var(--transition-color), var(--transition-color) 85%, transparent 75%, transparent);
+  }
+
+  li:nth-child(even) {
+    background: linear-gradient(225deg, var(--transition-color), var(--transition-color) 85%, transparent 75%, transparent);
+  }
+
+  li:nth-child(even) a {
+    text-align: right;
+    background: linear-gradient(315deg, var(--accent), var(--accent) 50%, transparent 75%, transparent);
   }
 
   a.game {
     color: var(--color);
     background: linear-gradient(45deg, var(--accent), var(--accent) 50%, transparent 75%, transparent);
-    padding: 1em;
+    padding: 15px 1em;
     text-decoration: none;
     text-shadow: 2px 2px 0 black;
     font-family: var(--sans);
     font-weight: bold;
-    font-size: larger;
+    font-size: 60px;
+    line-height: 1;
     width: 100%;
     display: inline-block;
     box-sizing: border-box;
-    font-stretch: expanded;
+    font-stretch: ultra-condensed;
   }
 ---
 {% assign idx = 0 %}
