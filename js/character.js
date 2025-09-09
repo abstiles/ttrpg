@@ -378,6 +378,7 @@ export default character;
 		radioButtons.forEach(item => { item.checked = isDefault(item); });
 		checkboxes.forEach(item => { item.checked = isDefault(item); });
 		textFields.forEach(item => { item.value = item.getAttribute("value") ?? ""; });
+		numberFields.forEach(item => { item.value = item.getAttribute("value") ?? ""; });
 	};
 
 	const load = function(data, shouldShare) {
@@ -417,6 +418,9 @@ export default character;
 			setChar(item.name, item.checked);
 		});
 		textFields.forEach(item => {
+			setChar(item.name, item.value);
+		});
+		numberFields.forEach(item => {
 			setChar(item.name, item.value);
 		});
 	};
@@ -523,6 +527,11 @@ export default character;
 	checkboxes.forEach(item => {
 		item.addEventListener('change', () => {
 			setChar(item.name, item.checked);
+		});
+	});
+	textFields.forEach(item => {
+		item.addEventListener('change', () => {
+			setChar(item.name, item.value);
 		});
 	});
 	textFields.forEach(item => {
