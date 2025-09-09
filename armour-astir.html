@@ -10,7 +10,6 @@ category: character sheet
 	<link rel="stylesheet" href="{{ 'styles/light.css' | relative_url }}">
 	<link rel="stylesheet" href="{{ 'styles/dark.css' | relative_url }}">
 	<link rel="stylesheet" href="{{ 'styles/character-sheet.css' | relative_url }}">
-	<script src="js/character.js"></script>
 	<script src="{{ 'js/settings.js' | relative_url }}"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8">
@@ -43,36 +42,36 @@ category: character sheet
 			<input type="number" id="{{ field }}" name="{{ field }}" />
 		</div>
 		{% endfor %}
+
+		<div class="overlabeled">
+			<label for="approach">Approach</label>
+			<select name="approach" id="approach">
+				{% assign fields = "mundane,arcane,divine,profane,elemental" | split: "," %}
+				{% for field in fields %}
+				<option value="{{field}}">{{ field | capitalize }}</option>
+				{% endfor %}
+			</select>
+		</div>
 	</div>
 
 	<div class="overlabeled">
 		<label for="look">You look</label>
-		<textarea type="text" id="look" name="look" rows="2"></textarea>
+		<textarea id="look" name="look" rows="2"></textarea>
 	</div>
 
 	<div class="overlabeled">
 		<label for="wear">You wear</label>
-		<textarea type="text" id="wear" name="wear" rows="2"></textarea>
+		<textarea id="wear" name="wear" rows="2"></textarea>
 	</div>
 
 	<div class="overlabeled">
 		<label for="magic-like">Your magic is like</label>
-		<textarea type="text" id="magic-like" name="magic-like" rows="2"></textarea>
+		<textarea id="magic-like" name="magic-like" rows="2"></textarea>
 	</div>
 
 	<div class="overlabeled">
 		<label for="launch-say">When you launch your Astir, you say</label>
-		<textarea type="text" id="launch-say" name="launch-say" rows="2"></textarea>
-	</div>
-
-	<div class="overlabeled">
-		<label for="approach">Approach</label>
-		<select name="approach" id="approach">
-			{% assign fields = "mundane,arcane,divine,profane,elemental" | split: "," %}
-			{% for field in fields %}
-			<option value="{{field}}">{{ field | capitalize }}</option>
-			{% endfor %}
-		</select>
+		<textarea id="launch-say" name="launch-say" rows="2"></textarea>
 	</div>
 </form>
 </body>

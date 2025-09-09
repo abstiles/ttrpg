@@ -11,8 +11,7 @@ category: character sheet
 	<link rel="stylesheet" href="{{ 'styles/dark.css' | relative_url }}">
 	<link rel="stylesheet" href="{{ 'styles/character-sheet.css' | relative_url }}">
 	<link rel="stylesheet" href="{{ 'styles/hwi.css' | relative_url }}">
-	<script src="js/character.js"></script>
-	<script src="js/hwi.js"></script>
+	<script type="module" src="js/hwi.js"></script>
 	<script src="{{ 'js/settings.js' | relative_url }}"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8">
@@ -32,16 +31,16 @@ category: character sheet
 <fieldset id="multipass">
 <legend>Grand Cross Multipass</legend>
 <div class="inlinelabeled">
-<label for="character-name">Name</label><input type="text" id="character-name" name="character-name">
+<label for="character-name">Name</label><input type="text" id="character-name" name="character-name" />
 </div>
 <div class="inlinelabeled">
-<label for="handle">Handle</label><input type="text" id="handle" name="handle">
+<label for="handle">Handle</label><input type="text" id="handle" name="handle" />
 </div>
 <div class="inlinelabeled">
-<label for="pronouns">Pronouns</label><input type="text" id="pronouns" name="pronouns">
+<label for="pronouns">Pronouns</label><input type="text" id="pronouns" name="pronouns" />
 </div>
 <div class="inlinelabeled">
-<label for="player">Player</label><input type="text" id="player" name="player">
+<label for="player">Player</label><input type="text" id="player" name="player" />
 </div>
 </fieldset>
 </div>
