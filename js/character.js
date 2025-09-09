@@ -210,6 +210,9 @@ export default character;
 	const numberFields = Array.from(
 		document.querySelectorAll('form input[type="number"]')
 	);
+	const selections = Array.from(
+		document.querySelectorAll('form select')
+	);
 	const textareas = Array.from(
 		document.querySelectorAll('form textarea')
 	);
@@ -355,6 +358,16 @@ export default character;
 				item.value = item.getAttribute("value") ?? "";
 			}
 		});
+		selections.forEach(item => {
+			let value = current[item.name];
+			if (value) {
+				item.value = value;
+				// Trigger any updates keyed to inputs.
+				item.dispatchEvent(new Event('change'));
+			} else {
+				item.value = item.getAttribute("value") ?? "";
+			}
+		});
 		textFields.forEach(item => {
 			let value = current[item.name];
 			if (value) {
@@ -379,6 +392,7 @@ export default character;
 		checkboxes.forEach(item => { item.checked = isDefault(item); });
 		textFields.forEach(item => { item.value = item.getAttribute("value") ?? ""; });
 		numberFields.forEach(item => { item.value = item.getAttribute("value") ?? ""; });
+		selections.forEach(item => { item.value = item.getAttribute("value") ?? ""; });
 	};
 
 	const load = function(data, shouldShare) {
@@ -421,6 +435,9 @@ export default character;
 			setChar(item.name, item.value);
 		});
 		numberFields.forEach(item => {
+			setChar(item.name, item.value);
+		});
+		selections.forEach(item => {
 			setChar(item.name, item.value);
 		});
 	};
@@ -529,7 +546,12 @@ export default character;
 			setChar(item.name, item.checked);
 		});
 	});
-	textFields.forEach(item => {
+	numberFields.forEach(item => {
+		item.addEventListener('change', () => {
+			setChar(item.name, item.value);
+		});
+	});
+	selections.forEach(item => {
 		item.addEventListener('change', () => {
 			setChar(item.name, item.value);
 		});
