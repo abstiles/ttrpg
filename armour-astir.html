@@ -24,12 +24,17 @@ category: character sheet
 {% include header.html %}
 {% include character-controls.html %}
 
+<style></style>
 <form id="character-sheet">
 
 	<div id="summary">
 		<div class="overlabeled">
 			<label for="character-name">Name</label>
 			<input type="text" id="character-name" name="character-name" />
+		</div>
+		<div class="overlabeled">
+			<label for="playbook">Playbook</label>
+			<input type="text" id="playbook" name="playbook" />
 		</div>
 		{% assign fields = "defy,sense,talk,clash,know,channel" | split: "," %}
 		{% for field in fields %}
@@ -60,6 +65,15 @@ category: character sheet
 		<textarea type="text" id="launch-say" name="launch-say" rows="2"></textarea>
 	</div>
 
+	<div class="overlabeled">
+		<label for="approach">Approach</label>
+		<select name="approach" id="approach">
+			{% assign fields = "mundane,arcane,divine,profane,elemental" | split: "," %}
+			{% for field in fields %}
+			<option value="{{field}}">{{ field | capitalize }}</option>
+			{% endfor %}
+		</select>
+	</div>
 </form>
 </body>
 </html>
