@@ -1,0 +1,65 @@
+---
+title: Armour Astir
+category: character sheet
+---
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>{{ page.title }}</title>
+	<link rel="stylesheet" href="{{ 'styles/base.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/light.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/dark.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/character-sheet.css' | relative_url }}">
+	<script src="js/character.js"></script>
+	<script src="{{ 'js/settings.js' | relative_url }}"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<meta name="robots" content="noindex">
+	<meta property="og:site_name" content="TTRPG Stuff">
+	<meta property="og:title" content="{{ page.title }}">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="{{ page.url | absolute_url }}">
+</head>
+<body>
+{% include header.html %}
+{% include character-controls.html %}
+
+<form id="character-sheet">
+
+	<div id="summary">
+		<div class="overlabeled">
+			<label for="character-name">Name</label>
+			<input type="text" id="character-name" name="character-name" />
+		</div>
+		{% assign fields = "defy,sense,talk,clash,know,channel" | split: "," %}
+		{% for field in fields %}
+		<div class="overlabeled">
+			<label for="{{ field }}">{{ field | capitalize }}</label>
+			<input type="number" id="{{ field }}" name="{{ field }}" />
+		</div>
+		{% endfor %}
+	</div>
+
+	<div class="overlabeled">
+		<label for="look">You look</label>
+		<textarea type="text" id="look" name="look" rows="2"></textarea>
+	</div>
+
+	<div class="overlabeled">
+		<label for="wear">You wear</label>
+		<textarea type="text" id="wear" name="wear" rows="2"></textarea>
+	</div>
+
+	<div class="overlabeled">
+		<label for="magic-like">Your magic is like</label>
+		<textarea type="text" id="magic-like" name="magic-like" rows="2"></textarea>
+	</div>
+
+	<div class="overlabeled">
+		<label for="launch-say">When you launch your Astir, you say</label>
+		<textarea type="text" id="launch-say" name="launch-say" rows="2"></textarea>
+	</div>
+
+</form>
+</body>
+</html>
