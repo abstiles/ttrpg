@@ -208,7 +208,7 @@ export default character;
 		document.querySelectorAll('form textarea, form input[type="text"]')
 	);
 	const numberFields = Array.from(
-		document.querySelectorAll('form input[type="number"]')
+		document.querySelectorAll('form input[type="number"], form input[type="range"]')
 	);
 	const selections = Array.from(
 		document.querySelectorAll('form select')

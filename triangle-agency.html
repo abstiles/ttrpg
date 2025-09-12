@@ -1,0 +1,272 @@
+---
+title: Triangle Agency
+category: character sheet
+questions:
+  - How did you come in contact with your Anomaly?
+  - How did the agency find you?
+  - Do your powers have a unique physical manifestation?
+  - How do you take your coffee?
+  - Please describe your prior work experience.
+  - What is your level of familiarity with Adobe, Excel, and Google Suite?
+  - What do you bring to the table in a collaborative work environment?
+---
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>{{ page.title }}</title>
+	<link rel="stylesheet" href="{{ 'styles/base.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/light.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/dark.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ 'styles/character-sheet.css' | relative_url }}">
+	<script src="{{ 'js/settings.js' | relative_url }}"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<meta name="robots" content="noindex">
+	<meta property="og:site_name" content="TTRPG Stuff">
+	<meta property="og:title" content="{{ page.title }}">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="{{ page.url | absolute_url }}">
+</head>
+<body>
+{% include header.html %}
+{% include character-controls.html %}
+
+<style>
+#character-sheet {
+    display: grid;
+    row-gap: 1em;
+    * { box-sizing: border-box; }
+}
+
+.column { display: grid; }
+
+.row {
+    display: flex;
+    gap: 1em;
+    * { width: 100%; }
+}
+
+.rightlabeled {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+
+    label {
+        font-family: var(--sans);
+        margin-left: 0.5em;
+    }
+}
+
+#summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    .column {
+        flex: 1;
+    }
+    .column:first-child {
+        flex: max-content;
+        .row > * {
+            flex: min-content;
+        }
+        .row > *:first-child {
+            flex: max-content;
+        }
+    }
+}
+
+#current-states {
+    input[type="number"] { width: 3em; }
+}
+
+#behaviors {
+    display: grid;
+    row-gap: 1em;
+    .behavior {
+        display: grid;
+        label {
+            font-family: var(--sans);
+            font-size: larger;
+        }
+        explain {
+            font-size: small;
+        }
+        input { width: 100%; }
+        ul {
+            padding: 0 1em;
+            margin: 5px 0;
+            list-style-type: "▷ "
+        }
+    }
+}
+
+#state {
+    display: grid;
+    row-gap: 1em;
+    column-gap: 1em;
+    grid-template-columns: 1fr auto;
+    @media (width < 500px) { grid-template-columns: 1fr; }
+    align-items: start;
+    h4, label { font-family: var(--sans); }
+    #qualities {
+        display: grid;
+        column-gap: 5px;
+    }
+    .column {
+        row-gap: 1em;
+    }
+    .quality {
+        display: grid;
+        position: relative;
+        grid-template-columns: auto 1fr;
+        align-items: end;
+        h4 { grid-column: 1 / -1; }
+        input[type="number"] {
+            width: 3em;
+            padding-right: 0.5em;
+        }
+        input[type="range"] {
+            margin-right: 1em;
+        }
+        input[type="range"]::after {
+            position: absolute;
+            right: 0;
+        }
+        {%- for val in (0..9) %}
+        input[type="range"][data-value="{{val}}"]::after {
+            content: "{{val}}";
+        }
+        {%- endfor %}
+        label {
+            margin-top: -5px;
+            text-align: center;
+        }
+    }
+}
+
+#about {
+    display: grid;
+    row-gap: 0.5em;
+    .question label {
+        font-size: revert;
+    }
+}
+
+</style>
+<form id="character-sheet">
+
+<div id="summary">
+	<div class="column">
+	<div class="row">
+		<div class="overlabeled">
+			<label for="character-name">Character Name</label>
+			<input type="text" id="character-name" name="character-name" />
+		</div>
+		<div class="overlabeled">
+			<label for="pronouns">Pronouns</label>
+			<input type="text" id="pronouns" name="pronouns" />
+		</div>
+	</div>
+	<div class="overlabeled">
+		<label for="agency-title">Agency Title</label>
+		<input type="text" id="agency-title" name="agency-title" />
+	</div>
+	<div class="overlabeled">
+		<label for="agency-standing">Agency Standing</label>
+		<input type="text" id="agency-standing" name="agency-standing" />
+	</div>
+	</div>
+	<div class="column">
+	{% assign fields = "Anomaly,Reality,Competency" | split: "," %}
+	{% for field in fields %}
+	<div class="overlabeled">
+		<label for="{{ field | slugify }}">{{ field | capitalize }}</label>
+		<input type="text" id="{{ field | slugify }}" name="{{ field | slugify }}" />
+	</div>
+	{% endfor %}
+	</div>
+</div>
+
+<div id="state">
+<div class="column">
+	<div id="current-states">
+		{% assign fields = "Commendations,Demerits,Additional Burnout" | split: "," %}
+		{% for field in fields %}
+		<div class="rightlabeled">
+			<label for="{{ field | slugify }}">{{ field | capitalize }}</label>
+			<input type="number" id="{{ field | slugify }}" name="{{ field | slugify }}" />
+		</div>
+		{% endfor %}
+	</div>
+
+	<div id="behaviors">
+		{% assign fields = "Reality Trigger,Burnout Release,Prime Directive" | split: "," %}
+		{% for field in fields %}
+		<div class="behavior">
+			<label for="{{ field | slugify }}">{{ field | capitalize }}</label>
+			<explain>
+				{%- if field == "Reality Trigger" -%}
+					Your GM may trigger this by spending 3 Chaos.
+				{%- elsif field == "Burnout Release" -%}
+					Check this to see if you can cancel your burnout.
+				{%- elsif field == "Prime Directive" -%}
+					Receive 1 Demerit if you:
+				{%- endif -%}
+			</explain>
+			<textarea id="{{ field | slugify }}" name="{{ field | slugify }}" ></textarea>
+		</div>
+		{% endfor %}
+		<div class="behavior">{% assign field = "Sanctioned Behaviors" %}
+			<label for="{{ field | slugify }}">{{ field | capitalize }}</label>
+			<explain>Receive 1 Commendation when you do one of these:</explain>
+			<ul>
+			{%- for idx in (1..3) %}
+				<li><input type="text" id="{{ field | slugify }}{{idx}}" name="{{ field | slugify }}{{idx}}" /></li>
+			{%- endfor %}
+			</ul>
+			<explain>If you do all 3 in a single mission, receive 3 bonus commendations.</explain>
+		</div>
+	</div>
+</div>
+
+<div id="qa" class="column">
+	<h3>Quality Assurances</h3>
+	<div id="qualities">
+		{%- assign fields = "Attentiveness,Duplicity,Dynamism,Empathy,Initiative,Persistence,Presence,Professionalism,Subtlety" | split: "," %}
+		{%- for field in fields %}
+		<div class="quality">
+			<h4>{{ field | capitalize }}</h4>
+			<div class="overlabeled">
+				<label for="max-{{ field | slugify }}">Max</label>
+				<input type="number" id="max-{{ field | slugify }}" name="max-{{ field | slugify }}" />
+			</div>
+			<input type="range" min="0" max="9" id="{{ field | slugify }}" name="{{ field | slugify }}" value="0" data-value="0" />
+		</div>
+		<script>
+			document.getElementById("{{ field | slugify }}").addEventListener("input", function() {
+				this.setAttribute("data-value", this.value);
+			})
+			document.getElementById("{{ field | slugify }}").addEventListener("change", function() {
+				this.setAttribute("data-value", this.value);
+			})
+		</script>
+		{%- endfor %}
+	</div>
+</div>
+
+</div> <!-- state -->
+
+<div id="about">
+{%- assign questions = "" %}
+{%- for question in page.questions %}
+	<div class="question overlabeled">
+		<label for="question-{{forloop.index}}">{{ question }}</label>
+		<textarea id="{{forloop.index}}" name="{{forloop.index}}"></textarea>
+	</div>
+{%- endfor %}
+</div> <!-- about -->
+
+</form>
+</body>
+</html>
