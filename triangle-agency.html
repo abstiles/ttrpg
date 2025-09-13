@@ -145,24 +145,25 @@ explain {
             width: 3em;
             padding-right: 0.5em;
         }
-        input[type="range"] {
-            margin-right: 1em;
-        }
-        input[type="range"]::after {
-            position: absolute;
-            right: 0;
-        }
-        {%- for val in (0..9) %}
-        input[type="range"][data-value="{{val}}"]::after {
-            content: "{{val}}";
-        }
-        {%- endfor %}
         label {
             margin-top: -5px;
             text-align: center;
         }
     }
 }
+
+input[type="range"] {
+    margin-right: 1em;
+}
+input[type="range"]::after {
+    position: absolute;
+    right: 0;
+}
+{%- for val in (0..9) %}
+input[type="range"][data-value="{{val}}"]::after {
+    content: "{{val}}";
+}
+{%- endfor %}
 
 #about {
     display: grid;
@@ -390,6 +391,14 @@ warning {
 			<label for="{{ fieldId }}">{{ field }}</label>
 			<input type="range" min="0" max="9" id="{{ fieldId }}" name="{{ fieldId }}" value="0" data-value="0" />
 		</div>
+		<script>
+			document.getElementById("{{ fieldId }}").addEventListener("input", function() {
+				this.setAttribute("data-value", this.value);
+			})
+			document.getElementById("{{ fieldId }}").addEventListener("change", function() {
+				this.setAttribute("data-value", this.value);
+			})
+		</script>
 		<row>
 		{%- assign field = "Connection Bonus" %}
 		{%- capture fieldId %}relationship{{idx}}-{{ field | slugify }}{% endcapture %}
