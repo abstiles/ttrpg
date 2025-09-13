@@ -32,15 +32,16 @@ questions:
 {% include character-controls.html %}
 
 <style>
+textarea { min-height: 24px; }
 #character-sheet {
     display: grid;
     row-gap: 1em;
     * { box-sizing: border-box; }
 }
 
-.column { display: grid; }
+column, .column { display: grid; }
 
-.row {
+row, .row {
     display: flex;
     gap: 1em;
     * { width: 100%; }
@@ -58,19 +59,28 @@ questions:
     }
 }
 
+.leftlabeled {
+    display: flex;
+    align-items: center;
+    label {
+        font-family: var(--sans);
+        margin-left: 0.5em;
+    }
+}
+
 #summary {
     display: flex;
     flex-wrap: wrap;
     gap: 1em;
-    .column {
+    column, .column {
         flex: 1;
     }
-    .column:first-child {
+    column, .column:first-child {
         flex: max-content;
-        .row > * {
+        row, .row > * {
             flex: min-content;
         }
-        .row > *:first-child {
+        row, .row > *:first-child {
             flex: max-content;
         }
     }
@@ -78,6 +88,10 @@ questions:
 
 #current-states {
     input[type="number"] { width: 3em; }
+}
+
+explain {
+    font-size: small;
 }
 
 #behaviors {
@@ -88,9 +102,6 @@ questions:
         label {
             font-family: var(--sans);
             font-size: larger;
-        }
-        explain {
-            font-size: small;
         }
         input { width: 100%; }
         ul {
@@ -117,7 +128,7 @@ questions:
         row-gap: 0.5em;
     }
     #qualities { row-gap: 0.75em; }
-    .column {
+    column, .column {
         row-gap: 1em;
     }
     .quality {
@@ -158,6 +169,55 @@ questions:
     row-gap: 0.5em;
     .question label {
         font-size: revert;
+    }
+}
+
+warning {
+    border: 2px solid darkred;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: rgba(from darkred r g b / 25%)
+}
+
+#work-life-balance {
+    explain { padding: 0 1em; }
+    input[type="number"] { width: 3em; }
+    row { flex-wrap: wrap; }
+    column {
+        row-gap: 5px;
+        flex: min-content;
+        min-width: 12em;
+    }
+    column:first-child {
+        flex: min-content;
+        min-width: 15em;
+    }
+}
+
+#relationships {
+    collection {
+        margin: 1em 0;
+        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-row-gap: 1em;
+        grid-column-gap: 1em;
+        input[type="text"] { width: 100%; }
+        relationship {
+            display: grid;
+            grid-column-gap: 0.5em;
+            grid-template-columns: 1fr 1fr;
+            border: 2px solid gray;
+            padding: 0.5em;
+            *:has([name$="description"]), *:has([name$="strength"]), row {
+                grid-column: 1 / -1;
+            }
+            row {
+                align-items: center;
+                *:first-child { flex: auto; }
+                * { flex: 1; }
+            }
+        }
     }
 }
 
@@ -273,7 +333,85 @@ questions:
 		<textarea id="{{forloop.index}}" name="{{forloop.index}}"></textarea>
 	</div>
 {%- endfor %}
+<div class="question overlabeled additional-notes">
+	<label for="additional-notes">Additional Notes</label>
+	<textarea id="additional-notes" name="additional-notes"></textarea>
+</div>
 </div> <!-- about -->
+
+<div id="work-life-balance">
+	<h3>Work/Life Balance</h3>
+	<row>
+	<column>
+		<warning>Each time you mark a box, you must <strong>strike one out from the end</strong> of the other tracks!</warning>
+		<explain>Mark 1 box per available time after each Mission, then visit the Playwalled Documents matching any code you mark.</explain>
+	</column>
+	<column>
+		<div class="leftlabeled">
+			<label for="mvp-count">MVP times Received</label>
+			<input type="number" id="mvp-count" name="mvp-count" value="0" />
+		</div>
+		<explain>Awarded to the player who earns the most commendations.</explain>
+	</column>
+	<column>
+		<div class="leftlabeled">
+			<label for="probation-count">Probation times Received</label>
+			<input type="number" id="probation-count" name="probation-count" value="0" />
+		</div>
+		<explain>Awarded to the player who earns the most Demerits.</explain>
+	</column>
+	</row>
+</div> <!-- work-life-balance -->
+
+<div id="anomaly-abilities">
+	<h3>Anomaly Abilities</h3>
+</div> <!-- anomaly-abilities -->
+
+<div id="relationships">
+	<h3>Relationships</h3>
+	<div class="leftlabeled">
+		<label for="relationships-count">Networked Relationships</label>
+		<input type="number" id="relationships-count" name="relationships-count" value="0" />
+	</div>
+	<collection>
+	{%- for idx in (1..12) %}
+		<relationship>
+		{%- assign fields = "Name,Played by,Description" | split: "," %}
+		{%- for field in fields %}
+		<div class="overlabeled">
+			{%- capture fieldId %}relationship{{idx}}-{{ field | slugify }}{% endcapture %}
+			<label for="{{ fieldId }}">{{ field }}</label>
+			<input type="text" id="{{ fieldId }}" name="{{ fieldId }}" />
+		</div>
+		{%- endfor %}
+		{%- assign field = "Strength" %}
+		{%- capture fieldId %}relationship{{idx}}-{{ field | slugify }}{% endcapture %}
+		<div class="overlabeled">
+			<label for="{{ fieldId }}">{{ field }}</label>
+			<input type="range" min="0" max="9" id="{{ fieldId }}" name="{{ fieldId }}" value="0" data-value="0" />
+		</div>
+		<row>
+		{%- assign field = "Connection Bonus" %}
+		{%- capture fieldId %}relationship{{idx}}-{{ field | slugify }}{% endcapture %}
+		<div class="overlabeled">
+			<label for="{{ fieldId }}">{{ field }}</label>
+			<textarea id="{{ fieldId }}" name="{{ fieldId }}"></textarea>
+		</div>
+		{%- assign field = "Networked" %}
+		{%- capture fieldId %}relationship{{idx}}-{{ field | slugify }}{% endcapture %}
+		<div class="underlabeled">
+			<label for="{{ fieldId }}">{{ field }}</label>
+			<input type="checkbox" name="{{ fieldId }}" id="{{ fieldId }}" />
+		</div>
+		</row>
+		</relationship>
+	{%- endfor %}
+	</collection>
+</div> <!-- relationships -->
+
+<div id="requisitions-benefits">
+	<h3>Requisitions &amp; Work/Life Benefits</h3>
+</div> <!-- requisitions-benefits -->
 
 </form>
 </body>
