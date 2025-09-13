@@ -113,6 +113,10 @@ questions:
         display: grid;
         column-gap: 5px;
     }
+    #qa {
+        row-gap: 0.5em;
+    }
+    #qualities { row-gap: 0.75em; }
     .column {
         row-gap: 1em;
     }
@@ -121,7 +125,11 @@ questions:
         position: relative;
         grid-template-columns: auto 1fr;
         align-items: end;
-        h4 { grid-column: 1 / -1; }
+        h4 {
+            grid-column: 2;
+            margin-bottom: -0.25em;
+            line-height: 1;
+        }
         input[type="number"] {
             width: 3em;
             padding-right: 0.5em;
@@ -195,7 +203,7 @@ questions:
 		{% for field in fields %}
 		<div class="rightlabeled">
 			<label for="{{ field | slugify }}">{{ field | capitalize }}</label>
-			<input type="number" id="{{ field | slugify }}" name="{{ field | slugify }}" />
+			<input type="number" id="{{ field | slugify }}" name="{{ field | slugify }}" value="0" />
 		</div>
 		{% endfor %}
 	</div>
@@ -239,7 +247,7 @@ questions:
 			<h4>{{ field | capitalize }}</h4>
 			<div class="overlabeled">
 				<label for="max-{{ field | slugify }}">Max</label>
-				<input type="number" id="max-{{ field | slugify }}" name="max-{{ field | slugify }}" />
+				<input type="number" id="max-{{ field | slugify }}" name="max-{{ field | slugify }}" value="0" />
 			</div>
 			<input type="range" min="0" max="9" id="{{ field | slugify }}" name="{{ field | slugify }}" value="0" data-value="0" />
 		</div>
