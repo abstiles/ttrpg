@@ -273,6 +273,20 @@ relationship {
     }
 }
 
+@media print {
+    anomaly, relationship, item, custom-track {
+        &:has([name$="-name"]:placeholder-shown) {
+            display: none !important;
+        }
+    }
+    #custom-tracks:not(:has([name$="-name"]:not(:placeholder-shown))) {
+        display: none !important;
+    }
+    #requisitions-benefits:not(:has([name$="-name"]:not(:placeholder-shown))) {
+        display: none !important;
+    }
+}
+
 </style>
 <form id="character-sheet">
 
