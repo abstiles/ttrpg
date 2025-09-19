@@ -27,6 +27,11 @@ body {
 
 @page {
 	margin: 0;
+	margin-top: 0.25in;
+}
+
+@page:first {
+	margin-top: 0;
 }
 
 textarea {

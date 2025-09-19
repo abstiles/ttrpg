@@ -36,6 +36,9 @@ questions:
     --fg-blue: lch(from var(--color) calc(0.67 * l + 0.33 * (100 - l)) 55% 265deg);
     --fg-red: lch(from var(--fg-blue) calc(0.67 * l + 0.33 * (100 - l)) 55% 25deg);
 }
+h2, h3, h4 {
+    break-after: avoid;
+}
 textarea { min-height: 24px; }
 #character-sheet {
     display: grid;
@@ -49,6 +52,7 @@ row, .row {
     display: flex;
     gap: 1em;
     * { width: 100%; }
+    break-inside: avoid;
 }
 
 .rightlabeled {
@@ -172,8 +176,11 @@ input[type="range"][data-value="{{val}}"]::after {
 #about {
     display: grid;
     row-gap: 0.5em;
-    .question label {
-        font-size: revert;
+    .question {
+        break-inside: avoid;
+        label {
+            font-size: revert;
+        }
     }
 }
 
@@ -185,6 +192,7 @@ warning {
 }
 
 #work-life-balance {
+    break-inside: avoid;
     display: grid;
     row-gap: 1em;
     explain { padding: 0 1em; }
@@ -229,6 +237,7 @@ warning {
     }
 }
 collection {
+    break-before: avoid;
     margin: 1em 0;
     box-sizing: border-box;
     display: grid;
@@ -242,6 +251,7 @@ collection {
 }
 
 relationship {
+    break-inside: avoid;
     display: grid;
     grid-column-gap: 0.5em;
     grid-template-columns: 1fr 1fr;
@@ -552,6 +562,7 @@ relationship {
 	display: grid;
 	grid-row-gap: 1em;
 	anomaly {
+		break-inside: avoid;
 		display: grid;
 		border: 2px solid rgb(from var(--fg-blue) r g b / 0.8);
 		grid-column-gap: 5px;
@@ -740,6 +751,7 @@ relationship {
 #requisitions-benefits {
 	display: grid;
 	item {
+		break-inside: avoid;
 		padding: 0.5em;
 		border: 2px solid rgb(from var(--fg-red) r g b / 0.8);
 		&:has([name$="-name"]:placeholder-shown) {
@@ -809,6 +821,7 @@ relationship {
 #custom-tracks {
 	display: grid;
 	custom-track {
+		break-inside: avoid;
 		display: flex;
 		flex-wrap: wrap;
 		align-items: flex-end;
