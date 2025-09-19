@@ -32,6 +32,10 @@ questions:
 {% include character-controls.html %}
 
 <style>
+:root {
+    --fg-blue: lch(from var(--color) calc(0.67 * l + 0.33 * (100 - l)) 55% 265deg);
+    --fg-red: lch(from var(--fg-blue) calc(0.67 * l + 0.33 * (100 - l)) 55% 25deg);
+}
 textarea { min-height: 24px; }
 #character-sheet {
     display: grid;
@@ -181,6 +185,8 @@ warning {
 }
 
 #work-life-balance {
+    display: grid;
+    row-gap: 1em;
     explain { padding: 0 1em; }
     input[type="number"] { width: 3em; }
     row { flex-wrap: wrap; }
@@ -193,31 +199,63 @@ warning {
         flex: min-content;
         min-width: 15em;
     }
+    details.row {
+        flex-wrap: wrap;
+        padding: 5px;
+        row-gap: 5px;
+        summary {
+            width: 100%;
+        }
+        explain {
+            display: block;
+            margin: 0 1em;
+            padding: 0;
+            width: calc(100% - 2em);
+            &+explain {
+                margin-top: 5px;
+                padding-top: 5px;
+                border-top-width: 1px;
+                border-top-style: solid;
+            }
+        }
+    }
 }
 
 #relationships {
-    collection {
-        margin: 1em 0;
-        box-sizing: border-box;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-row-gap: 1em;
-        grid-column-gap: 1em;
-        input[type="text"] { width: 100%; }
-        relationship {
-            display: grid;
-            grid-column-gap: 0.5em;
-            grid-template-columns: 1fr 1fr;
-            border: 2px solid gray;
-            padding: 0.5em;
-            *:has([name$="description"]), *:has([name$="strength"]), row {
-                grid-column: 1 / -1;
-            }
-            row {
-                align-items: center;
-                *:first-child { flex: auto; }
-                * { flex: 1; }
-            }
+    display: grid;
+    .leftlabeled {
+        justify-content: center;
+        input { width: 3em; }
+    }
+}
+collection {
+    margin: 1em 0;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 1em;
+    grid-column-gap: 1em;
+    input[type="text"] { width: 100%; }
+}
+
+relationship {
+    display: grid;
+    grid-column-gap: 0.5em;
+    grid-template-columns: 1fr 1fr;
+    border: 2px solid gray;
+    padding: 0.5em;
+    .underlabeled { align-items: center; }
+    *:has([name$="description"]), *:has([name$="strength"]), row {
+        grid-column: 1 / -1;
+    }
+    row {
+        align-items: center;
+        *:first-child { flex: auto; }
+        * { flex: 1; }
+    }
+    &:has([name$="-name"]:placeholder-shown) {
+        & + relationship:has([name$="-name"]:placeholder-shown) {
+            display: none !important;
         }
     }
 }
@@ -344,7 +382,7 @@ warning {
 	<h3>Work/Life Balance</h3>
 	<row>
 	<column>
-		<warning>Each time you mark a box, you must <strong>strike one out from the end</strong> of the other tracks!</warning>
+		<warning>Each time you raise progress, you must <strong>lower the ceiling</strong> of the other tracks!</warning>
 		<explain>Mark 1 box per available time after each Mission, then visit the Playwalled Documents matching any code you mark.</explain>
 	</column>
 	<column>
@@ -362,10 +400,282 @@ warning {
 		<explain>Awarded to the player who earns the most Demerits.</explain>
 	</column>
 	</row>
+	<row> <!-- ARC Tracks -->
+	<style>
+		arc-track {
+			display: inline-flex;
+			flex-wrap: wrap;
+			align-content: flex-start;
+			flex: 1 0 min-content;
+			h4 { width: 100%; }
+			.progress, .ceiling {
+				flex: min-content;
+			}
+			p, ol { margin: 0; padding: 0; }
+			p { width: 100%; text-align: center; margin-top: 5px; }
+			p label { font-weight: bold; }
+			ol {
+				width: 100%;
+				min-width: max-content;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				li {
+					display: inline;
+					flex: 0 0 max-content;
+					&:not(:first-child)::before {
+						content: ", "
+					}
+				}
+			}
+			.unlocks ul {
+				padding-left: 1em;
+				margin-top: 5px;
+				label {
+					color: var(--fg-blue);
+				}
+			}
+			{%- for idx in (0..30) %}
+			.unlock{{idx}} { display: none; }
+			{%- endfor %}
+			{%- for idx in (0..30) %}
+			&[data-level="{{idx}}"] .unlock{{idx}} { display: initial; }
+			{%- endfor %}
+		}
+	</style>
+	{%- assign fields = "Competency,Reality,Anomaly" | split: "," %}
+	{%- for field in fields %}
+	{%- assign fieldId = field | slugify %}
+	<arc-track id="arc-{{fieldId}}">
+		<h4>{{ field }}</h4>
+		<div class="progress leftlabeled">
+			<label for="{{ fieldId }}-progress">Progress</label>
+			<input type="number" id="{{ fieldId }}-progress" name="{{ fieldId }}-progress" value="0" min="0" max="30" />
+		</div>
+		<div class="ceiling leftlabeled">
+			<label for="{{ fieldId }}-ceiling">Ceiling</label>
+			<input type="number" id="{{ fieldId }}-ceiling" name="{{ fieldId }}-ceiling" value="30" min="0" max="30" />
+		</div>
+		{%- if fieldId == "competency" %}<div class="unlocks">
+		<p><label>Title: </label>
+			<span class="{%- for idx in (0..2) %}unlock{{idx}} {% endfor %}">Trainee</span>
+			<span class="{%- for idx in (3..5) %}unlock{{idx}} {% endfor %}">Associate</span>
+			<span class="{%- for idx in (6..8) %}unlock{{idx}} {% endfor %}">Sr. Associate</span>
+			<span class="{%- for idx in (9..11) %}unlock{{idx}} {% endfor %}">Assistant Director</span>
+			<span class="{%- for idx in (12..14) %}unlock{{idx}} {% endfor %}">Director</span>
+			<span class="{%- for idx in (15..17) %}unlock{{idx}} {% endfor %}">Regional Director</span>
+			<span class="{%- for idx in (18..20) %}unlock{{idx}} {% endfor %}">Vice President</span>
+			<span class="{%- for idx in (21..23) %}unlock{{idx}} {% endfor %}">Senior VP</span>
+			<span class="{%- for idx in (24..26) %}unlock{{idx}} {% endfor %}">Executive VP</span>
+			<span class="{%- for idx in (27..30) %}unlock{{idx}} {% endfor %}">Chair</span>
+		</p>
+		<p><label>Authorized documents: </label>
+		<ol>
+			<li class="{%- for idx in (3..30) %}unlock{{idx}} {% endfor %}">A3</li>
+			{{- ""}}<li class="{%- for idx in (6..30) %}unlock{{idx}} {% endfor %}">D4</li>
+			{{- ""}}<li class="{%- for idx in (9..30) %}unlock{{idx}} {% endfor %}">G3</li>
+			{{- ""}}<li class="{%- for idx in (12..30) %}unlock{{idx}} {% endfor %}">J3</li>
+			{{- ""}}<li class="{%- for idx in (15..30) %}unlock{{idx}} {% endfor %}">N3</li>
+			{{- ""}}<li class="{%- for idx in (18..30) %}unlock{{idx}} {% endfor %}">Q3</li>
+			{{- ""}}<li class="{%- for idx in (21..30) %}unlock{{idx}} {% endfor %}">T3</li>
+			{{- ""}}<li class="{%- for idx in (24..30) %}unlock{{idx}} {% endfor %}">W8</li>
+			{{- ""}}<li class="{%- for idx in (27..30) %}unlock{{idx}} {% endfor %}">Y2</li>
+		</ol>
+		</p>
+		<details class="row"><summary>Competency Mechanics</summary>
+			<explain>For each progress, increase your max QA by 1 for any Quality, up to 9. Then gain 3 commendations.</explain>
+			<explain>When you receive Mission MVP, make 1 progress here without lowering the ceiling on other tracks.</explain>
+		</details>
+		</div>{%- elsif fieldId == "reality" %}<div class="unlocks">
+		<p><label>Authorized documents: </label>
+		<ol>
+			<li class="{%- for idx in (1..30) %}unlock{{idx}} {% endfor %}">C4</li>
+			{{- ""}}<li class="{%- for idx in (4..30) %}unlock{{idx}} {% endfor %}">L11</li>
+			{{- ""}}<li class="{%- for idx in (8..30) %}unlock{{idx}} {% endfor %}">E2</li>
+			{{- ""}}<li class="{%- for idx in (10..30) %}unlock{{idx}} {% endfor %}">O4</li>
+			{{- ""}}<li class="{%- for idx in (14..30) %}unlock{{idx}} {% endfor %}">T6</li>
+			{{- ""}}<li class="{%- for idx in (16..30) %}unlock{{idx}} {% endfor %}">V2</li>
+			{{- ""}}<li class="{%- for idx in (20..30) %}unlock{{idx}} {% endfor %}">X3</li>
+			{{- ""}}<li class="{%- for idx in (22..30) %}unlock{{idx}} {% endfor %}">H5</li>
+			{{- ""}}<li class="{%- for idx in (26..30) %}unlock{{idx}} {% endfor %}">E3</li>
+		</ol>
+		</p>
+		<details class="row"><summary>Reality Mechanics</summary>
+			<explain>For each progress, increase your Connection with any Relationship by 1, then repeat for each Networked Relationship.</explain>
+			<explain>When you receive neither Mission MVP nor Probation, you may increase your Connection with any Relationship by 1.</explain>
+		</details>
+		</div>{%- elsif fieldId == "anomaly" %}<div class="unlocks">
+		<p><label>Authorized documents: </label>
+		<ol>
+			<li class="{%- for idx in (1..30) %}unlock{{idx}} {% endfor %}">H4</li>
+			{{- ""}}<li class="{%- for idx in (2..30) %}unlock{{idx}} {% endfor %}">H3</li>
+			{{- ""}}<li class="{%- for idx in (5..30) %}unlock{{idx}} {% endfor %}">U2</li>
+			{{- ""}}<li class="{%- for idx in (7..30) %}unlock{{idx}} {% endfor %}">X2</li>
+			{{- ""}}<li class="{%- for idx in (11..30) %}unlock{{idx}} {% endfor %}">N1</li>
+			{{- ""}}<li class="{%- for idx in (13..30) %}unlock{{idx}} {% endfor %}">Q2</li>
+			{{- ""}}<li class="{%- for idx in (17..30) %}unlock{{idx}} {% endfor %}">L10</li>
+			{{- ""}}<li class="{%- for idx in (19..30) %}unlock{{idx}} {% endfor %}">G8</li>
+			{{- ""}}<li class="{%- for idx in (23..30) %}unlock{{idx}} {% endfor %}">A7</li>
+		</ol>
+		</p>
+		<details class="row"><summary>Anomaly Mechanics</summary>
+			<explain>For each progress, pick one: <ul>
+				<li><label>Practice:</label> Mark Practiced on any Anomaly Ability.</li>
+				<li><label>Be Known:</label> Erase Practiced from an Anomaly Ability and ask your team that Ability's question. Mark the track of the answer that gets the most votes, then receive any unlocked Abilities.</li>
+			</ul></explain>
+			<explain>When you receive Probation, make 1 progress here without lowering the ceiling on other tracks.</explain>
+		</details>
+		</div>{%- endif %}
+	</arc-track>
+	{%- endfor %}
+	<script>
+		for (const track of document.querySelectorAll('arc-track')) {
+			const progressInput = track.querySelector('.progress input');
+			const ceilingInput = track.querySelector('.ceiling input');
+			progressInput.addEventListener('change', () => {
+				ceilingInput.min = progressInput.value;
+				track.setAttribute("data-level", progressInput.value);
+			});
+			ceilingInput.addEventListener('change', () => {
+				progressInput.max = ceilingInput.value;
+			});
+		}
+	</script>
+	</row> <!-- End ARC Tracks -->
 </div> <!-- work-life-balance -->
 
+<style>
+#anomaly-abilities {
+	display: grid;
+	grid-row-gap: 1em;
+	anomaly {
+		display: grid;
+		border: 2px solid rgb(from var(--fg-blue) r g b / 0.8);
+		grid-column-gap: 5px;
+		padding: 5px;
+		grid-template-columns: 1fr 1fr 10em;
+		@media (width < 500px) {
+			grid-template-columns: 1fr;
+			right { grid-column-start: 1; }
+		}
+		header {
+			display: grid;
+			grid-template-columns: subgrid;
+			grid-column: 1 / -1;
+			background-color: rgb(from var(--fg-blue) r g b / 0.15);
+			padding: 5px;
+			margin: -5px;
+		}
+		&:has([name$="-name"]:placeholder-shown) {
+			& > *:not(header) { display: none; }
+			& + anomaly:has([name$="-name"]:placeholder-shown) {
+				display: none !important;
+			}
+		}
+		left {
+			grid-column: 1;
+		}
+		right {
+			grid-column-start: 2;
+			grid-column-end: -1;
+		}
+		left > *, right > * {
+			width: 100%;
+		}
+		questionnaire {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			textarea {
+				width: 100%;
+			}
+		}
+		answer {
+			input {
+				width: 100%;
+			}
+		}
+		answer-result, stats {
+			input[type="text"] {
+				width: 2em;
+			}
+		}
+		stats {
+			margin-left: auto;
+			&> * {
+				display: flex;
+				justify-content: flex-end;
+			}
+		}
+		answer-result {
+			margin-left: auto;
+		}
+	}
+}
+</style>
 <div id="anomaly-abilities">
 	<h3>Anomaly Abilities</h3>
+	{%- for idx in (1..6) %}
+	<anomaly>
+		<header>
+			<div class="overlabeled">
+				<label for="ability{{idx}}-name">Ability</label>
+				<input type="text" id="ability{{idx}}-name" name="ability{{idx}}-name" placeholder="Add Ability" />
+			</div>
+			<div class="overlabeled">
+				<label for="ability{{idx}}-trigger">Trigger</label>
+				<input type="text" id="ability{{idx}}-trigger" name="ability{{idx}}-trigger" />
+			</div>
+			<div class="overlabeled">
+				<label for="ability{{idx}}-quality">Quality</label>
+				<input type="text" id="ability{{idx}}-quality" name="ability{{idx}}-quality" />
+			</div>
+		</header>
+		<left>
+			<div class="overlabeled">
+				<label for="ability{{idx}}-success">On a success</label>
+				<textarea id="ability{{idx}}-success" name="ability{{idx}}-success"></textarea>
+			</div>
+			<div class="overlabeled">
+				<label for="ability{{idx}}-super">On six or more 3s</label>
+				<textarea id="ability{{idx}}-super" name="ability{{idx}}-super"></textarea>
+			</div>
+		</left>
+		<right>
+			<div class="overlabeled">
+				<label for="ability{{idx}}-failure">On a failure</label>
+				<textarea id="ability{{idx}}-failure" name="ability{{idx}}-failure"></textarea>
+			</div>
+			<questionnaire>
+				<question class="leftlabeled">
+					<label for="ability{{idx}}-question">Q:</label>
+					<textarea id="ability{{idx}}-question" name="ability{{idx}}-question"></textarea>
+				</question>
+				<stats>
+					<div class="leftlabeled">
+						<label for="ability{{idx}}-practiced">Practiced?</label>
+						<input type="checkbox" id="ability{{idx}}-practiced" name="ability{{idx}}-practiced" />
+					</div>
+					<div class="leftlabeled">
+						<label for="ability{{idx}}-page">Page #</label>
+						<input type="text" id="ability{{idx}}-page" name="ability{{idx}}-page" />
+					</div>
+				</stats>
+				{%- for answerIdx in (1..2) %}
+				<answer class="leftlabeled">
+					<label for="ability{{idx}}-answer{{answerIdx}}">A:</label>
+					<input type="text" id="ability{{idx}}-answer{{answerIdx}}" name="ability{{idx}}-answer{{answerIdx}}" />
+				</answer>
+				<answer-result>
+					{%- for voteIdx in (1..3) %}
+					<input type="checkbox" id="ability{{idx}}-answer{{answerIdx}}-vote{{voteIdx}}" name="ability{{idx}}-answer{{answerIdx}}-vote{{voteIdx}}" />
+					{%- endfor %}
+					<input type="text" id="ability{{idx}}-answer{{answerIdx}}-page" name="ability{{idx}}-answer{{answerIdx}}-page" />
+				</answer-result>
+				{%- endfor %}
+			</questionnaire>
+		</right>
+	</anomaly>
+	{%- endfor %}
 </div> <!-- anomaly-abilities -->
 
 <div id="relationships">
@@ -382,7 +692,7 @@ warning {
 		<div class="overlabeled">
 			{%- capture fieldId %}relationship{{idx}}-{{ field | slugify }}{% endcapture %}
 			<label for="{{ fieldId }}">{{ field }}</label>
-			<input type="text" id="{{ fieldId }}" name="{{ fieldId }}" />
+			<input type="text" id="{{ fieldId }}" name="{{ fieldId }}" {% if field == "Name" %}placeholder="Add Relationship"{% endif %}/>
 		</div>
 		{%- endfor %}
 		{%- assign field = "Strength" %}
@@ -406,7 +716,7 @@ warning {
 			<label for="{{ fieldId }}">{{ field }}</label>
 			<textarea id="{{ fieldId }}" name="{{ fieldId }}"></textarea>
 		</div>
-		{%- assign field = "Networked" %}
+		{%- assign field = "Active" %}
 		{%- capture fieldId %}relationship{{idx}}-{{ field | slugify }}{% endcapture %}
 		<div class="underlabeled">
 			<label for="{{ fieldId }}">{{ field }}</label>
@@ -418,10 +728,132 @@ warning {
 	</collection>
 </div> <!-- relationships -->
 
+<style>
+#requisitions-benefits {
+	display: grid;
+	item {
+		padding: 0.5em;
+		border: 2px solid rgb(from var(--fg-red) r g b / 0.8);
+		&:has([name$="-name"]:placeholder-shown) {
+			& > *:not(header) { display: none; }
+			& + item:has([name$="-name"]:placeholder-shown) {
+				display: none !important;
+			}
+		}
+		header {
+			gap: 0.5em;
+			display: flex;
+			margin: -0.5em;
+			padding: 0.5em;
+			box-sizing: content-box;
+			background-color: rgb(from var(--fg-red) r g b / 0.2);
+			> *:first-child {
+				flex: 1;
+				input { width: 100%; }
+			}
+			> *:not(:first-child) {
+				flex: none;
+				align-items: center;
+				input { width: 3em; }
+			}
+		}
+		item-body {
+			display: block;
+			margin-top: 0.5em;
+			width: 100%;
+			& > * { width: 100%; }
+		}
+		textarea {
+			width: 100%;
+			min-height: 3em;
+		}
+	}
+}
+
+</style>
 <div id="requisitions-benefits">
 	<h3>Requisitions &amp; Work/Life Benefits</h3>
+	<collection>
+	{%- for idx in (1..12) %}
+		<item>
+		<header>
+			<div class="overlabeled">
+				<label for="benefit{{idx}}-name">Name</label>
+				<input type="text" id="benefit{{idx}}-name" name="benefit{{idx}}-name" placeholder="Add Benefit" />
+			</div>
+			<div class="overlabeled">
+				<label for="benefit{{idx}}-page">Page/PD Code</label>
+				<input type="text" id="benefit{{idx}}-page" name="benefit{{idx}}-page" />
+			</div>
+		</header>
+		<item-body>
+			<div class="overlabeled">
+				<label for="benefit{{idx}}-effect">Effect</label>
+				<textarea id="benefit{{idx}}-effect" name="benefit{{idx}}-effect"></textarea>
+			</div>
+		</item-body>
+		</item>
+	{%- endfor %}
+	</collection>
 </div> <!-- requisitions-benefits -->
 
+<style>
+#custom-tracks {
+	display: grid;
+	custom-track {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		flex: 1 0 min-content;
+		h4 { width: 100%; }
+		.progress, .ceiling {
+			flex: none;
+		}
+		& > *:first-child {
+			flex: 1;
+		}
+		&:has([name$="-name"]:placeholder-shown) {
+			& + custom-track:has([name$="-name"]:placeholder-shown) {
+				display: none !important;
+			}
+		}
+	}
+}
+</style>
+
+<div id="custom-tracks">
+	<h3>Custom Tracks</h3>
+	{%- for trackIdx in (1..10) %}
+	{%- capture fieldId %}custom-track{{trackIdx}}{% endcapture %}
+	<custom-track id="{{fieldId}}">
+		<div class="overlabeled">
+			<label for="{{ fieldId }}-name">Name</label>
+			<input type="text" id="{{ fieldId }}-name" name="{{ fieldId }}-name" placeholder="Add Track" />
+		</div>
+		<div class="progress leftlabeled">
+			<label for="{{ fieldId }}-progress">Progress</label>
+			<input type="number" id="{{ fieldId }}-progress" name="{{ fieldId }}-progress" value="0" min="0" max="30" />
+		</div>
+		<div class="ceiling leftlabeled">
+			<label for="{{ fieldId }}-ceiling">Ceiling</label>
+			<input type="number" id="{{ fieldId }}-ceiling" name="{{ fieldId }}-ceiling" value="30" min="0" max="30" />
+		</div>
+	</custom-track>
+	{%- endfor %}
+	<script>
+		for (const track of document.querySelectorAll('custom-track')) {
+			const progressInput = track.querySelector('.progress input');
+			const ceilingInput = track.querySelector('.ceiling input');
+			progressInput.addEventListener('change', () => {
+				ceilingInput.min = progressInput.value;
+				track.setAttribute("data-level", progressInput.value);
+			});
+			ceilingInput.addEventListener('change', () => {
+				progressInput.max = ceilingInput.value;
+			});
+		}
+	</script>
+</div>
 </form>
 </body>
 </html>
