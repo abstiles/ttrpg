@@ -634,9 +634,8 @@ export default character;
 	};
 	uploadFile.onchange = function(event) {
 		const file = event.target.files[0];
-		console.log(`File type: ${file.type}`)
 		if (file.type === "image/png") {
-			loadFromImage(file);
+			loadFromImage(file).then(enableForm);
 		} else {
 			const reader = new FileReader();
 			reader.readAsText(file,'UTF-8');
@@ -708,12 +707,9 @@ export default character;
 
 	const envelope = bytes => {
 		// First byte determines formatting. Highest order bit is orientation,
-		// 0 = horizontal, 1 = vertical; next 5 bits reserved for version; last
-		// two bits always set to ensure PNG optimizers don't clear color bits
-		// on a 0% opacity pixel.
+		// 0 = horizontal, 1 = vertical; remaining bits reserved for version.
 		const verticalOrientation = 1 << 7;
-		const opaque = 0x03;
-		const orientationByte = [verticalOrientation | opaque];
+		const orientationByte = [verticalOrientation];
 		const marker = new TextEncoder().encode("rpg");
 		const dataLen = intToByteArray(bytes.byteLength);
 		const header = new Uint8ClampedArray(8);
@@ -741,6 +737,30 @@ export default character;
 	);
 
 	const loadFromImage = async file => {
+		const imageData = extractRGB(await loadCharacterImageData(file));
+		const marker = new TextDecoder().decode(imageData.slice(1, 4));
+		if (marker != "rpg") {
+			throw new Error(`Not a valid character sheet image: ${marker}`);
+		}
+		const payloadLength = new Uint32Array(imageData.slice(4, 8).buffer)[0];
+		const payload = imageData.slice(8, 8 + payloadLength);
+		const data = await decompress(payload)
+			.then(JSON.parse)
+			.then(params => Object.fromEntries(new URLSearchParams(params)));
+		await loadForm((data));
+	};
+
+	const extractRGB = rawImageData => {
+		const rgbData = new Uint8Array((rawImageData.length / 4) * 3);
+		for (let i = 0, j = 0; j < rawImageData.length; i += 3, j += 4) {
+			rgbData[i] = rawImageData[j];
+			rgbData[i + 1] = rawImageData[j + 1];
+			rgbData[i + 2] = rawImageData[j + 2];
+		}
+		return rgbData;
+	};
+
+	const loadCharacterImageData = async file => {
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
 		await loadAsync(reader);
@@ -750,8 +770,31 @@ export default character;
 		const canvas = document.createElement('canvas');
 		canvas.width = img.width;
 		canvas.height = img.height;
-		canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
-		return canvas;
+		const ctx = canvas.getContext('2d');
+		ctx.drawImage(img, 0, 0, img.width, img.height);
+		const orientation = ctx.getImageData(0, 0, 1, 1).data[0];
+		const verticalOrientation = 1 << 7;
+		if (orientation | verticalOrientation) {
+			// Transpose data.
+			const temp = document.createElement('canvas');
+			temp.width = img.height;
+			temp.height = img.width;
+			const tempCtx = temp.getContext('2d');
+			tempCtx.transform(0, 1, 1, 0, 0, 0);
+			tempCtx.drawImage(canvas, 0, 0);
+			return tempCtx.getImageData(0, 0, temp.width, temp.height).data;
+		}
+		return ctx.getImageData(0, 0, img.width, img.height).data;
+	};
+
+	const transposeImageData = imageData => {
+		const temp = document.createElement('canvas');
+		temp.width = imageData.width;
+		temp.height = imageData.height;
+		temp.getContext('2d').putImageData(imageData, 0, 0);
+		ctx.transform(0, 1, 1, 0, 0, 0);
+		ctx.drawImage(temp, 0, 0);
+		ctx.restore();
 	};
 
 	const injectPayload = (img, payload, opts) => {
@@ -761,9 +804,14 @@ export default character;
 		// Create payload subimage with pixels holding payload data.
 		const width = transpose ? img.height : img.width;
 		const bytesPerRow = 4 * width; // 4 bytes per RGBA pixel.
-		const height = Math.ceil(payload.byteLength / bytesPerRow);
+		// Multiply by 4/3 because we can't store data losslessly in alpha.
+		const height = Math.ceil(payload.byteLength * 4 / 3 / bytesPerRow);
 		const data = new Uint8ClampedArray(bytesPerRow * height);
-		data.set(new Uint8ClampedArray(payload), 0);
+		const payloadBytes = new Uint8ClampedArray(payload);
+		for (let i = 0, j = 0; i < payloadBytes.length; i += 3, j += 4) {
+			data.set(payloadBytes.subarray(i, i + 3), j);
+			data.set([255], j + 3);
+		}
 		const payloadImage = new ImageData(data, width, height);
 
 		// Create target canvas large enough to hold original image + payload.
