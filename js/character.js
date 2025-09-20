@@ -744,10 +744,8 @@ export default character;
 		}
 		const payloadLength = new Uint32Array(imageData.slice(4, 8).buffer)[0];
 		const payload = imageData.slice(8, 8 + payloadLength);
-		const data = await decompress(payload)
-			.then(JSON.parse)
-			.then(params => Object.fromEntries(new URLSearchParams(params)));
-		await loadForm((data));
+		const data = await decompress(payload).then(JSON.parse);
+		await loadForm(data);
 	};
 
 	const extractRGB = rawImageData => {
