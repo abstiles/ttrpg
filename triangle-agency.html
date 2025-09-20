@@ -396,7 +396,7 @@ relationship {
 {%- for question in page.questions %}
 	<div class="question overlabeled">
 		<label for="question-{{forloop.index}}">{{ question }}</label>
-		<textarea id="{{forloop.index}}" name="{{forloop.index}}"></textarea>
+		<textarea id="question-{{forloop.index}}" name="question-{{forloop.index}}"></textarea>
 	</div>
 {%- endfor %}
 <div class="question overlabeled additional-notes">
