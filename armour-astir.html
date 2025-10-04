@@ -77,8 +77,15 @@ category: character sheet
 		@media (width < 500px) {
 			grid-template-columns: none;
 		}
-		input[type="text"] {
-			width: 100%;
+		.move-header {
+			display: flex;
+			& > input[type="text"] {
+				flex: 1;
+			}
+			& > input[type="number"] {
+				width: 2.5em;
+				text-align: right;
+			}
 		}
 		h3 { grid-column: 1/-1; }
 		.elastic-count:nth-child(even):has(.key:placeholder-shown):has(+ .elastic-count .key:placeholder-shown) {
@@ -146,7 +153,7 @@ category: character sheet
 			column-gap: 5px;
 			grid-template-columns: 2fr 1fr;
 			align-items: end;
-			@media (width < 600px) {
+			@media (width < 700px) {
 				grid-template-columns: none;
 			}
 			stats {
@@ -161,6 +168,9 @@ category: character sheet
 					grid-row: 1/-1;
 				}
 			}
+		}
+		#astir-core {
+			min-width: 14em;
 		}
 		#astir-equipment {
 			display: grid;
@@ -512,7 +522,10 @@ category: character sheet
 		{%- for idx in (1..10) %}
 		{%- capture fieldId = %}move{{idx}}{% endcapture %}
 		<div class="move elastic-count">
-			<input class="key" type="text" name="{{ fieldId }}-name" id="{{ fieldId }}-name" placeholder="New Move" />
+			<div class="move-header">
+				<input class="key" type="text" name="{{ fieldId }}-name" id="{{ fieldId }}-name" placeholder="New Move" />
+				<input type="number" name="{{ fieldId }}-hold" id="{{ fieldId }}-hold" />
+			</div>
 			<textarea name="{{ fieldId }}-description" rows="2"></textarea>
 		</div>
 		{%- endfor %}
