@@ -23,7 +23,297 @@ category: character sheet
 {% include header.html %}
 {% include character-controls.html %}
 
-<style></style>
+<style>
+#character-sheet {
+	* { box-sizing: border-box; }
+	display: grid;
+	row-gap: 0.5em;
+	select, input[type="text"] {
+		font-size: 12pt;
+		line-height: 19px;
+		padding: 1px;
+	}
+	textarea {
+		font-size: 13px;
+		line-height: 1.4;
+		min-height: calc(13px * 1.4 + 6px);
+		{%- for val in (2..6) %}
+		&[rows="{{val}}"] {
+			min-height: calc({{val}} * 13px * 1.4 + 6px);
+		}
+		{%- endfor %}
+	}
+	#flavor {
+		display: grid;
+		grid-template-columns: auto auto;
+		grid-column-gap: 5px;
+		@media (width < 600px) {
+			grid-template-columns: none;
+		}
+	}
+	stats {
+		display: flex;
+		justify-content: space-between;
+		gap: 5px;
+		input[type="number"] {
+			width: 100%;
+		}
+	}
+	&:not(:has(#is-channeler:checked)) {
+		.overlabeled:has(#channel), #astir.section {
+			display: none;
+		}
+	}
+	&:has(#is-channeler:checked) {
+		#quarters.section {
+			display: none;
+		}
+	}
+	#gear, #moves {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-column-gap: 5px;
+		grid-row-gap: 5px;
+		@media (width < 500px) {
+			grid-template-columns: none;
+		}
+		input[type="text"] {
+			width: 100%;
+		}
+		h3 { grid-column: 1/-1; }
+		.elastic-count:nth-child(even):has(.key:placeholder-shown):has(+ .elastic-count .key:placeholder-shown) {
+			grid-column: 1/-1;
+		}
+		textarea {
+			min-height: max(100%, calc(2 * 13px * 1.4 + 4px));
+		}
+	}
+	#summary {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 5px;
+		& > *:first-child {
+			flex: 1;
+			@media (width < 500px) {
+				min-width: 100%;
+			}
+		}
+		& > * {
+			@media (width < 500px) {
+				flex: 1;
+			}
+		}
+	}
+	#dangers {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		row-gap: 5px;
+		column-gap: 5px;
+		@media (width < 600px) {
+			grid-template-columns: none;
+		}
+		h3 {
+			grid-column: 1 / -1;
+		}
+		.danger {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 5px;
+			input[type="text"] {
+				width: 100%;
+			}
+		}
+	}
+
+	part, .move {
+		display: grid;
+		border: 1px solid gray;
+		background-color: gray;
+		row-gap: 1px;
+		grid-template-rows: auto 1fr;
+		input, textarea {
+			border: none;
+		}
+		textarea {
+			min-height: calc(13px * 1.4 + 4px);
+		}
+	}
+	#astir {
+		stat-header {
+			display: grid;
+			row-gap: 5px;
+			column-gap: 5px;
+			grid-template-columns: 2fr 1fr;
+			align-items: end;
+			@media (width < 600px) {
+				grid-template-columns: none;
+			}
+			stats {
+				display: grid;
+				row-gap: 5px;
+				column-gap: 5px;
+				grid-template-rows: 1fr 1fr;
+				grid-template-columns: 1fr auto;
+				grid-auto-flow: column;
+				align-items: end;
+				& > *:first-child {
+					grid-row: 1/-1;
+				}
+			}
+		}
+		#astir-equipment {
+			display: grid;
+			row-gap: 5px;
+			column-gap: 5px;
+		}
+		weapons, parts {
+			display: grid;
+			row-gap: 5px;
+			column-gap: 5px;
+		}
+		parts {
+			grid-template-columns: 1fr 1fr;
+			@media (width < 600px) {
+				grid-template-columns: none;
+			}
+		}
+		weapon {
+			display: grid;
+			grid-template-columns: auto 1fr;
+			@media (width < 600px) {
+				grid-template-columns: none;
+			}
+			&:has([name$="-detail"]:placeholder-shown) {
+				& + *:has([name$="-detail"]:placeholder-shown) {
+					display: none !important;
+				}
+			}
+		}
+		#astir-desc {
+			display: grid;
+			grid-row-gap: 5px;
+			grid-column-gap: 5px;
+			grid-template-columns: 1fr auto;
+			@media (width < 600px) {
+				grid-template-columns: none;
+			}
+			.move textarea {
+				min-height: 100%;
+			}
+		}
+	}
+
+	#misc-state {
+		display: grid;
+		grid-row-gap: 5px;
+		grid-column-gap: 5px;
+		grid-template-columns: auto auto;
+		align-items: start;
+		@media (width < 600px) {
+			grid-template-columns: none;
+			grid-template-rows: none;
+		}
+		#gravity-clocks, #hooks {
+			display: grid;
+			grid-row-gap: 5px;
+			grid-column-gap: 5px;
+		}
+		clock {
+			position: relative;
+			display: flex;
+			& > * { flex: 1; }
+		}
+		#hooks {
+			hook {
+				display: grid;
+				grid-row-gap: 5px;
+				grid-column-gap: 5px;
+				grid-template-columns: 1fr auto;
+				grid-template-rows: auto auto;
+				grid-auto-flow: column;
+				& > *:first-child {
+					grid-row: 1 / -1;
+					min-height: 100%;
+				}
+			}
+		}
+	}
+	#spotlight {
+		display: flex;
+		gap: 5px;
+		position: relative;
+		justify-content: flex-end;
+		margin: auto;
+		h4 {
+			margin-left: 0;
+			margin-right: 0;
+		}
+		& > * {
+			text-align: right;
+		}
+	}
+
+	.elastic-count {
+		&:has(.key:placeholder-shown) {
+			& + *:has(.key:placeholder-shown) {
+				display: none !important;
+			}
+		}
+	}
+
+	.spread {
+		display: flex;
+		justify-content: space-between;
+		position: relative;
+	}
+
+	#is-channeler {
+		margin: 0;
+		height: 25px;
+		width: 25px;
+		margin-left: -1px;
+		box-sizing: border-box;
+	}
+
+	.section {
+		display: grid;
+		h1, h2, h3 {
+			grid-column: 1 / -1;
+		}
+		row-gap: 5px;
+		column-gap: 5px;
+	}
+
+	.leftlabeled {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		label {
+			font-family: var(--sans);
+			margin-left: 0.5em;
+		}
+	}
+
+	input[type="range"] {
+		margin-right: 1em;
+		height: 25px;
+		box-sizing: border-box;
+	}
+	input[type="range"]::after {
+		position: absolute;
+		right: 0;
+		font-size: 12pt;
+		line-height: 25px;
+	}
+	{%- for val in (0..6) %}
+	input[type="range"][data-value="{{val}}"]::after {
+		content: "{{val}}";
+	}
+	{%- endfor %}
+}
+
+</style>
 <form id="character-sheet">
 
 	<div id="summary">
@@ -32,17 +322,15 @@ category: character sheet
 			<input type="text" id="character-name" name="character-name" />
 		</div>
 		<div class="overlabeled">
-			<label for="playbook">Playbook</label>
-			<input type="text" id="playbook" name="playbook" />
+			<div class="spread">
+				<label for="playbook">Playbook</label>
+				<label for="is-channeler">Channeler?</label>
+			</div>
+			<div class="spread">
+				<input type="text" id="playbook" name="playbook" />
+				<input type="checkbox" id="is-channeler" name="is-channeler" />
+			</div>
 		</div>
-		{% assign fields = "defy,sense,talk,clash,know,channel" | split: "," %}
-		{% for field in fields %}
-		<div class="overlabeled">
-			<label for="{{ field }}">{{ field | capitalize }}</label>
-			<input type="number" id="{{ field }}" name="{{ field }}" />
-		</div>
-		{% endfor %}
-
 		<div class="overlabeled">
 			<label for="approach">Approach</label>
 			<select name="approach" id="approach">
@@ -53,26 +341,192 @@ category: character sheet
 			</select>
 		</div>
 	</div>
+	<stats>
+		{% assign fields = "defy,sense,talk,clash,know,channel" | split: "," %}
+		{% for field in fields %}
+		<div class="overlabeled">
+			<label for="{{ field }}">{{ field | capitalize }}</label>
+			<input type="number" id="{{ field }}" name="{{ field }}" value="0" />
+		</div>
+		{% endfor %}
+	</stats>
 
-	<div class="overlabeled">
-		<label for="look">You look</label>
-		<textarea id="look" name="look" rows="2"></textarea>
+	<div id="flavor">
+		<div class="overlabeled">
+			<label for="look">You look</label>
+			<textarea id="look" name="look" rows="2"></textarea>
+		</div>
+
+		<div class="overlabeled">
+			<label for="wear">You wear</label>
+			<textarea id="wear" name="wear" rows="2"></textarea>
+		</div>
+
+		<div class="overlabeled">
+			<label for="magic-like">Your magic is like</label>
+			<textarea id="magic-like" name="magic-like" rows="2"></textarea>
+		</div>
+
+		<div class="overlabeled">
+			<label for="launch-say">When you launch your Astir, you say</label>
+			<textarea id="launch-say" name="launch-say" rows="2"></textarea>
+		</div>
+
+		<div class="overlabeled">
+			<label for="gravity-trigger">Gravity Trigger</label>
+			<textarea id="gravity-trigger" name="gravity-trigger" rows="2"></textarea>
+		</div>
+		<div id="spotlight">
+			<h4>Spotlight</h4>
+			<input type="number" name="spotlight-progress" id="spotlight-progress" min="0" max="6" value="0" />
+		</div>
 	</div>
 
-	<div class="overlabeled">
-		<label for="wear">You wear</label>
-		<textarea id="wear" name="wear" rows="2"></textarea>
+	<div id="gear">
+		<h3>Items, Gear, and Bonuses</h3>
+		{%- for idx in (1..15) %}
+		{%- capture fieldId = %}gear{{idx}}{% endcapture %}
+		<div class="elastic-count">
+			<input class="key" type="text" name="{{ fieldId }}-name" id="{{ fieldId }}-name" placeholder="Item" />
+		</div>
+		{%- endfor %}
 	</div>
 
-	<div class="overlabeled">
-		<label for="magic-like">Your magic is like</label>
-		<textarea id="magic-like" name="magic-like" rows="2"></textarea>
+	<div id="dangers">
+		<h3>Dangers</h3>
+		{%- for idx in (1..3) %}
+		{%- capture fieldId = %}danger{{idx}}{% endcapture %}
+		<div class="danger">
+			<input type="text" id="{{ fieldId }}" name="{{ fieldId }}" placeholder="Danger" />
+			{%- assign dangerTypes = "risk,peril" | split: "," %}
+			{%- for dangerType in dangerTypes %}
+			<div class="danger-type">
+				<label for="{{ fieldId }}-type-{{ dangerType }}">{{ dangerType | capitalize }}</label>
+				<input disabled type="radio" name="{{ fieldId }}-type" id="{{ fieldId }}-type-{{ dangerType }}" value="{{ dangerType }}" />
+			</div>
+			{%- endfor %}
+			<script>
+				document.getElementById("{{ fieldId }}").addEventListener("input", evt => {
+					for (const radio of document.querySelectorAll('input[name="{{ fieldId }}-type"]')) {
+						if (evt.target.value === "") {
+							radio.checked = false;
+							radio.disabled = true;
+						} else {
+							radio.disabled = false;
+						}
+					}
+				});
+			</script>
+		</div>
+		{%- endfor %}
 	</div>
 
-	<div class="overlabeled">
-		<label for="launch-say">When you launch your Astir, you say</label>
-		<textarea id="launch-say" name="launch-say" rows="2"></textarea>
+	<div id="astir" class="section">
+		<h3>Astir</h3>
+		<stat-header>
+			<input type="text" name="astir-name" placeholder="Astir Name" />
+			<stats>
+				<div class="overlabeled">
+					<label for="astir-core">Core</label>
+					<input type="text" id="astir-core" name="astir-core" />
+				</div>
+				<div class="leftlabeled">
+					<label for="astir-power">Power</label>
+					<input type="number" id="astir-power" name="astir-power" value="0" />
+				</div>
+				<div class="leftlabeled">
+					<label for="astir-power">Overheating</label>
+					<input type="checkbox" id="astir-overheating" name="astir-overheating" />
+				</div>
+			</stats>
+		</stat-header>
+		<div id="astir-equipment">
+			<div id="astir-desc">
+				<textarea name="astir-description" rows="2" placeholder="Astir Description"></textarea>
+				<div class="move">
+					<input type="text" name="astir-move-name" id="astir-move-name" placeholder="Move" />
+					<textarea name="astir-move-details" rows="1"></textarea>
+				</div>
+			</div>
+			<parts>
+			{%- for idx in (1..2) %}
+			{%- capture fieldId = %}part{{idx}}{% endcapture %}
+				<part>
+					<input type="text" name="{{ fieldId }}-name" id="{{ fieldId }}-name" placeholder="Part" />
+					<textarea name="{{ fieldId }}-details" rows="2"></textarea>
+				</part>
+			{%- endfor %}
+			</parts>
+			<weapons>
+			{%- for idx in (1..3) %}
+			{%- capture fieldId = %}weapon{{idx}}{% endcapture %}
+				<weapon>
+					<input type="text" name="{{ fieldId }}-equip" id="{{ fieldId }}-equip" placeholder="Equip Type" />
+					<input type="text" name="{{ fieldId }}-detail" id="{{ fieldId }}-detail" placeholder="Weapon, e.g., 'Cleaving Axe III (melee)'" />
+				</weapon>
+			{%- endfor %}
+			</weapons>
+		</div>
+	</div>
+
+	<div id="quarters" class="section">
+		<h3>Quarters</h3>
+		<textarea name="quarters-description" rows="2" placeholder="Describe your quarters"></textarea>
+		{%- for idx in (1..2) %}
+		{%- capture fieldId = %}quarters-benefit{{idx}}{% endcapture %}
+		<input type="text" name="{{ fieldId }}" id="{{ fieldId }}" placeholder="Quarters Benefit" />
+		{%- endfor %}
+	</div>
+
+	<div id="misc-state">
+		<div id="gravity-clocks">
+			<h4>Gravity Clocks</h4>
+			{%- for idx in (1..4) %}
+			{%- capture fieldId = %}clock{{idx}}{% endcapture %}
+			<clock class="elastic-count">
+				<input class="key" type="text" name="{{ fieldId }}-name" id="{{ fieldId }}-name" placeholder="Relationship" />
+				<input type="range" name="{{ fieldId }}-progress" id="{{ fieldId }}-progress" min="0" max="6" data-value="0" value="0" />
+			</clock>
+			{%- endfor %}
+		</div>
+		<div id="hooks">
+			<h4>Hooks</h4>
+			{%- for idx in (1..3) %}
+			{%- capture fieldId = %}hook{{idx}}{% endcapture %}
+			<hook class="elastic-count">
+				<textarea class="key" name="{{ fieldId }}-desc" id="{{ fieldId }}-desc" placeholder="Hook" rows="2" ></textarea>
+				{%- assign hookTypes = "loose,deep" | split: "," %}
+				{%- for hookType in hookTypes %}
+				<div class="hook-type">
+					<label for="{{ fieldId }}-type-{{ hookType }}">{{ hookType | capitalize }}</label>
+					<input disabled type="radio" name="{{ fieldId }}-type" id="{{ fieldId }}-type-{{ hookType }}" value="{{ hookType }}" />
+				</div>
+				{%- endfor %}
+			</hook>
+			{%- endfor %}
+		</div>
+	</div>
+
+	<div id="moves" class="section">
+		<h3>Moves</h3>
+		{%- for idx in (1..10) %}
+		{%- capture fieldId = %}move{{idx}}{% endcapture %}
+		<div class="move elastic-count">
+			<input class="key" type="text" name="{{ fieldId }}-name" id="{{ fieldId }}-name" placeholder="New Move" />
+			<textarea name="{{ fieldId }}-description" rows="2"></textarea>
+		</div>
+		{%- endfor %}
 	</div>
 </form>
+<script>
+	for (const rangeInput of document.querySelectorAll('input[type="range"]')) {
+		rangeInput.addEventListener("input", function() {
+			this.setAttribute("data-value", this.value);
+		});
+		rangeInput.addEventListener("change", function() {
+			this.setAttribute("data-value", this.value);
+		});
+	}
+</script>
 </body>
 </html>
