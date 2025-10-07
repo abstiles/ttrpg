@@ -635,7 +635,6 @@ glossary:
 		element.style.font = style.font;
 	}
 	function matchText(element, target) {
-		let text = "";
 		let idx = 0;
 		element.innerHTML = "";
 		for (const chunk of target.value.split(termRegex)) {
@@ -664,11 +663,17 @@ glossary:
 					target.setSelectionRange(start, end);
 				});
 			} else {
-				element.appendChild(
-					document.createTextNode(
-						chunk.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
-					)
-				);
+				for (const text of chunk.split(/(\n)/g)) {
+					if (text === "\n") {
+						element.appendChild(document.createElement("br"));
+					} else {
+						element.appendChild(
+							document.createTextNode(
+								text.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+							)
+						);
+					}
+				}
 			}
 			idx += chunk.length;
 		}
@@ -677,7 +682,6 @@ glossary:
 	const hoverHelper = document.createElement("div");
 	hoverHelper.ariaHidden = true;
 	hoverHelper.style.pointerEvents = "none";
-	hoverHelper.style.whiteSpace = "pre";
 	hoverHelper.style.position = "fixed";
 	hoverHelper.style.boxSizing = "border-box";
 	const textBoxes = Array.from(document.querySelectorAll("textarea"))
