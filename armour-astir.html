@@ -2,6 +2,11 @@
 title: Armour Astir
 category: character sheet
 glossary:
+  arcane: strong to divine, weak to mundane
+  divine: strong to profane, weak to arcane
+  profane: strong to elemental, weak to divine
+  elemental: strong to mundane, weak to profane
+  mundane: strong to arcane, weak to elemental
   advantage: roll an extra d6 and drop the lowest value
   disadvantage: roll an extra d6 and drop the highest value
   confidence: any die roll of 1 becomes a 6
@@ -29,11 +34,6 @@ glossary:
   weak: Lacking in physical impact, and generally useless for piercing armour or cover.
   valuable: Expensive to acquire, and fairly sought-after. Increases value by +2.
   adapted: This object has been modified or designed to let it overcome the difficulties of certain environments—it might be an amphibious Astir with an air supply, an Ardent designed to keep it’s occupants cool in searing-hot terrains, etc.
-  arcane: the approach of those who weave pure unaspected magic, which pierces the domains of the divine well, having long since been stolen from them
-  divine: the approach of those with a godly sponsor, which scours the profane from our world quite readily, holy powers being anathema to those of the dark
-  elemental: the approach of those wielding fire and frost, which easily subverts mundane defences that rely on materials that warp, conduct and shatter under the elements
-  mundane: the approach of those with blades, bows and shields, which cuts easily through arcane defences meant to protect against magic with simple steel
-  profane: This tag changes your approach to the listed one while you’re actively using it.
   area: "This weapon affects a large area: while any melee weapon might hit multiple people stood right next to each-other, an area weapon might slice through an entire crowd or several spread- out foes."
   bane: You suffer no penalty against opponents one tier above you when attacking with bane.
   blitz: You may spend this tag once per Scene to make a move with confidence.
@@ -391,6 +391,13 @@ glossary:
 
 }
 
+.hover-textbox {
+	color: transparent;
+	abbr {
+		text-decoration-color: var(--color);
+	}
+}
+
 </style>
 <form id="character-sheet">
 
@@ -612,16 +619,16 @@ glossary:
 <script>
 	const glossary = {{ page.glossary | jsonify }};
 	const termRegex = new RegExp(
-		'('
+		'\\b('
 		+ Object.keys(glossary).sort((a, b) => b.length - a.length).join('|')
-		+ ")", "gi"
+		+ ")\\b", "gi"
 	);
 	function matchPosition(element, target) {
 		const rect = target.getBoundingClientRect();
 		element.style.width = rect.width + "px";
 		element.style.height = rect.height + "px";
-		element.style.top = rect.y + "px";
-		element.style.left = rect.x + "px";
+		element.style.top = pageYOffset + rect.y + "px";
+		element.style.left = pageXOffset + rect.x + "px";
 		element.style.overflow = "scroll";
 		element.scrollTop = target.scrollTop;
 		element.scrollLeft = target.scrollLeft;
@@ -681,17 +688,18 @@ glossary:
 	}
 	const hoverHelper = document.createElement("div");
 	hoverHelper.ariaHidden = true;
+	hoverHelper.classList.add("hover-textbox");
 	hoverHelper.style.pointerEvents = "none";
-	hoverHelper.style.position = "fixed";
+	hoverHelper.style.position = "absolute";
 	hoverHelper.style.boxSizing = "border-box";
 	const textBoxes = Array.from(document.querySelectorAll("textarea"))
 		.concat(Array.from(document.querySelectorAll('input[type="text"]')));
 
 	for (const textbox of textBoxes) {
 		const textHelper = hoverHelper.cloneNode();
-		document.addEventListener("scroll", () => {
-			matchPosition(textHelper, textbox);
-		});
+		const positionMatcher = () => matchPosition(textHelper, textbox);
+		document.addEventListener("scroll", positionMatcher);
+		window.addEventListener("resize", positionMatcher);
 		matchStyle(textHelper, textbox);
 		matchPosition(textHelper, textbox);
 		document.documentElement.appendChild(textHelper);
@@ -711,6 +719,11 @@ glossary:
 		}, {});
 		observer.observe(textbox);
 	}
+	window.addEventListener("resize", () => {
+		for (const box of document.querySelectorAll(".hover-textbox")) {
+			matchPosition(textHelper, textbox);
+		}
+	});
 </script>
 </body>
 </html>
